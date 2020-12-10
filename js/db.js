@@ -14,32 +14,33 @@ db.enablePersistence()
 //real-time listener FOR asset: PC
 db.collection('asset').onSnapshot((snapshot) => {
     //console.log(snapshot.docChanges());
+    setupViewAssetByTypePC(snapshot.docs);   //called function in ui.js to display view Asset by category
+    // renderReportPage(snapshot.docs);            //for Report Page
+
     snapshot.docChanges().forEach((change) => {
         //console.log(change, change.doc.data(), change.doc.id);
-        if(change.type === 'added'){
-            //add the document data to the web page
+        if(change.type === 'added'){        //add the document data to the web page
             renderAssetPC(change.doc.data(), change.doc.id);
         };
-        if(change.type === 'removed'){
-            //remove the document data to the web page
+        if(change.type === 'removed'){      //remove the document data to the web page
             removeAssetPC(change.doc.id);
         };
-        if(change.type === 'updated'){
-            //update the document
-            updateAssetPC(change.doc.data(), change.doc.id);
+        if(change.type === 'updated'){      //update the document
+            updateAssetPC(doc.data(), change.doc.id);
         }
     });
 });
 
 //real-time listener FOR asset: Keyboard
 db.collection('assetKB').onSnapshot((snapshot) => {
+    setupViewAssetByTypeKB(snapshot.docs);      //called function in ui.js to display view Asset by category
+    // renderReportPage(snapshot.docs);            //for Report Page
+
     snapshot.docChanges().forEach((change) => {
-        if(change.type === 'added'){
-            //add the document data to the web page
+        if(change.type === 'added'){            //add the document data to the web page
             renderAssetKB(change.doc.data(), change.doc.id);
         };
-        if(change.type === 'removed'){
-            //remove the document data to the web page
+        if(change.type === 'removed'){          //remove the document data to the web page
             removeAssetKB(change.doc.id);
         };
     });
@@ -47,31 +48,57 @@ db.collection('assetKB').onSnapshot((snapshot) => {
 
 //real-time listener FOR asset: Mouse
 db.collection('assetMS').onSnapshot((snapshot) => {
+    setupViewAssetByTypeMS(snapshot.docs);      //called function in ui.js to display view Asset by category
+    // renderReportPage(snapshot.docs);            //for Report Page
+
     snapshot.docChanges().forEach((change) => {
-        if(change.type === 'added'){
-            //add the document data to the web page
+        if(change.type === 'added'){            //add the document data to the web page
             renderAssetMS(change.doc.data(), change.doc.id);
         };
-        if(change.type === 'removed'){
-            //remove the document data to the web page
+        if(change.type === 'removed'){          //remove the document data to the web page
             removeAssetMS(change.doc.id);
         };
     });
 });
 
 
+// get data of tickets, onSnapshor is to real time update the data (ambik from auth.js)
+// db.collection('ticket').onSnapshot(snapshot => {
+//     setupTickets(snapshot.docs);
+//   }, err => {
+//     console.log(err.message);
+// });
 
-//ASSET: PC
 
-//Add new asset PC
+//real-time listener FOR REPORT PAGE
+db.collection('asset').onSnapshot((snapshot) => {
+    renderReportPagePC(snapshot.docs); 
+    }, err => {
+    console.log(err.message);
+});
+db.collection('assetKB').onSnapshot((snapshot) => {
+    renderReportPageKB(snapshot.docs); 
+    }, err => {
+    console.log(err.message);
+});
+db.collection('assetMS').onSnapshot((snapshot) => {
+    renderReportPageMS(snapshot.docs); 
+    }, err => {
+    console.log(err.message);
+});
+
+
+
+
+
+//Add new asset: PC
+
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
 const form = document.querySelector('form');
 if(form){
     form.addEventListener('submit', evt => {
         evt.preventDefault();
-
-        //kena declare the attributes/data fields yang nak masuk dalam database
-        //nama attributes kena sama dengan yang kat ui.js
+    
         const assetPC = {
             assetName: form.assetName.value,
             manufacturer: form.manufacturer.value,
@@ -83,23 +110,26 @@ if(form){
             Location: form.group1.value,
             Status: form.group2.value 
         };
-
-        //for entering the data into 'asset' collection
-        db.collection('asset').add(assetPC).catch(err => console.log(err));
+    
+        db.collection('asset').add(assetPC)
+        .then(docRef => {
+            console.log('Document written with ID: ', docRef.id);
+            // console.log('You can now also access this. as expected: ', this.foo);
+        })
+        .catch(err => console.log(err));
         
-
-        //untuk make sure the form is empty after submitting the data into the collection
-        form.assetName.value = '';
+        form.assetName.value    = '';
         form.manufacturer.value = '';
-        form.brandName.value = '';
-        form.OS.value = '';
-        form.Processor.value = '';
-        form.RAM.value,
-        form.Storage.value = '';
-        form.group1.value = '';
-        form.group2.value = '';
+        form.brandName.value    = '';
+        form.OS.value           = '';
+        form.Processor.value    = '';
+        form.RAM.value          = '';
+        form.Storage.value      = '';
+        form.group1.value       = '';
+        form.group2.value       = '';
     });
 };
+
 //delete an asset: PC
 const assetPCcontainer = document.querySelector('.assetPC');
 if(assetPCcontainer){
@@ -111,6 +141,7 @@ if(assetPCcontainer){
         }
     });
 };
+
 //update asset: PC
 //what exactly happen when click the 'Edit' button
 const PCUpdateData = document.querySelector('.update-assetPC');
@@ -191,26 +222,17 @@ if(formUpdatePC){
                     }).catch(function(error) {
                             console.log("Error getting document:", error);
                         });
-        
                 }
-
             })
             // console.log(evt);
-            
-    
         })
     };
-
 }
 
 
 
+//Add new asset: Keyboard
 
-
-
-//ASSET: KEYBOARD
-
-//Add new asset Keyboard
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
 const form2 = document.querySelector('form');
 if(form2){
@@ -218,22 +240,23 @@ if(form2){
         evt.preventDefault();
     
         const assetKeyboard = {
-            KBassetName: form2.KBassetName.value,
-            KBmanufacturer: form2.KBmanufacturer.value,
-            KBbrandName: form2.KBbrandName.value,
-            KBLocation: form2.KBgroup1.value,
-            KBStatus: form2.KBgroup2.value 
+            KBassetName     : form2.KBassetName.value,
+            KBmanufacturer  : form2.KBmanufacturer.value,
+            KBbrandName     : form2.KBbrandName.value,
+            KBLocation      : form2.KBgroup1.value,
+            KBStatus        : form2.KBgroup2.value 
         };
     
         db.collection('assetKB').add(assetKeyboard).catch(err => console.log(err));
         
-        form2.KBassetName.value = '';
-        form2.KBmanufacturer.value = '';
-        form2.KBbrandName.value = '';
-        form2.KBgroup1.value = '';
-        form2.KBgroup2.value = '';
+        form2.KBassetName.value     = '';
+        form2.KBmanufacturer.value  = '';
+        form2.KBbrandName.value     = '';
+        form2.KBgroup1.value        = '';
+        form2.KBgroup2.value        = '';
     });
 };
+
 //delete an asset: Keyboard
 const assetKBcontainer = document.querySelector('.assetKB');
 if(assetKBcontainer){
@@ -249,10 +272,8 @@ if(assetKBcontainer){
 
 
 
+//Add new asset: Mouse
 
-//ASSET:MOUSE
-
-//Add new asset Mouse
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
 const form3 = document.querySelector('form');
 if (form3){
@@ -260,22 +281,23 @@ if (form3){
         evt.preventDefault();
     
         const assetMouse = {
-            MSassetName: form3.MSassetName.value,
-            MSmanufacturer: form3.MSmanufacturer.value,
-            MSbrandName: form3.MSbrandName.value,
-            MSLocation: form3.MSgroup1.value,
-            MSStatus: form3.MSgroup2.value 
+            MSassetName     : form3.MSassetName.value,
+            MSmanufacturer  : form3.MSmanufacturer.value,
+            MSbrandName     : form3.MSbrandName.value,
+            MSLocation      : form3.MSgroup1.value,
+            MSStatus        : form3.MSgroup2.value 
         };
     
         db.collection('assetMS').add(assetMouse).catch(err => console.log(err));
         
-        form3.MSassetName.value = '';
-        form3.MSmanufacturer.value = '';
-        form3.MSbrandName.value = '';
-        form3.MSgroup1.value = '';
-        form3.MSgroup2.value = '';
+        form3.MSassetName.value     = '';
+        form3.MSmanufacturer.value  = '';
+        form3.MSbrandName.value     = '';
+        form3.MSgroup1.value        = '';
+        form3.MSgroup2.value        = '';
     });
 };
+
 //delete an asset: Mouse
 const assetMScontainer = document.querySelector('.assetMS');
 if(assetMScontainer){
@@ -286,3 +308,42 @@ if(assetMScontainer){
         }
     });
 }
+
+
+
+
+
+//REPORT PAGE
+
+// //getting the data
+// db.collection('asset').get().then((snapshot) => {
+//     // console.log(snapshot.docs);
+//     snapshot.docs.forEach(doc => {
+//         renderReportPC(doc);
+//     })
+// });
+
+// const assetRef = db.collection('asset');
+// const snapshot = await assetRef.where('assetName', '==', true).get();
+// if(snapshot.empty){
+//     console.log('No matcihng documents!');
+//     return;
+// }
+
+// snapshot.forEach(doc => {
+//     console.log(doc.id, '=>', doc.data());
+// });
+
+// db.collection("asset").get().then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//         // doc.data() is never undefined for query doc snapshots
+//         console.log(doc.id, " => ", doc.data());
+//     });
+// });
+
+// db.collection('asset').get().then((snapshot) => {
+//     // console.log(snapshot.docs);
+//     snapshot.docs.forEach(doc => {
+//         console.log(doc);
+//     })
+// })
