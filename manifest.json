@@ -3,10 +3,22 @@
     "short_name": "PREPAIR",
     "start_url": "/index.html",
     "display": "standalone",
-    "background_color": "#81d4fa",
-    "theme_color": "#b3e5fc",
+    "background_color": "#edf6f9",
+    "theme_color": " #00b4d8",
     "orientation": "portrait-primary",
     "icons": [
+      {
+        "src": "/public/img/icons/logo16.png",
+        "type": "image/png",
+        "sizes": "16x16",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/public/img/icons/logo32.png",
+        "type": "image/png",
+        "sizes": "32x32",
+        "purpose": "any maskable"
+      },
       {
         "src": "/img/icons/logo72.png",
         "type": "image/png",
