@@ -27,13 +27,13 @@
             </a>
             <!-- Dropdown Structure -->
             <ul id="dropdown1" class="dropdown-content">
-                <li class="logged-in" ><a href="/public/pages/dashboard.html" class="styleNav-dropdown">Dashboard</a></li>
-                <li class="admin"     ><a href="/public/pages/asset/mainAsset.html" class="styleNav-dropdown">Assets</a></li>
-                <li class="admin"     ><a href="/public/pages/report.html" class="styleNav-dropdown">Report</a></li>
+                <li ><a href="/public/pages/dashboard.html" class="styleNav-dropdown">Dashboard</a></li>
+                <li ><a href="/public/pages/asset/mainAsset.html" class="styleNav-dropdown">Assets</a></li>
+                <li ><a href="/public/pages/report.html" class="styleNav-dropdown">Report</a></li>
             </ul>
             <!-- navigation -->
             <ul class="right hide-on-med-and-down">
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1" class="styleNav" style="font-weight: bold; letter-spacing: 3px; color: whitesmoke;">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="admin" style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown1" class="styleNav" style="font-weight: bold; letter-spacing: 3px; color: whitesmoke;">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html" class="styleNav">Tickets</a></li>
   
                 <li class="logged-in" style="display: none;"><a href="#" class="styleNav"><i class="material-icons">chat</i></a></li>
@@ -49,17 +49,17 @@
     <!-- side nav -->
     <ul class="sidenav" id="mobile-links">
         <li><a class="subheader">PRE<span>PAIR</span></a></li>
-        <li class="logged-in"><a href="/public/pages/dashboard.html" class="styleNav waves-effect">Dashboard</a></li>
-        <li class="logged-in"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect">Asset</a></li>
-        <li class="logged-in"><a href="/public/pages/ticket.html" class="styleNav waves-effect">Tickets</a></li>
-        <li class="logged-in"><a href="/public/pages/report.html" class="styleNav waves-effect">Report</a></li>
+        <li class="admin" style="display: none;"><a href="/public/pages/dashboard.html" class="styleNav waves-effect">Dashboard</a></li>
+        <li class="admin" style="display: none;"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect">Asset</a></li>
+        <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html" class="styleNav waves-effect">Tickets</a></li>
+        <li class="admin" style="display: none;"><a href="/public/pages/report.html" class="styleNav waves-effect">Report</a></li>
         <li><div class="divider"></div></li>
-        <li class="logged-in"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
-        <li class="admin"    ><a href="#" class="modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i>Add Technician</a></li>
-        <li class="logged-in"><a href=""><i class="material-icons">chat</i>Chat</a></li>
-        <li class="logged-in"><a href=""><i class="material-icons">notifications_active</i>Notification</a></li>
+        <li class="logged-in" style="display: none;"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
+        <li class="admin"     style="display: none;"><a href="#" class="modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i>Add Technician</a></li>
+        <li class="logged-in" style="display: none;"><a href=""><i class="material-icons">chat</i>Chat</a></li>
+        <li class="logged-in" style="display: none;"><a href=""><i class="material-icons">notifications_active</i>Notification</a></li>
         <li><div class="divider"></div></li>
-        <li class="logged-in"><a href="/public/index.html" class="waves-effect waves-light btn-small buttonLogout" id="logout">Logout</a></li>
+        <li class="logged-in"><a href="/public/index.html" class="waves-effect waves-light btn-small whitesmoke buttonLogout" id="logout">Logout</a></li>
     </ul>
     <!-- ACCOUNT MODAL -->
     <div id="modal-account" class="modal">
@@ -105,7 +105,7 @@
               <th>Location</th>
               <th>Status</th>
           
-              <tr class="allAssetPC">
+              <tbody class="allAssetPC">
                   <!-- <td>${asset.assetName}</td>
                   <td>PC</td>
                   <td>${asset.manufacturer}</td>
@@ -116,8 +116,8 @@
                   <td>${asset.Storage}</td>
                   <td>${asset.Location}</td>
                   <td>${asset.Status}</td> -->
-              </tr>
-              <tr class="allAssetKB">
+              </tbody>
+              <tbody class="allAssetKB">
                   <!-- <td>${assetKB.KBassetName}</td>
                   <td>Keyboard</td>
                   <td>${assetKB.KBmanufacturer}</td>
@@ -128,8 +128,8 @@
                   <td>-</td>
                   <td>${assetKB.KBLocation}</td>
                   <td>${assetKB.KBStatus}</td> -->
-              </tr>
-              <tr class="allAssetMS">
+              </tbody>
+              <tbody class="allAssetMS">
                   <!-- <td>${assetMS.MSassetName}</td>
                   <td>Mouse</td>
                   <td>${assetMS.MSmanufacturer}</td>
@@ -140,7 +140,7 @@
                   <td>-</td>
                   <td>${assetMS.MSLocation}</td>
                   <td>${assetMS.MSStatus}</td> -->
-              </tr>
+              </tbody>
             </table>
         </div>
 

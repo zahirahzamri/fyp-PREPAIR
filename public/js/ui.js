@@ -63,11 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
 //     }
 // }
 
-
-
 //render asset PC data
 const renderAssetPC = (data, id) => {
-    const html = `
+        
+        const html = `
         <div class="card-panel assetPC white row" data-id="${id}">
             <div class="row card-panel">
                 <div class="assetPC-details">
@@ -244,16 +243,10 @@ const removeAssetKB = (id2) =>{
 };
 
 
-
-
-
-
-
-
-
 //render asset Mouse data
 const renderAssetMS = (data, id) => {
-    const html3 = `
+    if(assetMS){
+        const html3 = `
         <div class="card-panel assetMS white row" data-id="${id}">
             <div class="row card-panel">
                 <div class="assetMS-details">
@@ -281,6 +274,7 @@ const renderAssetMS = (data, id) => {
         </div>
     `;
     assetMS.innerHTML += html3; 
+    }
 };
 //remove assetMS from DOM
 const removeAssetMS = (id3) =>{

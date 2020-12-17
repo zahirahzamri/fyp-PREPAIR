@@ -70,22 +70,7 @@ db.collection('assetMS').onSnapshot((snapshot) => {
 // });
 
 
-//real-time listener FOR REPORT PAGE
-db.collection('asset').onSnapshot((snapshot) => {
-    renderReportPagePC(snapshot.docs); 
-    }, err => {
-    console.log(err.message);
-});
-db.collection('assetKB').onSnapshot((snapshot) => {
-    renderReportPageKB(snapshot.docs); 
-    }, err => {
-    console.log(err.message);
-});
-db.collection('assetMS').onSnapshot((snapshot) => {
-    renderReportPageMS(snapshot.docs); 
-    }, err => {
-    console.log(err.message);
-});
+
 
 
 

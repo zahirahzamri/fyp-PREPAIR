@@ -43,6 +43,23 @@ auth.onAuthStateChanged(user => {
         }, err => {
           console.log(err.message);
         });
+        //real-time listener FOR REPORT PAGE
+        db.collection('asset').onSnapshot((snapshot) => {
+          renderReportPagePC(snapshot.docs); 
+          }, err => {
+          console.log(err.message);
+        });
+        db.collection('assetKB').onSnapshot((snapshot) => {
+          renderReportPageKB(snapshot.docs); 
+          }, err => {
+          console.log(err.message);
+        });
+        db.collection('assetMS').onSnapshot((snapshot) => {
+          console.log("asset displayed")
+          renderReportPageMS(snapshot.docs); 
+          }, err => {
+          console.log(err.message);
+        });
 
     } else {
         setupUI();
