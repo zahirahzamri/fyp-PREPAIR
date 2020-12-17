@@ -9,7 +9,57 @@ db.enablePersistence()
             //lack of browser support
             console.log('persistence is not available');
         }
+});
+
+// real-time listener for ticket
+db.collection('ticket').onSnapshot(snapshot => {
+    // console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(change => {
+        // console.log(change);
+        // console.log(change,change.doc.data(), change.doc.id);
+    //   console.log(change.type, change.doc.id, change.doc.data());
+      if(change.type === 'added'){
+        // add the document data to the web page
+        renderTicket(change.doc.data(), change.doc.id);
+      }
+      if(change.type === 'removed'){
+        // remove the document data from the web page
+        removeTicket(change.doc.id);
+      }
     });
+});
+
+// add new tickets
+const formTicket = document.querySelector('.add-ticket');
+formTicket.addEventListener('submit', evt => {
+    evt.preventDefault();
+
+    // construct object
+    const ticket = {
+        category: formTicket.category.value,
+        description: formTicket.description.value, 
+        location: formTicket.location.value, 
+        type: formTicket.type.value, 
+    };
+
+    db.collection('ticket').add(ticket)
+        .catch(err => console.log(err));
+    
+        formTicket.category.value = '';
+        formTicket.description.value = '';
+        formTicket.location.value = '';
+        formTicket.type.value = '';
+});  
+
+// delete a ticket
+const ticketContainer = document.querySelector('.tickets'); //betul dah
+ticketContainer.addEventListener('click', evt => {
+    // console.log(evt);
+    if(evt.target.tagName === 'I'){
+        const id = evt.target.getAttribute('data-id');
+        db.collection('ticket').doc(id).delete();
+    }
+});
 
 //real-time listener FOR asset: PC
 db.collection('asset').onSnapshot((snapshot) => {
@@ -18,15 +68,16 @@ db.collection('asset').onSnapshot((snapshot) => {
     // renderReportPage(snapshot.docs);            //for Report Page
 
     snapshot.docChanges().forEach((change) => {
-        //console.log(change, change.doc.data(), change.doc.id);
+        // console.log(change, change.doc.data(), change.doc.id);
+        // console.log(change);
         if(change.type === 'added'){        //add the document data to the web page
             renderAssetPC(change.doc.data(), change.doc.id);
         };
         if(change.type === 'removed'){      //remove the document data to the web page
             removeAssetPC(change.doc.id);
         };
-        if(change.type === 'updated'){      //update the document
-            updateAssetPC(doc.data(), change.doc.id);
+        if(change.type === 'modified'){      //update the document
+            updateAssetPC(change.doc.data(), change.doc.id);
         }
     });
 });
@@ -102,7 +153,8 @@ if(form){
             // console.log('You can now also access this. as expected: ', this.foo);
         })
         .catch(err => console.log(err));
-        
+
+        // to reset the form
         form.assetName.value    = '';
         form.manufacturer.value = '';
         form.brandName.value    = '';

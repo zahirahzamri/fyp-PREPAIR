@@ -35,7 +35,7 @@ auth.onAuthStateChanged(user => {
           setupUI(user);
         });
       
-        // // get data of tickets, onSnapshor is to real time update the data 
+        // // get data of tickets, onSnapshot is to real time update the data 
         db.collection('ticket').onSnapshot(snapshot => {
           // console.log(snapshot.docs);
           setupTickets(snapshot.docs);
@@ -167,5 +167,8 @@ if(loginForm) {
             console.log(err);
           loginForm.querySelector('.error').innerHTML = err.message;
         });
+        // clear form
+        loginForm['login-email'].value = '';
+        loginForm['login-password'].value = '';
     });
 }

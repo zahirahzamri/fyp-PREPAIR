@@ -193,7 +193,27 @@ nav a:hover{
     border-bottom: 3px solid var(--secondary);
 }
 
+/* tickets */
 
+.ticket-details{
+    grid-area: details;
+    margin-top: 6px;
+  }
+  .ticcket-delete{
+    grid-area: delete;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+  .ticket-delete i{
+    font-size: 18px;
+  }
+  .ticket-title{
+    font-weight: bold;
+  }
+  /* .recipe-desc{
+    font-size: 0.8em;
+  } */
 
 
 

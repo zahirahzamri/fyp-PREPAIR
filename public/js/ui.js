@@ -14,10 +14,8 @@ const ReportPageList2 = document.querySelector('.allAssetKB');
 const ReportPageList3 = document.querySelector('.allAssetMS');
 
 
-//INCIDENT REPORT PART - ticket
-// const tickets = document.querySelector('.tickets');
-// const ticketList = document.querySelector('.ticket');
 
+// const ticketList = document.querySelector('.ticket');
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -32,9 +30,38 @@ document.addEventListener('DOMContentLoaded', function() {
     M.Collapsible.init(items);
     
     // add ticket
-    const forms = document.querySelectorAll('.side-form');
+    const forms = document.querySelectorAll('.ticket-form');
     M.Sidenav.init(forms, {edge: 'right'});
 });
+
+// INCIDENT REPORT PART - ticket
+const tickets = document.querySelector('.tickets');
+
+// render ticket data
+const renderTicket = (data, id) => {
+    const html = `
+      <div class="card-panel ticket white row" data-id="${id}">
+        <img src="/public/img/broken-pc.png" alt="ticket thumb">
+        <div class="ticket-details">
+          <div class="ticket-title">${data.category}</div>
+          <div class="ticket-desc">${data.description}</div>
+          <div class="ticket-desc">${data.location}</div>
+          <div class="ticket-desc">${data.type}</div>
+        </div>
+        <div class="ticket-delete">
+          <i class="material-icons" data-id="${id}">delete_outline</i>
+        </div>
+      </div>
+    `; 
+  
+    tickets.innerHTML += html;
+  };
+  
+  // remove ticket from DOM
+  const removeTicket = (id) => {
+    const ticket = document.querySelector( `.ticket[data-id=${id}]`);
+    ticket.remove();
+  }
 
 // $(document).ready(function(){
 //     // nav menu
@@ -91,8 +118,8 @@ const renderAssetPC = (data, id) => {
                     </div>
                 </div>
                 <div class="assetPC-delete-update center">
-                    <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect center" onClick=">
-                        <i class="material-icons" data-id="${id}" id="update-PC">edit</i>
+                    <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect center">
+                        <i class="material-icons" data-id="${id}">edit</i>
                     </div>
                     <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect center">
                         <i class="material-icons" data-id="${id}">delete_outline</i>
