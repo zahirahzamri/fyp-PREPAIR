@@ -100,25 +100,43 @@
 
         <!-- form -->
         <div class="row card-panel">
-            <form class="add-assetPC col s12">
+            <form class="add-assetPC col s12" id="addFormPC" onsubmit="alert('Successfully added!'); return false">
               <div class="row">
                 <div class="input-field col s6">
                   <input placeholder="e.g: PC01, PC 02" id="assetName" type="text" class="validate" required>
                   <label for="assetName">Asset Name</label>
                 </div>
                 <div class="input-field col s6">
-                  <input placeholder="e.g: Dell, HP" id="manufacturer" type="text" class="validate" required> 
+                  <!-- <input placeholder="e.g: Dell, HP" id="manufacturer" type="text" class="validate" required>  -->
+                  <select id="manufacturer" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                  </select> 
                   <label for="manufacturer">Manufacturer Name</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input placeholder="e.g: Dell, HP" id="brandName" type="text" class="validate" required>
+                  <!-- <input placeholder="e.g: Dell, HP" id="brandName" type="text" class="validate" required> -->
+                  <select id="brandName" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                  </select>
                   <label for="brandName">Brand Name</label>
                 </div>
                 <div class="input-field col s6">
                   <select multiple name="" id="OS" class="validate" required>
-                    <option value="" disabled >Operating System</option>
+                    <option value="" disabled >Choose your option</option>
                     <option value="Windows 10">Windows 10</option>
                     <option value="Windows 8">Windows 8</option>
                     <option value="Windows 7">Windows 7</option>
@@ -134,13 +152,24 @@
                   <label for="Processor">Processor</label>
                 </div>
                 <div class="input-field col s6">
-                  <input placeholder="e.g: 4GB, 8GB" id="RAM" type="text" class="validate" required>
+                  <!-- <input placeholder="e.g: 4GB, 8GB" id="RAM" type="text" class="validate" required> -->
+                  <select id="RAM" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="4GB">4GB</option>
+                    <option value="8GB">8GB</option>
+                    <option value="16GB">16GB</option>
+                  </select>
                   <label for="RAM">RAM</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input placeholder="e.g: HDD, SSD" id="Storage" type="text" class="validate" required>
+                  <!-- <input placeholder="e.g: HDD, SSD" id="Storage" type="text" class="validate" required> -->
+                  <select id="Storage" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="HDD">HDD</option>
+                    <option value="SSD">SSD</option>
+                  </select>
                   <label for="Storage">Storage</label>
                 </div>
                 <!-- <div class="input-field col s6">
