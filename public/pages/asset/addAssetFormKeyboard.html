@@ -95,20 +95,38 @@
 
         <!-- form -->
         <div class="row card-panel">
-            <form class="add-assetKB col s12">
+            <form class="add-assetKB col s12" id="addFormKB" onsubmit="return false">
               <div class="row">
                 <div class="input-field col s6">
                   <input placeholder="e.g: Keyboard01, KB01" id="KBassetName" type="text" class="validate">
                   <label for="assetName">Asset Name</label>
                 </div>
                 <div class="input-field col s6">
-                  <input placeholder="e.g: Dell, HP, Asus" id="KBmanufacturer" type="text" class="validate">
+                  <!-- <input placeholder="e.g: Dell, HP, Asus" id="KBmanufacturer" type="text" class="validate"> -->
+                  <select id="KBmanufacturer" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                  </select>
                   <label for="manufacturer">Manufacturer Name</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field col s6">
-                  <input placeholder="e.g: Dell, HP, Asus" id="KBbrandName" type="text" class="validate">
+                  <!-- <input placeholder="e.g: Dell, HP, Asus" id="KBbrandName" type="text" class="validate"> -->
+                  <select id="KBbrandName" class="validate" required>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                  </select>
                   <label for="brandName">Brand Name</label>
                 </div>
                 <div class="input-field col s6">
@@ -174,7 +192,7 @@
             </p>
           </div>
           <div class="row">
-            <button class="input-field btn" type="submit">SUBMIT</button>
+            <button class="input-field btn" type="submit" onclick="alert('Successfully added!')">SUBMIT</button>
           </div>
           <!-- <div class="row">
               <div class="btn">SUBMIT</div>
