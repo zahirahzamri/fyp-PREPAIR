@@ -100,7 +100,7 @@
 
         <!-- form -->
         <div class="row card-panel">
-            <form class="add-assetPC col s12" id="addFormPC" onsubmit="alert('Successfully added!'); return false">
+            <form class="add-assetPC col s12" id="addFormPC" onsubmit="return false">
               <div class="row">
                 <div class="input-field col s6">
                   <input placeholder="e.g: PC01, PC 02" id="assetName" type="text" class="validate" required>
@@ -239,7 +239,8 @@
               </p>
             </div>
             <div class="row">
-                <button class="input-field btn" type="submit">SUBMIT</button>
+                <!-- <button class="input-field btn" type="submit">SUBMIT</button> -->
+                <button class="input-field btn" type="submit" onclick="alert('Successfully added!')">SUBMIT</button>
             </div>
           </form>
         </div>
