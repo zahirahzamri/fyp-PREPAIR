@@ -34,31 +34,43 @@ document.addEventListener('DOMContentLoaded', function() {
 // INCIDENT REPORT PART - ticket
 const tickets = document.querySelector('.tickets');
 
-// render ticket data
-const renderTicket = (data, id) => {
-    const htmlTicket = `
-      <div class="card-panel ticket white row" data-id="${id}">
-        <img src="/public/img/broken-pc.png" alt="ticket thumb">
-        <div class="ticket-details">
-          <div class="ticket-title">${data.category}</div>
-          <div class="ticket-desc">${data.description}</div>
-          <div class="ticket-desc">${data.location}</div>
-          <div class="ticket-desc">${data.type}</div>
+    // render ticket data
+    const renderTicket = (data, id) => {
+        if (tickets){
+        const htmlTicket = `
+        <div class="card-panel ticket white row" data-id="${id}">
+                <img src="/public/img/broken-pc.png" alt="ticket thumb">
+                <div class="ticket-details">
+                    <div class="ticket-title">${data.category}</div>
+                    <div class="ticket-desc">${data.description}</div>
+                    <div class="ticket-desc">${data.location}</div>
+                    <div class="ticket-desc">${data.type}</div>
+                </div>
+                <div class="ticket-delete btn-floating red waves-effect right !important">
+                    <i class="material-icons" data-id="${id}">delete_outline</i>
+                </div>
+                <div class="ticket-update btn-floating yellow waves-effect right !important" >
+                    <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
+                </div>
         </div>
-        <div class="ticket-delete">
-          <i class="material-icons" data-id="${id}">delete_outline</i>
-        </div>
-      </div>
-    `; 
-  
-    tickets.innerHTML += htmlTicket;
-  };
-  
+        `; 
+        tickets.innerHTML += htmlTicket;
+        }
+
+    };
+
+    // // update ticket
+    // const updateTicket = (data, id) => {
+        
+    // }
+
   // remove ticket from DOM
   const removeTicket = (id) => {
     const ticket = document.querySelector( `.ticket[data-id=${id}]`);
     ticket.remove();
   }
+
+
 
 // $(document).ready(function(){
 //     // nav menu
@@ -136,7 +148,7 @@ function removeCustomAlert() {
   
 //render asset PC data
 const renderAssetPC = (data, id) => {
-        
+    if(assetPC){
         const html = `
         <div class="card-panel assetPC white row" data-id="${id}">
             <div class="row card-panel">
@@ -174,6 +186,7 @@ const renderAssetPC = (data, id) => {
         </div>
     `;
     assetPC.innerHTML += html; 
+    }    
 };
 
 //remove assetPC from DOM
@@ -276,7 +289,8 @@ const updateAssetPC = (dataPC, idPC) => {
 
 //render asset Keyboard data
 const renderAssetKB = (data, id) => {
-    const html2 = `
+    if(assetKB) {
+        const html2 = `
         <div class="card-panel assetKB white row" data-id="${id}">
             <div class="row card-panel">
                 <div class="assetKB-details">
@@ -304,6 +318,7 @@ const renderAssetKB = (data, id) => {
         </div>
     `;
     assetKB.innerHTML += html2; 
+    }
 };
 //remove assetKB from DOM
 const removeAssetKB = (id2) =>{

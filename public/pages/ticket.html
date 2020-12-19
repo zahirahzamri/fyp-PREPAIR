@@ -98,10 +98,42 @@
     </div>
 
     <div class="center">
-      <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="ticket-form">
-        <i class="material-icons">add</i>
-      </a>
+      <a class="waves-light btn-large sidenav-trigger" href="#ticket-form">
+        <i class="material-icons left">add</i>Ticket</a>
     </div>
+
+    <!-- EDIT TICKET MODAL -->
+        <!-- EDIT TICKET MODAL -->
+        <div id="modal-editTicket" class="modal">
+          <div class="modal-content center-align">
+          <div id="editTicket-form" class="ticket-form">
+              <form class="edit-ticket container section">
+              <h6 >Update Ticket</h6>
+              <div class="divider"></div>
+              <div class="input-field">
+                  <input placeholder="${data.category}" id="category" type="text" class="validate">
+                  <label for="category">Category</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.description}" id="description" type="text" class="validate">
+                  <label for="description">Description</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.location}" id="location" type="text" class="validate">
+                  <label for="location">location</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.type}" id="type" type="text" class="validate">
+                  <label for="type">type</label>
+              </div>
+      
+              <div class="input-field center">
+                  <button class="btn-small">Add</button>
+              </div>
+              </form>
+          </div>
+          </div>
+      </div>
 
 
     <!-- add ticket side nav -->

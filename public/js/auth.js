@@ -36,13 +36,20 @@ auth.onAuthStateChanged(user => {
         });
       
         // // get data of tickets, onSnapshot is to real time update the data 
-        db.collection('ticket').onSnapshot(snapshot => {
-          // console.log(snapshot.docs);
-          setupTickets(snapshot.docs);
-          // setupUI(user);
-        }, err => {
-          console.log(err.message);
-        });
+        // db.collection('ticket').onSnapshot(snapshot => {
+        //   // console.log(snapshot.docs);
+        //   setupTickets(snapshot.docs);
+        //   // setupUI(user);
+        // }, err => {
+        //   console.log(err.message);
+        // });
+        //real-time listener FOR ticket - not sure if necessary or not
+        // db.collection('ticket').onSnapshot((snapshot) => {
+        //   renderTicket(snapshot.docs); 
+        //   }, err => {
+        //   console.log(err.message);
+        // });
+
         //real-time listener FOR REPORT PAGE
         db.collection('asset').onSnapshot((snapshot) => {
           renderReportPagePC(snapshot.docs); 
@@ -55,7 +62,7 @@ auth.onAuthStateChanged(user => {
           console.log(err.message);
         });
         db.collection('assetMS').onSnapshot((snapshot) => {
-          console.log("asset displayed")
+          // console.log("asset displayed")
           renderReportPageMS(snapshot.docs); 
           }, err => {
           console.log(err.message);

@@ -26,40 +26,67 @@ db.collection('ticket').onSnapshot(snapshot => {
         // remove the document data from the web page
         removeTicket(change.doc.id);
       }
+      if(change.type === 'modified'){      //update the ticket
+        updateTicket(change.doc.data(), change.doc.id);
+      }
     });
 });
 
 // add new tickets
 const formTicket = document.querySelector('.add-ticket');
-formTicket.addEventListener('submit', evt => {
-    evt.preventDefault();
-
-    // construct object
-    const ticket = {
-        category: formTicket.category.value,
-        description: formTicket.description.value, 
-        location: formTicket.location.value, 
-        type: formTicket.type.value, 
-    };
-
-    db.collection('ticket').add(ticket)
-        .catch(err => console.log(err));
+if(formTicket){
+    formTicket.addEventListener('submit', evt => {
+        evt.preventDefault();
     
-        formTicket.category.value = '';
-        formTicket.description.value = '';
-        formTicket.location.value = '';
-        formTicket.type.value = '';
-});  
+        // construct object
+        const ticket = {
+            category: formTicket.category.value,
+            description: formTicket.description.value, 
+            location: formTicket.location.value, 
+            type: formTicket.type.value, 
+        };
+    
+        db.collection('ticket').add(ticket)
+            .then(alert("Successfully add new ticket! Our technician will reach you out soon"))
+            .catch(err => console.log(err));
+        
+            formTicket.category.value = '';
+            formTicket.description.value = '';
+            formTicket.location.value = '';
+            formTicket.type.value = '';
+    });  
+}
+
 
 // delete a ticket
-const ticketContainer = document.querySelector('.tickets'); //betul dah
-ticketContainer.addEventListener('click', evt => {
-    // console.log(evt);
-    if(evt.target.tagName === 'I'){
-        const id = evt.target.getAttribute('data-id');
-        db.collection('ticket').doc(id).delete();
-    }
-});
+const ticketContainer = document.querySelector('.tickets');
+if(ticketContainer){
+    ticketContainer.addEventListener('click', evt => {
+        // console.log(evt);
+        if(evt.target.textContent === "delete_outline"){
+            const id = evt.target.getAttribute('data-id');
+            db.collection('ticket').doc(id).delete();
+        }
+    });
+}
+
+
+// update ticket
+// ticketContainer.addEventListener('click', evt => {
+//     // console.log(evt);
+//     if(evt.target.textContent === "edit"){
+//         const id = evt.target.getAttribute('data-id');
+//         db.collection('ticket').doc(id).delete();
+//     }
+// });
+
+
+
+
+
+
+
+
 
 //real-time listener FOR asset: PC
 db.collection('asset').onSnapshot((snapshot) => {
@@ -111,14 +138,6 @@ db.collection('assetMS').onSnapshot((snapshot) => {
         };
     });
 });
-
-
-// get data of tickets, onSnapshor is to real time update the data (ambik from auth.js)
-// db.collection('ticket').onSnapshot(snapshot => {
-//     setupTickets(snapshot.docs);
-//   }, err => {
-//     console.log(err.message);
-// });
 
 
 

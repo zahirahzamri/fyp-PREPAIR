@@ -199,11 +199,12 @@ nav a:hover{
     grid-area: details;
     margin-top: 6px;
   }
-  .ticcket-delete{
+  .ticket-delete{
     grid-area: delete;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0px;
     right: 0px;
+    margin-left: 8px;
   }
   .ticket-delete i{
     font-size: 18px;
@@ -270,7 +271,7 @@ nav a:hover{
     top:0px;
     left:0px;
     z-index:10000;
-    background-image:url(tp.png); /* required by MSIE to prevent actions on lower z-index elements */
+    /* background-image:url(tp.png); required by MSIE to prevent actions on lower z-index elements */
 }
 #alertBox {
     position:relative;
