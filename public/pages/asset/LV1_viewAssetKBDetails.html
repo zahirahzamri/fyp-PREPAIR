@@ -112,6 +112,72 @@
         </a>
     </div>
     
+    <!-- EDIT KB MODAL -->
+  <div id="modal-editKB" class="modal">
+    <div class="modal-content center-align">
+    <div id="editKB-form" class="addFormKB">
+        <form class="edit-KB container section">
+            <h6>Update Keyboard</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="${data.KBassetName}" id="disabled" type="text" class="validate" required>
+                <label for="assetKB">Asset Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="KBmanufacturer" class="validate" required>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="KBmanufacturer">Manufacturer Name</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="KBbrandName" class="validate" required>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="KBbrandName">Brand Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Level 1</button>
+                <button class="small btnStatusUpdate">Level 2</button>
+                <button class="small btnStatusUpdate">Level 3</button>
+                <button class="small btnStatusUpdate">Level 4</button>
+                <button class="small btnStatusUpdate">Level 5</button>
+                <label for="KBLocation">Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Good</button>
+                <button class="small btnStatusUpdate">Faulty</button>
+                <label for="KBStatus">Status</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field center">
+                <button class="btn-small">Update</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
 
     
 <!-- JAVASCRIPT PART -->
