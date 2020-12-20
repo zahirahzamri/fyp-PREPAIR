@@ -101,6 +101,74 @@
           <i class="material-icons">add</i>
         </a>
     </div>
+  
+    <!-- EDIT PC MODAL -->
+  <div id="modal-editPC" class="modal">
+    <div class="modal-content center-align">
+    <div id="editPC-form" class="addFormPC">
+        <form class="edit-PC container section">
+            <h6>Update PC</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input disabled value="${data.assetName}" id="disabled" type="text" class="validate" required>
+                <label for="assetPC">Asset Name</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="OS" class="validate" required>
+                  <option value="" disabled>Choose your option</option>
+                  <option value="Windows 10">Windows 10</option>
+                  <option value="Windows 8">Windows 8</option>
+                  <option value="Windows 7">Windows 7</option>
+                  <option value="Windows XP">Windows XP</option>
+                  <option value="Linux/Ubuntu">Linux/Ubuntu</option>
+                </select>
+                <label for="category">Operating System</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input placeholder="${data.Processor}" id="Processor" type="text" class="validate">
+                <label for="Processor">Processor</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="RAM" class="validate" required>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="4GB">4GB</option>
+                  <option value="8GB">8GB</option>
+                  <option value="16GB">16GB</option>
+                </select>
+                <label for="RAM">RAM</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Level 1</button>
+                <button class="small btnStatusUpdate">Level 2</button>
+                <button class="small btnStatusUpdate">Level 3</button>
+                <button class="small btnStatusUpdate">Level 4</button>
+                <button class="small btnStatusUpdate">Level 5</button>
+                <label for="Location">Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Good</button>
+                <button class="small btnStatusUpdate">Faulty</button>
+                <label for="Status">Status</label>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="input-field center">
+                <button class="btn-small">Update</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
     
 
     
@@ -130,6 +198,7 @@
     <script>
         $(document).ready(function(){
           $(".dropdown-trigger").dropdown();
+          $('select').formSelect();
         });
     </script>
 </body>
