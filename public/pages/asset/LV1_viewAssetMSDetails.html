@@ -111,6 +111,74 @@
         </a>
     </div>
     
+    
+    <!-- EDIT MS MODAL -->
+  <div id="modal-editMS" class="modal">
+    <div class="modal-content center-align">
+    <div id="editMS-form" class="addFormMS">
+        <form class="edit-MS container section">
+            <h6>Update Mouse</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="${data.MSassetName}" id="disabled" type="text" class="validate" required>
+                <label for="assetMS">Asset Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="MSmanufacturer" class="validate" required>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="MSmanufacturer">Manufacturer Name</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="MSbrandName" class="validate" required>
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="MSbrandName">Brand Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Level 1</button>
+                <button class="small btnStatusUpdate">Level 2</button>
+                <button class="small btnStatusUpdate">Level 3</button>
+                <button class="small btnStatusUpdate">Level 4</button>
+                <button class="small btnStatusUpdate">Level 5</button>
+                <label for="MSLocation">Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="small btnStatusUpdate">Good</button>
+                <button class="small btnStatusUpdate">Faulty</button>
+                <label for="MSStatus">Status</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field center">
+                <button class="btn-small">Update</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+    
 
 
     
@@ -141,6 +209,7 @@
     <script>
         $(document).ready(function(){
           $(".dropdown-trigger").dropdown();
+          $('select').formSelect();
         });
     </script>
 </body>
