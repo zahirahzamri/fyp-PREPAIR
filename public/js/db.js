@@ -88,23 +88,33 @@ if(ticketContainer){
 
 
 
+// ASSET MANAGEMENT PART
+
+//setiap array ni untuk simpan all data from each collection
+var data1 = [];     //for asset PC
+var data2 = [];     //for asset KB
+var data3 = [];     //for asset MS
+
 //real-time listener FOR asset: PC
 db.collection('asset').onSnapshot((snapshot) => {
-    //console.log(snapshot.docChanges());
-    setupViewAssetByTypePC(snapshot.docs);   //called function in ui.js to display view Asset by category
-    // renderReportPage(snapshot.docs);            //for Report Page
+    setupViewAssetByTypePC(snapshot.docs);      //called function in ui.js to display view Asset by category
 
     snapshot.docChanges().forEach((change) => {
-        // console.log(change, change.doc.data(), change.doc.id);
-        // console.log(change);
-        if(change.type === 'added'){        //add the document data to the web page
+        //console.log(change, change.doc.data(), change.doc.id);
+
+        const doc = {...change.doc.data(), id: change.doc.id};
+
+        if(change.type === 'added'){            //add the document data to the web page
+            data1.push(doc);
             renderAssetPC(change.doc.data(), change.doc.id);
         };
-        if(change.type === 'removed'){      //remove the document data to the web page
+        if(change.type === 'removed'){          //remove the document data to the web page
             removeAssetPC(change.doc.id);
         };
-        if(change.type === 'modified'){      //update the document
-            updateAssetPC(change.doc.data(), change.doc.id);
+        if(change.type === 'modified'){         //update the document
+            const index1 = data1.findIndex(item => item.id == doc.id);
+            data1[index1] = doc;
+            updateAssetPC(data1, change.doc.id);
         }
     });
 });
@@ -186,104 +196,66 @@ if(form){
     });
 };
 
-//delete an asset: PC
+//Update and Delete an asset: PC
 const assetPCcontainer = document.querySelector('.assetPC');
 if(assetPCcontainer){
     assetPCcontainer.addEventListener('click', evt => {
-        //console.log(evt);
-        if(evt.target.tagName === 'I'){
-            const id = evt.target.getAttribute('data-id');
-            db.collection('asset').doc(id).delete();
+        
+        //Delete function
+        if(evt.target.textContent === "delete_outline"){
+            const idPC = evt.target.getAttribute('data-id');
+            db.collection('asset').doc(idPC).delete();
         }
+        
+        //Update function
+        if(evt.target.textContent === "edit"){
+            const idPC2 = evt.target.getAttribute('data-id');
+            console.log('Update has been declared!');
+            
+            const formUpdate = document.querySelector('.edit-PC');
+
+            if(formUpdate){
+                formUpdate.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                
+                    const newAssetPC = {
+                        // assetName   : formUpdate.assetName.value,
+                        // manufacturer: formUpdate.manufacturer.value,
+                        // brandName   : formUpdate.brandName.value,
+                        OS          : formUpdate.OS.value,
+                        Processor   : formUpdate.Processor.value,
+                        RAM         : formUpdate.RAM.value,
+                        // Storage     : formUpdate.Storage.value,
+                        Location    : formUpdate.Location.value,
+                        Status      : formUpdate.Status.value 
+                    };
+                
+                    db.collection('asset')
+                        .doc(idPC2)
+                        .update(newAssetPC)
+                            .then(docRef => {
+                                console.log('Document written with ID: ', docRef.idPC2);
+                                console.log('UPDATEEEEEE!!');
+                            })
+                            .catch(err => console.log(err));
+                    
+                    //to reset the form after submitting
+                    // formUpdate.assetName.value    = '';
+                    // formUpdate.manufacturer.value = '';
+                    // formUpdate.brandName.value    = '';
+                    formUpdate.OS.value           = '';
+                    formUpdate.Processor.value    = '';
+                    formUpdate.RAM.value          = '';
+                    // formUpdate.Storage.value      = '';
+                    formUpdate.Location.value     = '';
+                    formUpdate.Status.value       = '';
+                });
+            }
+        }
+        
     });
 };
 
-//update asset: PC
-//what exactly happen when click the 'Edit' button
-const PCUpdateData = document.querySelector('.update-assetPC');
-const formUpdatePC = document.querySelector('form');
-
-if(formUpdatePC){
-    if(PCUpdateData){
-        PCUpdateData.addEventListener('click', evt =>{
-            evt.preventDefault();
-            
-            formUpdatePC.addEventListener('submit', evt =>{
-                evt.preventDefault();
-
-                if(evt.target.tagName === 'I'){
-                    const idPCtry = evt.target.getAttribute('data-id');
-                    var docReff = db.collection('asset').doc(idPCtry);
-        
-                    docReff.get().then(function(doc) {
-                        if (doc.exists) {
-                            console.log("Document data:", doc.data());
-                            console.log("Document ID:", doc.id);
-        
-                            //jadi but nanti doc field hanya ada status je, yang lain undefined
-                            db.collection('asset').doc(doc.id).update({
-                                Status      : 'Good'
-                            }).then(docRef => {
-                                console.log('Document successfully updated!');
-                                // console.log('You can now also access this. as expected: ', this.foo);
-                            })
-                            .catch(err => console.log(err));
-                            
-                            
-                            // const assetPCUpdate = {
-                            //     assetName   : PCUpdateData.assetName.value,
-                            //     manufacturer: PCUpdateData.manufacturer.value,
-                            //     brandName   : PCUpdateData.brandName.value,
-                            //     OS          : PCUpdateData.OS.value,
-                            //     Processor   : PCUpdateData.Processor.value,
-                            //     RAM         : PCUpdateData.RAM.value,
-                            //     Storage     : PCUpdateData.Storage.value,
-                            //     Location    : PCUpdateData.group1.value,
-                            //     Status      : PCUpdateData.group2.value 
-                            // };
-                    
-                            // db.collection('asset').doc(doc.id).update(assetPCUpdate)
-                            // .then(docRef => {
-                            //     console.log('Document written with ID: ', docRef.id);
-                            //     console.log('Document successfully updated!');
-                            //     // console.log('You can now also access this. as expected: ', this.foo);
-                            // })
-                            // .catch(err => console.log(err));
-                    
-                            // PCUpdateData.assetName.value    = '';
-                            // PCUpdateData.manufacturer.value = '';
-                            // PCUpdateData.brandName.value    = '';
-                            // PCUpdateData.OS.value           = '';
-                            // PCUpdateData.Processor.value    = '';
-                            // PCUpdateData.RAM.value          = '';
-                            // PCUpdateData.Storage.value      = '';
-                            // PCUpdateData.group1.value       = '';
-                            // PCUpdateData.group2.value       = '';
-        
-                            // PCData.update(
-                            //     { assetName   : `${dataPC.assetName}`},
-                            //     { manufacturer: `${dataPC.manufacturer}`},
-                            //     { brandName   : `${dataPC.brandName}`},
-                            //     { OS          : `${dataPC.OS}`},
-                            //     { Processor   : `${dataPC.Processor}`},
-                            //     { RAM         : `${dataPC.RAM}`},
-                            //     { Storage     : `${dataPC.Storage}`},
-                            //     { Location    : `${dataPC.Location}`},
-                            //     { Status      : `${dataPC.Status}`}
-                            // );
-                        } else {
-                            // doc.data() will be undefined in this case
-                            console.log("No such document!");
-                        }
-                    }).catch(function(error) {
-                            console.log("Error getting document:", error);
-                        });
-                }
-            })
-            // console.log(evt);
-        })
-    };
-}
 
 
 
@@ -364,42 +336,3 @@ if(assetMScontainer){
         }
     });
 }
-
-
-
-
-
-//REPORT PAGE
-
-// //getting the data
-// db.collection('asset').get().then((snapshot) => {
-//     // console.log(snapshot.docs);
-//     snapshot.docs.forEach(doc => {
-//         renderReportPC(doc);
-//     })
-// });
-
-// const assetRef = db.collection('asset');
-// const snapshot = await assetRef.where('assetName', '==', true).get();
-// if(snapshot.empty){
-//     console.log('No matcihng documents!');
-//     return;
-// }
-
-// snapshot.forEach(doc => {
-//     console.log(doc.id, '=>', doc.data());
-// });
-
-// db.collection("asset").get().then(function(querySnapshot) {
-//     querySnapshot.forEach(function(doc) {
-//         // doc.data() is never undefined for query doc snapshots
-//         console.log(doc.id, " => ", doc.data());
-//     });
-// });
-
-// db.collection('asset').get().then((snapshot) => {
-//     // console.log(snapshot.docs);
-//     snapshot.docs.forEach(doc => {
-//         console.log(doc);
-//     })
-// })
