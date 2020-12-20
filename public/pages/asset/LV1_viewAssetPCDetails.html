@@ -142,27 +142,30 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s12">
-                <button class="small btnStatusUpdate">Level 1</button>
-                <button class="small btnStatusUpdate">Level 2</button>
-                <button class="small btnStatusUpdate">Level 3</button>
-                <button class="small btnStatusUpdate">Level 4</button>
-                <button class="small btnStatusUpdate">Level 5</button>
+              <div class="input-field col s6">
+                <select id="Location" class="validate" required>
+                  <option value="" disabled selected>Choose the level:</option>
+                  <option value="Level 1">Level 1</option>
+                  <option value="Level 2">Level 2</option>
+                  <option value="Level 3">Level 3</option>
+                  <option value="Level 4">Level 4</option>
+                  <option value="Level 5">Level 5</option>
+                </select>
                 <label for="Location">Location</label>
               </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <button class="small btnStatusUpdate">Good</button>
-                <button class="small btnStatusUpdate">Faulty</button>
+              <div class="input-field col s6">
+                <select id="Status" class="validate" required>
+                  <option value="" disabled selected>Choose the status:</option>
+                  <option value="Good">Good</option>
+                  <option value="Faulty">Faulty</option>
+                </select>
                 <label for="Status">Status</label>
               </div>
             </div>
-
-
             <div class="row">
               <div class="input-field center">
-                <button class="btn-small">Update</button>
+                <button class="btn-small" type="submit" id="btnUpdatePC">Update</button>
+                <!-- onclick="confirm('Update successfully!')" -->
               </div>
             </div>
         </form>
