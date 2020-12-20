@@ -199,87 +199,28 @@ const removeAssetPC = (id) =>{
 
 //update assetPC data 
 //what happen after update
-const updateAssetPC = (dataPC, idPC) => {
-    const PCData = document.querySelector(`.assetPC[data-id=${idPC}]`);
+const updateAssetPC = (dataUpdatePC, idUpdatePC) => {
+    const updatePC = document.querySelector(`.assetPC[data-id=${idUpdatePC}]`);
+    const btnUpdatePC = document.querySelector('.btnUpdatePC');
 
-    if(idPC === PCData){
-        if(PCData != null){
-            const htmlUpdatePC = `
-                <table id="PC-table-update" class="container" data-id="${idPC}">
-                    <tr> <td>Asset Name  </td>  <td>${dataPC.assetName}     </td>   </tr>
-                    <tr> <td>Manufacturer</td>  <td>${dataPC.manufacturer}  </td>   </tr>
-                    <tr> <td>Brand       </td>  <td>${dataPC.brandName}     </td>   </tr>
-                    <tr> <td>OS          </td>  <td>${dataPC.OS}            </td>   </tr>
-                    <tr> <td>Processor   </td>  <td>${dataPC.Processor}     </td>   </tr>
-                    <tr> <td>RAM         </td>  <td>${dataPC.RAM}           </td>   </tr>
-                    <tr> <td>Storage     </td>  <td>${dataPC.Storage}       </td>   </tr>
-                    <tr> <td>Location    </td>  <td>${dataPC.Location}      </td>   </tr>
-                    <tr> <td>Status      </td>  <td>${dataPC.Status}        </td>   </tr>
-
-                    <tr> <td><button class="input-field btn" type="submit">UPDATE</button></td></tr>
-                </table>
-            `;
-            assetPC.innerHTML += htmlUpdatePC;
-            
-            // <ul class="collection assetPC" data-id="${idPC}">
-            //     <li class="collection-item">Asset Name  : ${dataPC.assetName}    </li>
-            //     <li class="collection-item">Manufacturer: ${dataPC.manufacturer} </li>
-            //     <li class="collection-item">Brand       : ${dataPC.brandName}    </li>
-            //     <li class="collection-item">OS          : ${dataPC.OS}           </li>
-            //     <li class="collection-item">Processor   : ${dataPC.Processor}    </li>
-            //     <li class="collection-item">RAM         : ${dataPC.RAM}          </li>
-            //     <li class="collection-item">Storage     : ${dataPC.Storage}      </li>
-            //     <li class="collection-item">Location    : ${dataPC.Location}     </li>
-            //     <li class="collection-item">Status      : ${dataPC.Status}       </li>
-            // </ul>
-
-            // PCData.update(
-            //     { assetName   : `${dataPC.assetName}`},
-            //     { manufacturer: `${dataPC.manufacturer}`},
-            //     { brandName   : `${dataPC.brandName}`},
-            //     { OS          : `${dataPC.OS}`},
-            //     { Processor   : `${dataPC.Processor}`},
-            //     { RAM         : `${dataPC.RAM}`},
-            //     { Storage     : `${dataPC.Storage}`},
-            //     { Location    : `${dataPC.Location}`},
-            //     { Status      : `${dataPC.Status}`}
-            // );
-
-        }
-        else{
-            console.log('Asset was not found in the database.');
-        }
-
+    
+    //So far, console.log tak keluar pun but it still update
+    if(btnUpdatePC.clicked == true){
+        console.log('Update: what happen after Update');
     }
-
-    // if(PCData != null){
-    //     const htmlUpdatePC = `
-    //         <div class="collection assetPC" data-id="${idPC}">
-    //             <a href="" class="collection-item"><span>Asset Name  : ${dataPC.assetName}    </span></a>
-    //             <a href="" class="collection-item"><span>Manufacturer: ${dataPC.manufacturer} </span></a>
-    //             <a href="" class="collection-item"><span>Brand       : ${dataPC.brandName}    </span></a>
-    //             <a href="" class="collection-item"><span>OS          : ${dataPC.OS}           </span></a>
-    //             <a href="" class="collection-item"><span>Processor   : ${dataPC.Processor}    </span></a>
-    //             <a href="" class="collection-item"><span>RAM         : ${dataPC.RAM}          </span></a>
-    //             <a href="" class="collection-item"><span>Storage     : ${dataPC.Storage}      </span></a>
-    //             <a href="" class="collection-item"><span>Location    : ${dataPC.Location}     </span></a>
-    //             <a href="" class="collection-item"><span>Status      : ${dataPC.Status}       </span></a>
-    //         </div>
-    //     `;
-    //     PCData.update(
-    //         { assetName   : `${dataPC.assetName}`},
-    //         { manufacturer: `${dataPC.manufacturer}`},
-    //         { brandName   : `${dataPC.brandName}`},
-    //         { OS          : `${dataPC.OS}`},
-    //         { Processor   : `${dataPC.Processor}`},
-    //         { RAM         : `${dataPC.RAM}`},
-    //         { Storage     : `${dataPC.Storage}`},
-    //         { Location    : `${dataPC.Location}`},
-    //         { Status: 'Good'}
-    //     );
-    //     assetPC.innerHTML += htmlUpdatePC;
-    // };
-};
+            // updatePC.update(
+            //     { assetName   : `${dataUpdatePC.assetName}`},
+            //     { manufacturer: `${dataUpdatePC.manufacturer}`},
+            //     { brandName   : `${dataUpdatePC.brandName}`},
+            //     { OS          : `${dataUpdatePC.OS}`},
+            //     { Processor   : `${dataUpdatePC.Processor}`},
+            //     { RAM         : `${dataUpdatePC.RAM}`},
+            //     { Storage     : `${dataUpdatePC.Storage}`},
+            //     { Location    : `${dataUpdatePC.Location}`},
+            //     { Status      : `${dataUpdatePC.Status}`}
+            // );
+    console.log('Update: what happen after Updateeee');
+}
 
 
 
