@@ -174,10 +174,10 @@ const renderAssetPC = (data, id) => {
                     </div>
                 </div>
                 <div class="assetPC-delete-update center">
-                    <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect center">
-                        <i class="material-icons" data-id="${id}">edit</i>
+                    <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect center !important">
+                        <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editPC">edit</i>
                     </div>
-                    <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect center">
+                    <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect center !important">
                         <i class="material-icons" data-id="${id}">delete_outline</i>
                     </div>
                 </div>
@@ -307,10 +307,10 @@ const renderAssetKB = (data, id) => {
                     </div>
                 </div>
                 <div class="assetKB-delete-update center">
-                    <div class="assetKB-update buttonFloatStyle btn-floating orange waves-effect center">
-                        <i class="material-icons" data-id="${id}">edit</i>
+                    <div class="assetKB-update buttonFloatStyle btn-floating orange waves-effect center !important">
+                        <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editKB">edit</i>
                     </div>
-                    <div class="assetKB-delete buttonFloatStyle btn-floating red waves-effect center">
+                    <div class="assetKB-delete buttonFloatStyle btn-floating red waves-effect center !important">
                         <i class="material-icons" data-id="${id}">delete_outline</i>
                     </div>
                 </div>
@@ -349,10 +349,10 @@ const renderAssetMS = (data, id) => {
                     </div>
                 </div>
                 <div class="assetMS-delete-update center">
-                    <div class="assetMS-update buttonFloatStyle btn-floating orange waves-effect center">
-                        <i class="material-icons" data-id="${id}">edit</i>
+                    <div class="assetMS-update buttonFloatStyle btn-floating orange waves-effect center !important">
+                        <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editMS">edit</i>
                     </div>
-                    <div class="assetMS-delete buttonFloatStyle btn-floating red waves-effect center">
+                    <div class="assetMS-delete buttonFloatStyle btn-floating red waves-effect center !important">
                         <i class="material-icons" data-id="${id}">delete_outline</i>
                     </div>
                 </div>
@@ -476,35 +476,6 @@ const setupViewAssetByTypeMS = (data) => {
 
 
 
-//DISPLAY TICKET 
-// const setupTickets = (data) => {
-//     if (ticketList) { //remove "Cannot set property 'innerHTML' of null" error
-//       if (data.length) {
-//         let html = '';
-//         //forEach is to iterate
-//         data.forEach(doc => {
-//           const ticket = doc.data();
-//           // console.log(ticket);
-//           const li = `
-//             <li>
-//               <div class="collapsible-header grey lighten-4">${ticket.type} : ${ticket.category}</div>
-//               <div class="collapsible-body white"> ${ticket.description} <br> Location: ${ticket.location}</div>
-//             </li>
-//           `;
-//           html += li;
-//         });
-//         ticketList.innerHTML = html;
-//       } else {
-//         ticketList.innerHTML = '<h5 class="center-align">Login to view ticket</h5>';
-//       }
-//     }  
-//   };
-
-
-
-
-
-
 
 //FOR REPORT
 //get all the data (PC,Keyboard & Mouse) in one page
@@ -609,78 +580,3 @@ const renderReportPageMS = (data) => {
           }   
     }
 };
-
-
-//default
-// const renderReportPage = (data) => {
-//     if(ReportPageList){
-//         if(data.length){
-//             let htmlReport = '';
-
-//             data.forEach(doc =>{
-//               const dataAssigned = doc.data();
-
-//               const headerReport =`
-//                 <th>Asset Name</th>
-//                 <th>Asset Type</th>
-//                 <th>Manufacturer</th>
-//                 <th>Brand</th>
-//                 <th>RAM</th>
-//                 <th>Processor</th>
-//                 <th>OS</th>
-//                 <th>Storage</th>
-//                 <th>Location</th>
-//                 <th>Status</th>
-//               `;
-      
-//               const dataReportPC = `
-//                     <tr>
-//                         <td>${dataAssigned.assetName}</td>
-//                         <td>PC</td>
-//                         <td>${dataAssigned.manufacturer}</td>
-//                         <td>${dataAssigned.brandName}</td>
-//                         <td>${dataAssigned.RAM}</td>
-//                         <td>${dataAssigned.Processor}</td>
-//                         <td>${dataAssigned.OS}</td>
-//                         <td>${dataAssigned.Storage}</td>
-//                         <td>${dataAssigned.Location}</td>
-//                         <td>${dataAssigned.Status}</td>
-//                     </tr>
-//               `;
-//               const dataReportKB = `
-//                     <tr>
-//                         <td>${dataAssigned.KBassetName}</td>
-//                         <td>Keyboard</td>
-//                         <td>${dataAssigned.KBmanufacturer}</td>
-//                         <td>${dataAssigned.KBbrandName}</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>${dataAssigned.KBLocation}</td>
-//                         <td>${dataAssigned.KBStatus}</td>
-//                     </tr>
-//               `;
-//               const dataReportMS = `
-//                     <tr>
-//                         <td>${dataAssigned.MSassetName}</td>
-//                         <td>Mouse</td>
-//                         <td>${dataAssigned.MSmanufacturer}</td>
-//                         <td>${dataAssigned.MSbrandName}</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>-</td>
-//                         <td>${dataAssigned.MSLocation}</td>
-//                         <td>${dataAssigned.MSStatus}</td>
-//                     </tr>
-//               `;
-//               htmlReport += headerReport + dataReportPC + dataReportKB + dataReportMS;
-//             });
-//             ReportPageList.innerHTML = htmlReport;        
-
-//           }else{
-//             ReportPageList.innerHTML = '<h5 class="center-align">Not available</h5>'
-//           }   
-//     }
-// };
