@@ -33,7 +33,20 @@ nav .sidenav-trigger{
 }
 nav a:hover{
     font-weight: bolder;
-    /* color: #0d47a1;text-decoration: underline; */
+}
+
+
+/* header style */
+.headerStyle{
+    background-color: #4682B4;
+    opacity: 0.6;
+    border-radius: 10px;
+    border-bottom: 2px solid var(--title);
+    border-top: 2px solid var(--title);
+    padding: 2px;
+    width: 75%;
+    margin-top: 2%;
+    margin-bottom: 3%;
 }
 
 
@@ -42,30 +55,50 @@ nav a:hover{
     font-weight: bold;
     letter-spacing: 3px;
     color: whitesmoke;
+    font-size: 12px;
 }
 .styleNav:hover{
     color: #0d47a1;
     text-decoration: underline;
 }
-.dropdown-content{
+nav-wrapper ul .material-icons{
+    font-size: 25px;
+}
+.dropdown-content .styleNav-dropdown{
     margin-right: 5px;
     padding-right: 5px;
-}
-.styleNav-dropdown{ 
-    /* margin: 10px;
-    padding: 5px; */
-    font-size: 5px;
+    font-size: 12px;
     color: #0d47a1;
     margin-right: 0;
+}
+.dropdown-content .styleNav-dropdown:hover{
+    margin-right: 5px;
+    padding-right: 5px;
+    font-size: 13px;
+    margin-right: 0;
+    font-weight: bold;
+    cursor: pointer;
+    color: #0d47a1;
+    text-decoration: underline;
 }
 .buttonLogout{
     margin: auto;
     font-weight: bold;
     float: right;
     color: #81d4fa;
+    background-color:whitesmoke;
+    border: none;
+    padding: 5px 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height: 40px;
 }
 .buttonLogout:hover {
     color: #0d47a1;
+    background-color: var(--secondary);
     text-decoration: underline;
 }
 
@@ -93,7 +126,7 @@ nav a:hover{
 }
 
 
-/* dashboad.html : dashboard card styles */
+/* dashboard.html : dashboard card styles */
 .dashboards{margin-top: 20px;}
 .card-panel.dashboard{
     border-radius: 8px;
