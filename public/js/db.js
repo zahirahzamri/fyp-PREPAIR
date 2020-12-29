@@ -114,7 +114,9 @@ db.collection('asset').onSnapshot((snapshot) => {
         if(change.type === 'modified'){         //update the document
             const index1 = data1.findIndex(item => item.id == doc.id);
             data1[index1] = doc;
-            updateAssetPC(data1, change.doc.id);
+            // updateAssetPC(data1, change.doc.id);
+            // updateAssetPC(change.doc.data(), change.doc.id);
+            updateAssetPC();
         }
     });
 });
@@ -210,10 +212,34 @@ if(assetPCcontainer){
         //Update function
         if(evt.target.textContent === "edit"){
             const idPC2 = evt.target.getAttribute('data-id');
-            console.log('Update has been declared!');
-            
+            // console.log('in db.js: Update has been declared!');
             const formUpdate = document.querySelector('.edit-PC');
 
+            var docRef = db.collection("asset").doc(idPC2);
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+
+                    //for retrieve the existing data and display it in Update modal
+                    if(formUpdate){
+                        document.getElementById('assetName').value = doc.data().assetName;
+                        document.getElementById('manufacturer').value = doc.data().manufacturer;
+                        document.getElementById('brandName').value = doc.data().brandName;
+                        document.getElementById('Processor').value = doc.data().Processor;
+                        document.getElementById('OS').value = doc.data().OS;
+                        document.getElementById('RAM').value = doc.data().RAM;
+                        document.getElementById('Storage').value = doc.data().Storage;
+                        document.getElementById('Location').value = doc.data().Location;
+                        document.getElementById('Status').value = doc.data().Status;
+                    }     
+                } 
+                else {// doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            //bila dah tekan button update kat modal update form
             if(formUpdate){
                 formUpdate.addEventListener('submit', evt => {
                     evt.preventDefault();
@@ -225,17 +251,16 @@ if(assetPCcontainer){
                         OS          : formUpdate.OS.value,
                         Processor   : formUpdate.Processor.value,
                         RAM         : formUpdate.RAM.value,
-                        // Storage     : formUpdate.Storage.value,
+                        Storage     : formUpdate.Storage.value,
                         Location    : formUpdate.Location.value,
                         Status      : formUpdate.Status.value 
                     };
                 
-                    db.collection('asset')
-                        .doc(idPC2)
+                    db.collection('asset').doc(idPC2)
                         .update(newAssetPC)
                             .then(docRef => {
-                                console.log('Document written with ID: ', docRef.idPC2);
-                                console.log('UPDATEEEEEE!!');
+                                // console.log('Document written with ID: ', docRef.id);
+                                console.log('in db.js: UPDATEEEEEE!!');
                             })
                             .catch(err => console.log(err));
                     
@@ -246,11 +271,12 @@ if(assetPCcontainer){
                     formUpdate.OS.value           = '';
                     formUpdate.Processor.value    = '';
                     formUpdate.RAM.value          = '';
-                    // formUpdate.Storage.value      = '';
+                    formUpdate.Storage.value      = '';
                     formUpdate.Location.value     = '';
                     formUpdate.Status.value       = '';
                 });
             }
+
         }
         
     });
