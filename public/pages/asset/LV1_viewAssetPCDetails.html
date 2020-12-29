@@ -110,12 +110,24 @@
             <h6>Update PC</h6>
             <div class="divider"></div>
             <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="" id="assetName" type="text" class="validate" style="color: grey">
+                <label for="assetName">Asset Name</label>
+              </div>
+            </div>
+            <div class="row">              
               <div class="input-field col s6">
-                <input disabled value="${data.assetName}" id="disabled" type="text" class="validate">
-                <label for="assetPC">Asset Name</label>
+                <input disabled value="" id="manufacturer" type="text" class="validate" style="color: grey">
+                <label class="active" for="manufacturer">Manufacturer</label>
               </div>
               <div class="input-field col s6">
-                <select id="OS" class="validate" required>
+                <input disabled value="" id="brandName" type="text" class="validate" style="color: grey">
+                <label class="active" for="brandName">Brand Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="OS" class="validate">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="Windows 10">Windows 10</option>
                   <option value="Windows 8">Windows 8</option>
@@ -125,14 +137,14 @@
                 </select>
                 <label for="category">Operating System</label>
               </div>
+              <div class="input-field col s6">
+                <input placeholder="${data.Processor}" id="Processor" type="text" class="validate" value="">
+                <label for="Processor">Processor</label>
+              </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input placeholder="${data.Processor}" id="Processor" type="text" class="validate">
-                <label for="Processor">Processor</label>
-              </div>
-              <div class="input-field col s6">
-                <select id="RAM" class="validate" required>
+                <select id="RAM" class="validate">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="4GB">4GB</option>
                   <option value="8GB">8GB</option>
@@ -140,10 +152,18 @@
                 </select>
                 <label for="RAM">RAM</label>
               </div>
+              <div class="input-field col s6">
+                <select id="Storage" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="HDD">HDD</option>
+                  <option value="SSD">SSD</option>
+                </select>
+                <label for="Storage">Storage</label>
+              </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <select id="Location" class="validate" required>
+                <select id="Location" class="validate">
                   <option value="" disabled selected>Choose the level:</option>
                   <option value="Level 1">Level 1</option>
                   <option value="Level 2">Level 2</option>
@@ -154,7 +174,7 @@
                 <label for="Location">Location</label>
               </div>
               <div class="input-field col s6">
-                <select id="Status" class="validate" required>
+                <select id="Status" class="validate">
                   <option value="" disabled selected>Choose the status:</option>
                   <option value="Good">Good</option>
                   <option value="Faulty">Faulty</option>
@@ -163,9 +183,9 @@
               </div>
             </div>
             <div class="row">
-              <div class="input-field center">
+              <div class="input-field inline center">
                 <button class="btn-small" type="submit" id="btnUpdatePC">Update</button>
-                <!-- onclick="confirm('Update successfully!')" -->
+                <button class="btn-small" id="btnCancelPC">Cancel</button>
               </div>
             </div>
         </form>
@@ -202,6 +222,15 @@
         $(document).ready(function(){
           $(".dropdown-trigger").dropdown();
           $('select').formSelect();
+          
+          M.updateTextFields();
+
+          //close modal when click 'Cancel' button
+          const btn = document.getElementById("btnCancelPC");
+          btn.addEventListener('click', evt => {
+            const closeModalPC = document.querySelector('#modal-editPC');
+            M.Modal.getInstance(closeModalPC).close();
+          })
         });
     </script>
 </body>
