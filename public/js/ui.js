@@ -188,7 +188,6 @@ const renderAssetPC = (data, id) => {
     assetPC.innerHTML += html; 
     }    
 };
-
 //remove assetPC from DOM
 const removeAssetPC = (id) =>{
     const assetPCs = document.querySelector(`.assetPC[data-id=${id}]`);
@@ -196,49 +195,11 @@ const removeAssetPC = (id) =>{
         assetPCs.remove();
     };
 };
-
-//update assetPC data 
-//what happen after update
-const updateAssetPC = (dataUpdatePC, idUpdatePC) => {
-    const updatePC = document.querySelector(`.assetPC[data-id=${idUpdatePC}]`);
-    const btnUpdatePC = document.querySelector('#btnUpdatePC');
-
-    
-    //dah jadi
-    // $("btnUpdatePC").click(function(){
-    //     console.log('in ui.js: What happen after Update');
-    //     console.log(`${dataUpdatePC.assetName}`);
-    //     console.log(updatePC);
-        
-    //     // Close modal on button update click (tak jadi lagi)
-    //     $("#modal-editPC").modal('hide');
-    // })
-
-    //try code lain sikit
-    $("btnUpdatePC").submit(function(e){
-        e.preventDefault();
-
-        console.log('in ui.js: What happen after Update');
-        console.log(`${dataUpdatePC.assetName}`);
-        console.log(updatePC);
-        
-        // Close modal on button update click (tak jadi lagi)
-        $("#modal-editPC").modal('hide');
-
-        return false;
-    })
-            // updatePC.update(
-            //     { assetName   : `${dataUpdatePC.assetName}`},
-            //     { manufacturer: `${dataUpdatePC.manufacturer}`},
-            //     { brandName   : `${dataUpdatePC.brandName}`},
-            //     { OS          : `${dataUpdatePC.OS}`},
-            //     { Processor   : `${dataUpdatePC.Processor}`},
-            //     { RAM         : `${dataUpdatePC.RAM}`},
-            //     { Storage     : `${dataUpdatePC.Storage}`},
-            //     { Location    : `${dataUpdatePC.Location}`},
-            //     { Status      : `${dataUpdatePC.Status}`}
-            // );
-    console.log('Update: what happen after Updateeee');
+//update assetPC data: what happen after update
+const updateAssetPC = () => {
+    //close modal
+    const modalPC = document.querySelector('#modal-editPC');
+    M.Modal.getInstance(modalPC).close();
 }
 
 
