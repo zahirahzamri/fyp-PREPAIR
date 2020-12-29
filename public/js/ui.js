@@ -224,7 +224,7 @@ const renderAssetKB = (data, id) => {
                         <div class="assetKB-location col s6">Location: ${data.KBLocation}</div>
                     </div>
                     <div class="row">
-                        <div class="assetKB-status col s12" style="text-align: center; color: cadetblue;">Status: ${data.KBStatus}</div>
+                        <div class="assetKB-status col s12" style="text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.KBStatus}</div>
                     </div>
                 </div>
                 <div class="assetKB-delete-update center">
@@ -248,6 +248,12 @@ const removeAssetKB = (id2) =>{
         assetKBs.remove();
     };
 };
+//update assetKB data: what happen after update
+const updateAssetKB = () => {
+    //close modal
+    const modalKB = document.querySelector('#modal-editKB');
+    M.Modal.getInstance(modalKB).close();
+}
 
 
 //render asset Mouse data
@@ -266,7 +272,7 @@ const renderAssetMS = (data, id) => {
                         <div class="assetMS-location col s6">Location: ${data.MSLocation}</div>
                     </div>
                     <div class="row">
-                        <div class="assetMS-status col s12" style="text-align: center; color: cadetblue;">Status: ${data.MSStatus}</div>
+                        <div class="assetMS-status col s12" style="text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.MSStatus}</div>
                     </div>
                 </div>
                 <div class="assetMS-delete-update center">
@@ -290,6 +296,12 @@ const removeAssetMS = (id3) =>{
         assetMSs.remove();
     };
 };
+//update assetMS data: what happen after update
+const updateAssetMS = () => {
+    //close modal
+    const modalMS = document.querySelector('#modal-editMS');
+    M.Modal.getInstance(modalMS).close();
+}
 
 
 
