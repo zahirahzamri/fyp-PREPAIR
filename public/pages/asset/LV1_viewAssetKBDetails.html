@@ -94,7 +94,6 @@
 
 
 
-
 <!-- content -->
     <!-- view asset details -->
     <header class="headerStyle darken-1 section container">
@@ -121,13 +120,13 @@
             <div class="divider"></div>
             <div class="row">
               <div class="input-field col s12">
-                <input disabled value="${data.KBassetName}" id="disabled" type="text" class="validate" required>
-                <label for="assetKB">Asset Name</label>
+                <input disabled value="" id="KBassetName" type="text" class="validate">
+                <label for="KBassetName">Asset Name</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <select id="KBmanufacturer" class="validate" required>
+                <select id="KBmanufacturer" class="validate">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="Acer">Acer</option>
                   <option value="Apple">Apple</option>
@@ -139,7 +138,7 @@
                 <label for="KBmanufacturer">Manufacturer Name</label>
               </div>
               <div class="input-field col s6">
-                <select id="KBbrandName" class="validate" required>
+                <select id="KBbrandName" class="validate">
                   <option value="" disabled selected>Choose your option</option>
                   <option value="Acer">Acer</option>
                   <option value="Apple">Apple</option>
@@ -153,25 +152,31 @@
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <button class="small btnStatusUpdate">Level 1</button>
-                <button class="small btnStatusUpdate">Level 2</button>
-                <button class="small btnStatusUpdate">Level 3</button>
-                <button class="small btnStatusUpdate">Level 4</button>
-                <button class="small btnStatusUpdate">Level 5</button>
+                <select id="KBLocation" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Level 1">Level 1</option>
+                  <option value="Level 2">Level 2</option>
+                  <option value="Level 3">Level 3</option>
+                  <option value="Level 4">Level 4</option>
+                  <option value="Level 5">Level 5</option>
+                </select>
                 <label for="KBLocation">Location</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <button class="small btnStatusUpdate">Good</button>
-                <button class="small btnStatusUpdate">Faulty</button>
+                <select id="KBStatus" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Good">Good</option>
+                  <option value="Faulty">Faulty</option>
+                </select>
                 <label for="KBStatus">Status</label>
               </div>
             </div>
-
             <div class="row">
-              <div class="input-field center">
-                <button class="btn-small">Update</button>
+              <div class="input-field inline center">
+                <button class="btn-small" type="submit" id="btnUpdateKB">Update</button>
+                <button class="btn-small" id="btnCancelKB">Cancel</button>
               </div>
             </div>
         </form>
@@ -207,6 +212,15 @@
         $(document).ready(function(){
           $('select').formSelect();
           $(".dropdown-trigger").dropdown();
+          
+          M.updateTextFields();
+
+          //close modal when click 'Cancel' button
+          const btn = document.getElementById("btnCancelKB");
+          btn.addEventListener('click', evt => {
+            const closeModalKB = document.querySelector('#modal-editKB');
+            M.Modal.getInstance(closeModalKB).close();
+          })
         });
     </script>
 </body>
