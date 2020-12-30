@@ -18,6 +18,19 @@ const ReportPageList3 = document.querySelector('.allAssetMS');
 document.addEventListener('DOMContentLoaded', function() {
     const sideNav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sideNav, {edge: 'left'});
+    
+    //dropdown nav
+    var dropdownNav = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(dropdownNav, 
+        {coverTrigger: false},
+        {inDuration: 300},
+        {outDuration: 225},
+        {constraintWidth:false},
+        {hover: true},          // Activate on hover
+        {belowOrigin: true },   // Displays dropdown below the button
+        {gutter: 0},            //spacing from edge
+        {alignment: 'right'},
+    );
 
     //updated when syncing dengan code miras
     var modals = document.querySelectorAll('.modal');
@@ -72,26 +85,26 @@ const tickets = document.querySelector('.tickets');
 
 
 
-$(document).ready(function(){
-    // nav menu
-    $('.sidenav').sidenav();
+// $(document).ready(function(){
+//     // nav menu
+//     $('.sidenav').sidenav();
     
-    //dropdown for nav
-    $(".dropdown-trigger").dropdown({
-        coverTrigger: false,
+//     //dropdown for nav
+//     $(".dropdown-trigger").dropdown({
+//         coverTrigger: false,
 
-        inDuration: 300,
-        outDuration: 225,
-        constraintWidth:false,
-        hover: true, // Activate on hover
-        belowOrigin: true, // Displays dropdown below the button
-        gutter: 0,  //spacing from edge
-        alignment: 'right'
-    });
+//         inDuration: 300,
+//         outDuration: 225,
+//         constraintWidth:false,
+//         hover: true, // Activate on hover
+//         belowOrigin: true, // Displays dropdown below the button
+//         gutter: 0,  //spacing from edge
+//         alignment: 'right'
+//     });
 
-    //dropdown in addAssetPC
-    $('select').formSelect();
-});
+//     //dropdown in addAssetPC
+//     $('select').formSelect();
+// });
 
 // function showHideDiv(){
 //     var checkOthers = document.getElementById("checkOthers");
