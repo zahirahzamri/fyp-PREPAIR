@@ -18,38 +18,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png">  
 
     <title>PREPAIR: Home</title>
-    <!-- <script>
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-
-            /*loop through a collection of all HTML elements:*/
-            z = document.getElementsByTagName("*");
-
-            for (i = 0; i < z.length; i++) {
-            elmnt = z[i];
-            
-            /*search for elements with a certain atrribute:*/
-            file = elmnt.getAttribute("include-html-navigation");
-            if (file) {
-                /*make an HTTP request using the attribute value as the file name:*/
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                    /*remove the attribute, and call this function once more:*/
-                    elmnt.removeAttribute("include-html-navigation");
-                    includeHTML();
-                }
-                }      
-                xhttp.open("GET", file, true);
-                xhttp.send();
-                /*exit the function:*/
-                return;
-            }
-            }
-        };
-    </script> -->
 </head>
 <body>
     <!-- <div include-html-navigation="/public/pages/navigation.html"></div>  -->
@@ -57,27 +25,35 @@
     <div class="navbar-fixed">
         <nav class="nav-wrapper z-depth-0">
           <div class="container">
-            <a href="/public/pages/asset/mainPage.html">PRE<span>PAIR</span></a>
+            <a class="logo" href="/public/pages/asset/mainPage.html">PRE<span>PAIR</span></a>
             <a href="#" class="sidenav-trigger" data-target="mobile-links">
               <i class="material-icons">menu</i>
             </a>
             <!-- Dropdown Structure -->
-            <ul id="dropdown1" class="dropdown-content">
-                <li><a href="/public/pages/asset/mainAsset.html" class="styleNav-dropdown">Assets</a></li>
-                <li><a href="/public/pages/report.html" class="styleNav-dropdown">Report</a></li>
-            </ul>
+            <div id="dropdown1" class="dropdown-content row">
+                <ul class="vertical-tabs col s8">
+                    <li><a href="/public/pages/dashboard.html"          class="styleNav-dropdown"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                    <li><a href="/public/pages/asset/mainAsset.html"    class="styleNav-dropdown"><i class="material-icons left">devices</i>Assets</a></li>
+                    <li><a href="/public/pages/report.html"             class="styleNav-dropdown"><i class="material-icons left">table_chart</i>Report</a></li>
+                </ul>                
+            </div>
+            <div id="dropdown2" class="dropdown-content row">
+                <ul class="vertical-tabs col s8">
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown modal-trigger" data-target="modal-account"><i class="material-icons left">account_circle</i>Profile</a></li>
+                    <li class="admin"     style="display: none;"><a href="#" class="styleNav-dropdown modal-trigger" data-target="modal-addAdmin"><i class="material-icons left">group_add</i>Add Technician</a></li>
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown"><i class="material-icons left">chat</i>Chat</a></li>
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown"><i class="material-icons left">notifications</i>Notification</a></li>
+                </ul>
+            </div>
+
             <!-- navigation -->
             <ul class="right hide-on-med-and-down">
-                <li class="admin" style="display: none;"><a href="/public/pages/dashboard.html" class="styleNav">Dashboard</a></li>
-                <li class="admin" style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown1" class="styleNav" style="font-weight: bold; letter-spacing: 3px; color: whitesmoke; font-size: 12px;">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html" class="styleNav">Tickets</a></li>
-  
-                <li class="logged-in" style="display: none;"><a href="#" class="styleNav"><i class="material-icons">chat</i></a></li>
-                <li class="logged-in" style="display: none;"><a href="#" class="styleNav"><i class="material-icons">notifications</i></a></li>
-                <li class="logged-in" style="display: none;"><a href="#" class="styleNav modal-trigger" data-target="modal-account"><i class="material-icons">account_circle</i></a></li>
-                
-                <li class="admin"     style="display: none;"><a href="#" class="styleNav modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i></a></li>
-                <li class="logged-in"                       ><a href="/public/index.html" class="waves-effect waves-light whitesmoke btn-small buttonLogout" id="logout">Logout</a></li>
+                <li class="logged-in" style="display: none;"><a href="/public/pages/asset/mainPage.html"                    class="styleNav">Home</a></li>
+                <li class="admin"     style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown1"  class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html"                            class="styleNav">Tickets</a></li>
+                <li class="logged-in" style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown2"  class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
+                <!-- <li class="logged-in" style="display: none;"><a href="/public/index.html"                                   class="right styleNav" id="logout">Log out<i class="material-icons left">lock_open</i></a></li> -->
+                <li class="logged-in" style="display: none;"><a href="/public/index.html" class="right styleNav" id="logout">Log out</a></li>
             </ul>
           </div>
         </nav>
@@ -85,17 +61,19 @@
     <!-- side nav -->
     <ul class="sidenav" id="mobile-links">
         <li><a class="subheader">PRE<span>PAIR</span></a></li>
-        <li class="admin" style="display: none;"><a href="/public/pages/dashboard.html" class="styleNav waves-effect">Dashboard</a></li>
-        <li class="admin" style="display: none;"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect">Asset</a></li>
-        <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html" class="styleNav waves-effect">Tickets</a></li>
-        <li class="admin" style="display: none;"><a href="/public/pages/report.html" class="styleNav waves-effect">Report</a></li>
+        <li class="logged-in"   style="display: none;"><a href="/public/pages/asset/mainPage.html"  class="styleNav waves-effect"><i class="material-icons left">Home</i>Home</a></li>
         <li><div class="divider"></div></li>
-        <li class="logged-in" style="display: none;"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
-        <li class="admin"     style="display: none;"><a href="#" class="modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i>Add Technician</a></li>
-        <li class="logged-in" style="display: none;"><a href=""><i class="material-icons">chat</i>Chat</a></li>
-        <li class="logged-in" style="display: none;"><a href=""><i class="material-icons">notifications_active</i>Notification</a></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/dashboard.html"       class="styleNav waves-effect"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect"><i class="material-icons left">devices</i>Asset</a></li>
+        <li class="logged-in"   style="display: none;"><a href="/public/pages/ticket.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>Tickets</a></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/report.html"          class="styleNav waves-effect"><i class="material-icons left">table_chart</i>Report</a></li>
         <li><div class="divider"></div></li>
-        <li class="logged-in"><a href="/public/index.html" class="waves-effect waves-light btn-small whitesmoke buttonLogout" id="logout">Logout</a></li>
+        <li class="logged-in"   style="display: none;"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
+        <li class="admin"       style="display: none;"><a href="#" class="modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i>Add Technician</a></li>
+        <li class="logged-in"   style="display: none;"><a href=""><i class="material-icons">chat</i>Chat</a></li>
+        <li class="logged-in"   style="display: none;"><a href=""><i class="material-icons">notifications_active</i>Notification</a></li>
+        <li><div class="divider"></div></li>
+        <li class="logged-in"   style="display: none;"><a href="/public/index.html" class="buttonLogout waves-effect" id="logout"><i class="material-icons left">lock_open</i>Logout</a></li>
     </ul>
     <!-- ACCOUNT MODAL -->
     <div id="modal-account" class="modal">
@@ -122,8 +100,8 @@
 
     <!-- content -->
     <header class="headerStyle darken-1 section container">
-        <h4 class="center" style="font-weight: bolder; opacity: 1;">ASSET MANAGEMENT</h2>
-        <p class="flow-text grey-text center text-lighten-2" style="font-weight: bold; opacity: 1;">TEACHING & LEARNING SERVICES</p>
+        <h4 class="center">ASSET MANAGEMENT</h2>
+        <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
     </header>
 
     <div class="container z-depth-1 whole-box">
