@@ -72,13 +72,26 @@ const tickets = document.querySelector('.tickets');
 
 
 
-// $(document).ready(function(){
-//     // nav menu
-//     $('.sidenav').sidenav();
+$(document).ready(function(){
+    // nav menu
+    $('.sidenav').sidenav();
+    
+    //dropdown for nav
+    $(".dropdown-trigger").dropdown({
+        coverTrigger: false,
 
-//     //dropdown in addAssetPC
-//     $('select').formSelect();
-// });
+        inDuration: 300,
+        outDuration: 225,
+        constraintWidth:false,
+        hover: true, // Activate on hover
+        belowOrigin: true, // Displays dropdown below the button
+        gutter: 0,  //spacing from edge
+        alignment: 'right'
+    });
+
+    //dropdown in addAssetPC
+    $('select').formSelect();
+});
 
 // function showHideDiv(){
 //     var checkOthers = document.getElementById("checkOthers");
