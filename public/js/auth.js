@@ -135,8 +135,6 @@ if (signupForm) {
 }
 
 
-
-
 // logout
 const logout = document.querySelector('#logout');
 if(logout) {

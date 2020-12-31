@@ -11,13 +11,18 @@ db.enablePersistence()
         }
 });
 
+var dataTic = [];
+
 // real-time listener for ticket
-db.collection('ticket').onSnapshot(snapshot => {
+db.collection('ticket').onSnapshot({ includeMetadataChanges: true }, snapshot => {
     // console.log(snapshot.docChanges());
     snapshot.docChanges().forEach(change => {
         // console.log(change);
         // console.log(change,change.doc.data(), change.doc.id);
     //   console.log(change.type, change.doc.id, change.doc.data());
+
+    const doc = {...change.doc.data(), id: change.doc.id};
+
       if(change.type === 'added'){
         // add the document data to the web page
         renderTicket(change.doc.data(), change.doc.id);
@@ -27,10 +32,17 @@ db.collection('ticket').onSnapshot(snapshot => {
         removeTicket(change.doc.id);
       }
       if(change.type === 'modified'){      //update the ticket
-        updateTicket(change.doc.data(), change.doc.id);
+        // const index = dataTic.findIndex(item => item.id == doc.id);
+        // dataTic[index] = doc;
+        // renderTicket(change.doc.data(), change.doc.id);
+        // console.log("Changed info:", change.doc.data());
+        updateTicket();
       }
     });
 });
+
+// let timeStamp = new db.Timestamp.fromDate(new Date("December 10, 1815"));
+// const FieldValue = admin.firestore.FieldValue;
 
 // add new tickets
 const formTicket = document.querySelector('.add-ticket');
@@ -44,8 +56,9 @@ if(formTicket){
             description: formTicket.description.value, 
             location: formTicket.location.value, 
             type: formTicket.type.value, 
+            // timeStamp: timeStamp,
         };
-    
+
         db.collection('ticket').add(ticket)
             .then(alert("Successfully add new ticket! Our technician will reach you out soon"))
             .catch(err => console.log(err));
@@ -54,32 +67,131 @@ if(formTicket){
             formTicket.description.value = '';
             formTicket.location.value = '';
             formTicket.type.value = '';
-    });  
+
+        
+    })
+    // .then(() => {
+    //     // close the signup modal & reset form
+    //     const modal = document.querySelector('#modal-editTicket');
+    //     M.Modal.getInstance(modal).close();
+    //     formTicket.reset();
+    //     formTicket.querySelector('.error').innerHTML = '';
+    // }).catch(err => {
+    //     formTicket.querySelector('.error').innerHTML = err.message;
+    // });
 }
 
 
-// delete a ticket
+// update and delete a ticket
 const ticketContainer = document.querySelector('.tickets');
 if(ticketContainer){
     ticketContainer.addEventListener('click', evt => {
         // console.log(evt);
+        
+        // DELETE TICKET
         if(evt.target.textContent === "delete_outline"){
+            // onclick = "return confirm('Are you sure you want to delete this item?');"
             const id = evt.target.getAttribute('data-id');
             db.collection('ticket').doc(id).delete();
         }
+
+        if(evt.target.textContent === "edit"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const updateTicket = document.querySelector('.edit-ticket');
+            
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().category);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        document.getElementById('category').value = doc.data().category;
+                        document.getElementById('description').value = doc.data().description;
+                        document.getElementById('location').value = doc.data().location;
+                        document.getElementById('type').value = doc.data().type;
+                    }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(updateTicket) {
+                updateTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
+
+                    // construct object
+                    const newTicket = {
+                        category: updateTicket.category.value,
+                        description: updateTicket.description.value, 
+                        location: updateTicket.location.value, 
+                        type: updateTicket.type.value, 
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                        .then(alert("Successfully update ticket"))
+                        .catch(err => console.log(err));
+        
+                        updateTicket.category.value = '';
+                        updateTicket.description.value = '';
+                        updateTicket.location.value = '';
+                        updateTicket.type.value = '';
+                });
+            }
+        }
+
     });
 }
 
 
-// update ticket
-// ticketContainer.addEventListener('click', evt => {
-//     // console.log(evt);
-//     if(evt.target.textContent === "edit"){
-//         const id = evt.target.getAttribute('data-id');
-//         db.collection('ticket').doc(id).delete();
-//     }
-// });
+// // update ticket
+// const editTicket = document.querySelector('.edit-ticket');
+// const modalCont = document.querySelector('#modal-editTicket');
+// if(modalCont){
+//     ticketContainer.addEventListener('click', evt => {
+//         evt.preventDefault();
 
+//         if(evt.target.textContent === "edit"){
+//             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+//             const ref = db.collection("ticket").doc(id).get().then(function(doc) {
+//                 if (doc.exists) {
+//                     console.log("Document data:", doc.data().category);
+//                     return doc.data().category;
+//                 }}) ;
+//             console.log(id);
+//             console.log(ref);
+
+//             console.log(content);
+//         }
+    
+//         // construct object
+//         const updateTicket = {
+//             category: editTicket.category.value,
+//             description: editTicket.description.value, 
+//             location: editTicket.location.value, 
+//             type: editTicket.type.value, 
+//         };
+
+//         // console.log(editTicket.category.value);
+//         // console.log(editTicket.description.value);
+//         // console.log(document.getElementById("editBtn").getAttribute("data-id"));
+//         // const id = document.getElementById("editBtn").getAttribute("data-id");
+//         // console.log(id);
+//         const id = evt.target.getAttribute('data-id');
+//         db.collection('ticket').doc(id).update(updateTicket)
+//             .then(alert("Successfully update ticket"))
+//             .catch(err => console.log(err));
+        
+//             editTicket.category.value = '';
+//             editTicket.description.value = '';
+//             editTicket.location.value = '';
+//             editTicket.type.value = '';
+//     });  
+// }
 
 
 
@@ -162,7 +274,7 @@ db.collection('assetMS').onSnapshot((snapshot) => {
 //Add new asset: PC
 
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
-const form = document.querySelector('form');
+const form = document.querySelector('#addFormPC');
 if(form){
     form.addEventListener('submit', evt => {
         evt.preventDefault();
@@ -289,7 +401,7 @@ if(assetPCcontainer){
 //Add new asset: Keyboard
 
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
-const form2 = document.querySelector('form');
+const form2 = document.querySelector('#addFormKB');
 if(form2){
     form2.addEventListener('submit', evt => {
         evt.preventDefault();
@@ -385,7 +497,7 @@ if(assetKBcontainer){
 
 //Add new asset: Mouse
 //use if statement because there is error stated in console "cannot read property 'addEventListener' of null"
-const form3 = document.querySelector('form');
+const form3 = document.querySelector('#addFormMS');
 if (form3){
     form3.addEventListener('submit', evt => {
         evt.preventDefault();

@@ -20,12 +20,12 @@ const setupUI = (user) => {
       // account info
       db.collection('users').doc(user.uid).get().then(doc => {
         const html = `
-          <div>Logged in as ${user.email}</div>
-          <div>Name: ${user.displayName}</div>
-          <div>StaffID: ${doc.data().sid}</div>
-          <div>Phone Number: ${doc.data().phone}</div>
-          <div>Bio: ${doc.data().bio}</div>
-          <div class="green-text">Role: ${user.admin ? 'Technician' : 'Lecturer'}</div>
+          <div class="card-panel teal lighten-2">Logged in as ${user.email}</div>
+          <div class="card-panel lime lighten-5">Name: ${user.displayName}</div>
+          <div class="card-panel teal lighten-2">StaffID: ${doc.data().sid}</div>
+          <div class="card-panel lime lighten-5">Phone Number: ${doc.data().phone}</div>
+          <div class="card-panel teal lighten-2">Bio: ${doc.data().bio}</div>
+          <div class="green-text card-panel lime lighten-5">Role: ${user.admin ? 'Technician' : 'Lecturer'}</div>
         `;
         accountDetails.innerHTML = html;
       });

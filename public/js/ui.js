@@ -54,6 +54,7 @@ const tickets = document.querySelector('.tickets');
         <div class="card-panel ticket white row" data-id="${id}">
                 <img src="/public/img/broken-pc.png" alt="ticket thumb">
                 <div class="ticket-details">
+                    <div class="ticket-title">${id}</div>
                     <div class="ticket-title">${data.category}</div>
                     <div class="ticket-desc">${data.description}</div>
                     <div class="ticket-desc">${data.location}</div>
@@ -63,7 +64,7 @@ const tickets = document.querySelector('.tickets');
                     <i class="material-icons" data-id="${id}">delete_outline</i>
                 </div>
                 <div class="ticket-update btn-floating yellow waves-effect right !important" >
-                    <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
+                    <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
                 </div>
         </div>
         `; 
@@ -72,16 +73,44 @@ const tickets = document.querySelector('.tickets');
 
     };
 
-    // // update ticket
-    // const updateTicket = (data, id) => {
-        
-    // }
-
   // remove ticket from DOM
   const removeTicket = (id) => {
     const ticket = document.querySelector( `.ticket[data-id=${id}]`);
-    ticket.remove();
+    if(ticket != null){
+        ticket.remove();
+    }
   }
+
+  //update assetPC data: what happen after update
+    const updateTicket = () => {
+        // if (tickets){
+        //     const htmlTicket = `
+        //     <div class="card-panel ticket white row" data-id="${id}">
+        //             <img src="/public/img/broken-pc.png" alt="ticket thumb">
+        //             <div class="ticket-details">
+        //                 <div class="ticket-title">${id}</div>
+        //                 <div class="ticket-title">${data.category}</div>
+        //                 <div class="ticket-desc">${data.description}</div>
+        //                 <div class="ticket-desc">${data.location}</div>
+        //                 <div class="ticket-desc">${data.type}</div>
+        //             </div>
+        //             <div class="ticket-delete btn-floating red waves-effect right !important">
+        //                 <i class="material-icons" data-id="${id}">delete_outline</i>
+        //             </div>
+        //             <div class="ticket-update btn-floating yellow waves-effect right !important" >
+        //                 <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+        //             </div>
+        //     </div>
+        //     `; 
+        //     tickets.innerHTML += htmlTicket;
+        //     }
+        // setTimeout("location.reload(true);", 100);
+        //close modal
+        const modalTick = document.querySelector('#modal-editTicket');
+        M.Modal.getInstance(modalTick).close();
+
+    }
+
 
 
 
@@ -160,7 +189,11 @@ function createCustomAlert(txt) {
     btn.appendChild(d.createTextNode(ALERT_BUTTON_TEXT));
     btn.href = "#";
     btn.focus();
-    btn.onclick = function() { removeCustomAlert();return false; }
+    btn.onclick = function() { 
+        removeCustomAlert();
+        setTimeout("location.reload(true);", 100);
+        // return false; 
+    }
 
     alertObj.style.display = "block";
 

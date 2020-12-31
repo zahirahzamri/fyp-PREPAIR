@@ -45,9 +45,9 @@
         <!-- navigation -->
         <ul class="right hide-on-med-and-down">
             <li class="logged-in" style="display: none;"><a href="/public/pages/asset/mainPage.html"                    class="styleNav">Home</a></li>
-            <li class="admin"     style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown1"  class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li class="admin"     style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown1"  class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
             <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html"                            class="styleNav">Tickets</a></li>
-            <li class="logged-in" style="display: none;"><a class="dropdown-trigger" href="#!" data-target="dropdown2"  class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li class="logged-in" style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown2"  class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
             <!-- <li class="logged-in" style="display: none;"><a href="/public/index.html"                                   class="right styleNav" id="logout">Log out<i class="material-icons left">lock_open</i></a></li> -->
             <li class="logged-in" style="display: none;"><a href="/public/index.html" class="right styleNav" id="logout">Log out</a></li>
         </ul>
@@ -76,7 +76,7 @@
       <div class="modal-content center-align">
           <h4>User Profile</h4><br />
           <div class="account-details"></div>
-          <img src="https://via.placeholder.com/150" class="ui image centered" id="img">
+          <img src="https://alscofirstaid.com.au/wp-content/uploads/2014/01/placeholder-150x150.png" class="ui image centered" id="img">
       </div>
   </div>
   <!-- ADD TECHNICIAN USER MODAL -->
@@ -244,7 +244,8 @@
   <script>
       $(document).ready(function(){
         $('select').formSelect();
-        $(".dropdown-trigger").dropdown({
+        $(".dropdown-trigger").dropdown();
+        $(".dropdown-trigger1").dropdown({
                 coverTrigger: false,
                 inDuration: 300,
                 outDuration: 225,
