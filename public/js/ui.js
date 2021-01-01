@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // add ticket
     const forms = document.querySelectorAll('.ticket-form');
     M.Sidenav.init(forms, {edge: 'right'});
+
 });
 
 // INCIDENT REPORT PART - ticket
@@ -52,26 +53,49 @@ const tickets = document.querySelector('.tickets');
         if (tickets){
         const htmlTicket = `
         <div class="card-panel ticket white row" data-id="${id}">
-                <img src="/public/img/broken-pc.png" alt="ticket thumb">
-                <div class="ticket-details">
-                    <div class="ticket-title">${id}</div>
-                    <div class="ticket-title">${data.category}</div>
-                    <div class="ticket-desc">${data.description}</div>
-                    <div class="ticket-desc">${data.location}</div>
-                    <div class="ticket-desc">${data.type}</div>
-                </div>
-                <div class="ticket-delete btn-floating red waves-effect right !important">
+            <div class="row card-panel">        
+            <div class="ticket-details center-align">
+                <div class="ticket-title"></div>
+                <div class="ticket-title">[ ${data.type} ] ${data.category}</div>
+                <div class="ticket-desc">Description: ${data.description}</div>
+                <div class="ticket-desc">Location: ${data.location}</div>
+                <div class="ticket-desc">Date: 1 Jan 2021</div>
+                <div class="ticket-desc">Ticket ID: ${id} </div>
+                <div class="ticket-desc col s12" style="margin: 10px; padding: 10px;text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: Pending </div>
+            </div>
+            <div class=" center">
+                <div class="ticket-delete btn-floating red waves-effect center !important">
                     <i class="material-icons" data-id="${id}">delete_outline</i>
                 </div>
-                <div class="ticket-update btn-floating yellow waves-effect right !important" >
+                <div class="ticket-update btn-floating yellow waves-effect center !important" >
                     <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
                 </div>
+            </div>
+            </div>
         </div>
         `; 
         tickets.innerHTML += htmlTicket;
         }
 
     };
+// <img src="/public/img/broken-pc.png" alt="ticket thumb">
+{/* <div class="card-panel ticket white row" data-id="${id}">
+                
+<div class="ticket-details">
+    <div class="ticket-title"></div>
+    <div class="ticket-title">[ ${data.type} ] ${data.category}</div>
+    <div class="ticket-desc">Ticket ID: ${id} </div>
+    <div class="ticket-desc">Description: ${data.description}</div>
+    <div class="ticket-desc">Location: ${data.location}</div>
+    
+</div>
+<div class="ticket-delete btn-floating red waves-effect right !important">
+    <i class="material-icons" data-id="${id}">delete_outline</i>
+</div>
+<div class="ticket-update btn-floating yellow waves-effect right !important" >
+    <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+</div>
+</div> */}
 
   // remove ticket from DOM
   const removeTicket = (id) => {
@@ -229,7 +253,7 @@ const renderAssetPC = (data, id) => {
                         <div class="assetPC-location col s6">Location: ${data.Location}</div>
                     </div>
                     <div class="row">
-                        <div class="assetPC-status col s12" style="text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.Status}</div>
+                        <div class="assetPC-status col s12" style="margin: 10px; padding: 10px;text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.Status}</div>
                     </div>
                 </div>
                 <div class="assetPC-delete-update center">
@@ -283,7 +307,7 @@ const renderAssetKB = (data, id) => {
                         <div class="assetKB-location col s6">Location: ${data.KBLocation}</div>
                     </div>
                     <div class="row">
-                        <div class="assetKB-status col s12" style="text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.KBStatus}</div>
+                        <div class="assetKB-status col s12" style="margin: 10px; padding: 10px; text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.KBStatus}</div>
                     </div>
                 </div>
                 <div class="assetKB-delete-update center">
@@ -331,7 +355,7 @@ const renderAssetMS = (data, id) => {
                         <div class="assetMS-location col s6">Location: ${data.MSLocation}</div>
                     </div>
                     <div class="row">
-                        <div class="assetMS-status col s12" style="text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.MSStatus}</div>
+                        <div class="assetMS-status col s12" style="margin: 10px; padding: 10px; text-align: center; color: cadetblue; background-color: #B0C4DE; font-weight: bold">Status: ${data.MSStatus}</div>
                     </div>
                 </div>
                 <div class="assetMS-delete-update center">

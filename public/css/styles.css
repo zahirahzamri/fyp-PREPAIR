@@ -97,7 +97,42 @@ nav-wrapper ul .material-icons{
     text-decoration: underline;
 } */
 
-
+/* button radio */
+#radio-toolbar {
+    margin: 7px;
+    color: black !important;
+  }
+  
+  #radio-toolbar input[type="radio"] {
+    position: fixed;
+    width: 0;
+    color: black ;
+  }
+  
+  #radio-toolbar label {
+    display: inline-block;
+    background-color: #ddd;
+    padding: 10px 10px;
+    font-family: sans-serif, Arial;
+    font-size: 16px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    
+  }
+  
+  .radio-toolbar label:hover {
+    background-color: #dfd;
+  }
+  
+  #radio-toolbar input[type="radio"]:focus + label {
+      border: 2px dashed #444;
+  }
+  
+  #radio-toolbar input[type="radio"]:checked + label {
+      background-color:  #26a69a;
+      color: white !important;
+      border-color: #0d47a1;
+  }
 
 
 

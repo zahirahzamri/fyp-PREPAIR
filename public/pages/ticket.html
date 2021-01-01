@@ -106,10 +106,10 @@
       <!-- <ul class="collapsible z-depth-0 ticket" style="border: none;"></ul> -->
       <h6 class="center">Tickets</h6>
     </div>
-
+    <!-- ADD TICKET BUTTON -->
     <div class="center">
-      <a class="waves-light btn-large sidenav-trigger" href="#ticket-form">
-        <i class="material-icons left">add</i>Ticket</a>
+      <a class="btn-floating btn-small btn-large sidenav-trigger" href="#ticket-form">
+        <i class="material-icons">add</i></a>
     </div>
 
     <!-- EDIT TICKET MODAL -->
@@ -151,21 +151,34 @@
       <form class="add-ticket container section">
         <h6 >New Ticket</h6>
         <div class="divider"></div>
+        <div id="radio-toolbar">
+          <input type="radio" id="radio-incident" name="type" value="Incident" required>
+          <label for="radio-incident">Incident</label>
+      
+          <input type="radio" id="radio-request" name="type" value="Request">
+          <label for="radio-request">Request</label>
+        </div>
+        <p>&nbsp;</p>
         <div class="input-field">
-          <input placeholder="e.g. Wifi issues" id="category" type="text" class="validate">
-          <label for="category">Category</label>
+          <input placeholder="e.g. Wifi issues" id="category" type="text" class="validate" required>
+          <label for="category">Service Category</label>
         </div>
         <div class="input-field">
-          <input placeholder="e.g. Problematic wifi" id="description" type="text" class="validate">
+          <input placeholder="e.g. Problematic wifi" id="description" type="text" class="validate" required> 
           <label for="description">Description</label>
         </div>
         <div class="input-field">
-          <input placeholder="e.g. LR14" id="location" type="text" class="validate">
-          <label for="location">location</label>
+          <input placeholder="e.g. LR14" id="location" type="text" class="autocomplete validate" required>
+          <label for="location">Location</label>
         </div>
-        <div class="input-field">
+        <!-- <div class="input-field">
           <input placeholder="incident/request" id="type" type="text" class="validate">
           <label for="type">type</label>
+        </div> -->
+        <!-- upload picture -->
+        <label>Upload Picture</label>
+        <div class="input-field">
+          <input type="file" id="ticket-pic" onchange="chooseFile(event)"/>
         </div>
 
         <div class="input-field center">
@@ -219,6 +232,22 @@
                 gutter: 0,  //spacing from edge
                 alignment: 'right'
             });
+        });
+
+        $(document).ready(function(){
+          $('input.autocomplete').autocomplete({
+            data: {
+              "LR14": null,
+              "CISCO Lab": null,
+              "General Office": null,
+              "LR14A": null,
+              "Lab 3.1": null,
+              "Operation Room, Level 1": null,
+              "Resource Center": null,
+              "Lecturer room": null,
+              "MPH": null,
+            },
+          });
         });
     </script>
     
