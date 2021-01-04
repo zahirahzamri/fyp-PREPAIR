@@ -214,12 +214,12 @@ const renderAssetKB = (data, id) => {
             <div class="card-panel assetKB white row" data-id="${id}">
                 <div class="assetKB-details">
                     <div class="row" style="text-align: left;">           
-                        <div class="assetKB-name col s6">Asset Name: ${data.KBassetName}</div>
-                        <div class="assetKB-manufacturer col s6">Manufacturer: ${data.KBmanufacturer}</div>
+                        <div class="assetKB-name col s6"><b>Asset Name:</b> ${data.KBassetName}</div>
+                        <div class="assetKB-manufacturer col s6"><b>Manufacturer:</b> ${data.KBmanufacturer}</div>
                     </div>
                     <div class="row" style="text-align: left;">
-                        <div class="assetKB-brand col s6">Brand: ${data.KBbrandName}</div>
-                        <div class="assetKB-location col s6">Location: ${data.KBLocation}</div>
+                        <div class="assetKB-brand col s6"><b>Brand:</b> ${data.KBbrandName}</div>
+                        <div class="assetKB-location col s6"><b>Location:</b> ${data.KBLocation}</div>
                     </div>
                 </div>
                 <div class="assetKB-delete-update inline">
@@ -229,7 +229,7 @@ const renderAssetKB = (data, id) => {
                         </div>
                         <div class="col s3 right">
                             <div class="assetKB-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
-                                <i class="material-icons modal-trigger" data-id="${id} data-target="modal-deleteKB">delete_outline</i>
+                                <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteKB">delete_outline</i>
                             </div>
                             <div class="assetKB-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
                                 <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editKB">edit</i>
@@ -267,12 +267,12 @@ const renderAssetMS = (data, id) => {
             <div class="card-panel assetMS white row" data-id="${id}">
                 <div class="assetMS-details">
                     <div class="row" style="text-align: left;">           
-                        <div class="assetMS-name col s6">Asset Name: ${data.MSassetName}</div>
-                        <div class="assetMS-manufacturer col s6">Manufacturer: ${data.MSmanufacturer}</div>
+                        <div class="assetMS-name col s6"><b>Asset Name:</b> ${data.MSassetName}</div>
+                        <div class="assetMS-manufacturer col s6"><b>Manufacturer:</b> ${data.MSmanufacturer}</div>
                     </div>
                     <div class="row" style="text-align: left;">
-                        <div class="assetMS-brand col s6">Brand: ${data.MSbrandName}</div>
-                        <div class="assetMS-location col s6">Location: ${data.MSLocation}</div>
+                        <div class="assetMS-brand col s6"><b>Brand:</b> ${data.MSbrandName}</div>
+                        <div class="assetMS-location col s6"><b>Location:</b> ${data.MSLocation}</div>
                     </div>
                     
                 </div>
@@ -283,7 +283,7 @@ const renderAssetMS = (data, id) => {
                         </div>
                         <div class="col s3 right">
                             <div class="assetMS-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
-                                <i class="material-icons modal-trigger" data-id="${id} data-target="modal-deleteMS">delete_outline</i>
+                                <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteMS">delete_outline</i>
                             </div>
                             <div class="assetMS-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
                                 <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editMS">edit</i>
@@ -541,7 +541,7 @@ const tickets = document.querySelector('.tickets');
                         <div class="ticket-desc">${data.type}</div>
                     </div>
                     <div class="ticket-delete btn-floating red waves-effect right !important">
-                        <i class="material-icons" data-id="${id}">delete_outline</i>
+                        <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
                     </div>
                     <div class="ticket-update btn-floating orange waves-effect right !important" >
                         <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
@@ -561,7 +561,7 @@ const tickets = document.querySelector('.tickets');
         }
     }
 
-    //update assetPC data: what happen after update
+    //update ticket data: what happen after update
     const updateTicket = () => {
         // if (tickets){
         //     const htmlTicket = `

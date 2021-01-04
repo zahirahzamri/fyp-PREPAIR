@@ -68,7 +68,6 @@ if(formTicket){
     // });
 }
 
-
 // update and delete a ticket
 const ticketContainer = document.querySelector('.tickets');
 if(ticketContainer){
@@ -78,9 +77,24 @@ if(ticketContainer){
         if(evt.target.textContent === "delete_outline"){
             // onclick = "return confirm('Are you sure you want to delete this item?');"
             const id = evt.target.getAttribute('data-id');
-            db.collection('ticket').doc(id).delete();
+            // db.collection('ticket').doc(id).delete();
+
+            const formDel = document.querySelector('.delete-Ticket');
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelTicket');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('ticket').doc(id).delete();
+                        window.location.reload();            
+                    }));
+                });
+            }
         }
 
+        //UPDATE TICKET
         if(evt.target.textContent === "edit"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             const updateTicket = document.querySelector('.edit-ticket');
@@ -266,7 +280,8 @@ if(assetPCcontainer){
 
                     if(btnDel.addEventListener('click', evt => {
                         evt.preventDefault();
-                        db.collection('asset').doc(idPC).delete();            
+                        db.collection('asset').doc(idPC).delete(); 
+                        window.location.reload();           
                     }));
                 });
             }
@@ -323,11 +338,8 @@ if(assetPCcontainer){
                 
                     db.collection('asset').doc(idPC2)
                         .update(newAssetPC)
-                            .then(docRef => {
-                                // console.log('Document written with ID: ', docRef.id);
-                                console.log('in db.js: UPDATEEEEEE!!');
-                            })
-                            .catch(err => console.log(err));
+                        .then(alert("Successfully update asset PC"))
+                        .catch(err => console.log(err));
                     
                     //to reset the form after submitting
                     // formUpdate.assetName.value    = '';
@@ -391,6 +403,7 @@ if(assetKBcontainer){
                     if(btnDel2.addEventListener('click', evt => {
                         evt.preventDefault();
                         db.collection('assetKB').doc(id2).delete();            
+                        window.location.reload();
                     }));
                 });
             }
@@ -435,10 +448,9 @@ if(assetKBcontainer){
                         KBStatus      : formUpdateKB.KBStatus.value 
                     };
                 
-                    db.collection('assetKB').doc(idKB).update(newAssetKB)
-                        .then(docRef => {
-                            console.log('in db.js: Keyboard asset UPDATE!!');
-                        })
+                    db.collection('assetKB').doc(idKB)
+                        .update(newAssetKB)
+                        .then(alert("Successfully update asset Keyboard"))
                         .catch(err => console.log(err));
                     
                     //to reset the form after submitting
@@ -497,6 +509,7 @@ if(assetMScontainer){
                     if(btnDel3.addEventListener('click', evt => {
                         evt.preventDefault();
                         db.collection('assetMS').doc(id3).delete();
+                        window.location.reload();
                     }));
                 });
             }
@@ -540,10 +553,9 @@ if(assetMScontainer){
                         MSStatus      : formUpdateMS.MSStatus.value 
                     };
                 
-                    db.collection('assetMS').doc(idMS).update(newAssetMS)
-                        .then(docRef => {
-                            console.log('in db.js: Mouse asset UPDATE!!');
-                        })
+                    db.collection('assetMS').doc(idMS)
+                        .update(newAssetMS)
+                        .then(alert("Successfully update asset Mouse"))
                         .catch(err => console.log(err));
                     
                     //to reset the form after submitting

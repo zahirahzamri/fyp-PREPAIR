@@ -142,12 +142,19 @@
         <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
     </header>
 
+
+    <div class="content container z-depth-1 grey lighten-5">
+        <div class="row">
+            <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
+        </div>
     
+        <div class="row">
+            <p class="text-title container">Report</p>
+            <p class="text-desc container">List of all assets and tickets in database</p>
+        </div>
 
-    <div class="container z-depth-1 container whole-box">
-        <p class="text-title" style="text-align: center;">Report</p>
-
-        <div class="sort-filter container">
+        <!-- function -->
+        <div class="row sort-filter container">
             <div class="row">
                 <!-- Function: Search asset name -->
                 <div class="col s6 inline">
@@ -176,8 +183,8 @@
             
         </div>
 
-        
-        <div class="reportList">
+        <!-- Report section -->
+        <div class="row reportList">
             <table class="allAsset highlight responsive-table" id="reportTable">  
               <thead>
                 <th>Asset Name</th>

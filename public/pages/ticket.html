@@ -107,11 +107,13 @@
       </div>
     
       <div class="row">
-        <h5 style="text-align: center; font-weight: bolder;">Tickets</h5>
+        <p class="text-title container">Tickets</p>
+        <p class="text-desc container">List of tickets received</p>
       </div>
 
-      <div class="row center">
-        <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.."></i>
+      <!-- Tak jadi lagi search function kat sini -->
+      <div class="row container">
+        <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.." style="width: 100%;"></i>
       </div>
 
       <div class="row">
@@ -137,31 +139,55 @@
         <div class="modal-content center-align">
           <div id="editTicket-form" class="ticket-form">
             <form class="edit-ticket container section">
-            <h6 >Update Ticket</h6>
-            <div class="divider"></div>
-            <div class="input-field">
-                <input placeholder="doc.data().category" id="category" type="text" class="validate">
-                <label for="category">Category</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="${data.description}" id="description" type="text" class="validate">
-                <label for="description">Description</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="${data.location}" id="location" type="text" class="validate">
-                <label for="location">location</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="${data.type}" id="type" type="text" class="validate">
-                <label for="type">type</label>
-            </div>
-    
-            <div class="input-field center">
-                <button class="btn-small">Add</button>
-            </div>
+              <h6 >Update Ticket</h6>
+              <div class="divider"></div>
+              <div class="input-field">
+                  <input placeholder="doc.data().category" id="category" type="text" class="validate">
+                  <label for="category">Category</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.description}" id="description" type="text" class="validate">
+                  <label for="description">Description</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.location}" id="location" type="text" class="validate">
+                  <label for="location">location</label>
+              </div>
+              <div class="input-field">
+                  <input placeholder="${data.type}" id="type" type="text" class="validate">
+                  <label for="type">type</label>
+              </div>
+      
+              <!-- <div class="input-field center"><button class="btn-small">Add</button></div> -->
+              <div class="input-field inline center">
+                <button class="btn-small updatebtn" type="submit" id="btnUpdateTicket">Update</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket">Cancel</button>
+              </div>
             </form>
         </div>
         </div>
+    </div>
+
+    <!-- DELETE TICKET MODAL -->
+    <div id="modal-deleteTicket" class="modal">
+      <div class="modal-content center-align">
+        <div id="deleteTicket-form" class="delFormTicket">
+          <form class="delete-Ticket container section">
+            <h6>Delete Ticket</h6>
+            <div class="divider"></div>
+
+            <div class="row">
+              <p>Are you sure you want to delete this ticket?</p>
+            </div>
+            <div class="row">
+              <div class="clearfix inline center">
+                <button class="btn-small deletebtn" id="btnDelTicket" type="submit">Delete</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket2">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
 
@@ -253,13 +279,17 @@
                 alignment: 'right'
             });
 
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-
-                $(".tickets").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
+            //close modal when click 'Cancel' button
+            const btn = document.getElementById("btnCancelTicket");
+            const btn2 = document.getElementById("btnCancelTicket2");
+            btn.addEventListener('click', evt => {
+              const closeModalTicket = document.querySelector('#modal-editTicket');
+              M.Modal.getInstance(closeModalTicket).close();
+            })
+            btn2.addEventListener('click', evt => {
+              const closeModalTicket2 = document.querySelector('#modal-deleteTicket');
+              M.Modal.getInstance(closeModalTicket2).close();
+            })
 
         });
 
@@ -277,6 +307,16 @@
               "MPH": null,
             },
           });
+        });
+
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $(".tickets").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
         });
     </script>
     

@@ -174,7 +174,7 @@ nav-wrapper ul .material-icons{
 }
 .buttonStyle{
     display: block;
-    margin: 20px;
+    margin: 5%;
 }
 .text-title{
     padding-top: 15px;
@@ -183,6 +183,26 @@ nav-wrapper ul .material-icons{
     letter-spacing: 2px;
     text-decoration: underline;
     font-size: 25px;
+    margin-bottom: 0;
+}
+.text-desc{
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 1.2%;
+    margin-bottom: 0;
+}
+.textInTabTitle{
+    font-size: 20px;
+    font-weight: bolder;
+    color: var(--title);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.text2Tab{
+    color:var(--primary);
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 
@@ -257,16 +277,22 @@ nav-wrapper ul .material-icons{
 /* mainAsset.html */
 .buttonAsset{
     background-color: white;
+    color: var(--title);
     border: 5px #81d4fa;
+    border-radius: 10px;
     text-transform: uppercase;
     font-weight: bold;
     margin-bottom: 2%;
+    width: 50%;
+    display: inline-block;
 }
 .buttonAsset:hover{
-    background-color: #81d4fa;
+    /* background-color: #81d4fa; */
+    background-color: var(--secondary);
     color: white;
+    opacity: 1;
+    border-radius: 10px;
     text-transform: uppercase;
-    font-size: 20px;
     font-weight: bolder;
 }
 .tabStyle{
@@ -420,8 +446,8 @@ nav-wrapper ul .material-icons{
     display: inline-block;
 }
 
-/* viewAssetDetails.html: modal styling*/
-.cancelbtn, .deletebtn, .updatebtn {
+/* viewAssetDetails.html: modal styling & addAsset.html button styling*/
+.cancelbtn, .deletebtn, .updatebtn{
     float: left;
     width: 50%;
 }
@@ -448,6 +474,26 @@ nav-wrapper ul .material-icons{
 }
 .deletebtn:hover {
     background-color: #f44336;
+    opacity: 1;
+}
+.submitbtn{
+    opacity: 0.8;
+    color: var(--title);
+    background-color: #32CD32;
+}
+.submitbtn:hover{
+    opacity: 1;
+    color: var(--title);
+    background-color: #32CD32;
+}
+.resetbtn{
+    background-color: #DCDCDC;
+    color: var(--title);
+    opacity: 0.7;
+}
+.resetbtn:hover{
+    background-color: #DCDCDC;
+    color: var(--title);
     opacity: 1;
 }
 .modal-content {

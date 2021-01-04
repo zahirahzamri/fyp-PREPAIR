@@ -121,11 +121,14 @@
     </header>
 
     <div class="container z-depth-1 content">
-        <p class="text-title" style="text-align: center;">Assets</p>
-        <p style="text-align: center;">Add, View and Update the asset</p>
+        <div class="row" style="margin-top: 5%;">
+            <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
+            <p class="text-title container">Assets</p>
+            <p class="text-desc container">Add, View and Update the asset</p>
+        </div>
 
-        <section id="selectLevelOrAsset">
-            <div class="row content">
+        <div class="row" style="margin-top: 0;">
+            <section id="selectLevelOrAsset">
                 <div class="row">
                     <div class="col s12 l12 container">
                         <!-- tabs -->
@@ -134,39 +137,44 @@
                             <li class="tab col s6 tabStyle"><a href="#add" class="indigo-text text-darken-4">Add Asset</a></li>
                         </ul>
                         <div id="view" class="col s12 container">
-                            <p class="flow-text indigo-text text-darken-4">View Asset</p>
-                            <p class="indigo-text">By Category:</p>
+                            <p class="textInTabTitle flow-text">View Asset</p>
+                            <hr style="width: 50%;">
+
+                            <div class="col" style="float: left; width: 50%;">
+                                <p class="text2Tab">By Category:</p>
                                 <!-- <p>Click the button</p> -->
                                 <div class="btn-large s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetByType.html" class="waves-effect whitesmoke indigo-text text-darken-4">PC</a></div>
                                 <div class="btn-large s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetByType.html" class="waves-effect whitesmoke indigo-text text-darken-4">KEYBOARD</a></div>
                                 <div class="btn-large s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetByType.html" class="waves-effect whitesmoke indigo-text text-darken-4">MOUSE</a></div>
+                            </div>
 
-                            <hr>
-                            
-                            <p class="indigo-text">By Level:</p>
+                            <div class="col" style="float: left; width: 50%;">
+                                <p class="text2Tab">By Level:</p>
                                 <!-- <p>Choose the location:</p> -->
                                 <div class="btn-large s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetLocation.html" class="waves-effect whitesmoke indigo-text text-darken-4">LEVEL 1</a></div>
                                 <div class="btn-large disabled s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetLocation.html" class="waves-effect whitesmoke indigo-text text-darken-4">LEVEL 2</a></div>
                                 <div class="btn-large disabled s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetLocation.html" class="waves-effect whitesmoke indigo-text text-darken-4">LEVEL 3</a></div>
                                 <div class="btn-large disabled s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetLocation.html" class="waves-effect whitesmoke indigo-text text-darken-4">LEVEL 4</a></div>
                                 <div class="btn-large disabled s6 m3 buttonAsset"><a href="/public/pages/asset/viewAssetLocation.html" class="waves-effect whitesmoke indigo-text text-darken-4">LEVEL 5</a></div>
+                            </div>
+                            
+                            
                         </div>
                         <div id="add" class="col s12 container">
-                            <p class="flow-text indigo-text text-darken-4">Add Asset</p>
-                            <p>The button will go to page type of assets you want to add into the system</p>
-                            <!-- <div class="btn-large container buttonAsset"> -->
+                            <p class="textInTabTitle flow-text">Add Asset</p>
+                            <hr style="width: 50%;">
+                            <p class="text2Tab">Asset type: PC, Keyboard and Mouse</p>
                             <div class="container">
-                                <div class="buttonStyle buttonAsset btn-large"><a href="/public/pages/asset/addAsset.html"       class="waves-effect indigo-text text-darken-4">Add Asset</a></div>
+                                <div class="buttonAsset btn-large"><a href="/public/pages/asset/addAsset.html"       class="waves-effect indigo-text text-darken-4">Add Asset</a></div>
                                 <!-- <div class="buttonStyle buttonAsset btn-large"><a href="/public/pages/asset/addAssetFormPC.html"       class="waves-effect indigo-text text-darken-4">PC</a></div>
                                 <div class="buttonStyle buttonAsset btn-large"><a href="/public/pages/asset/addAssetFormKeyboard.html" class="waves-effect indigo-text text-darken-4">Keyboard</a></div>
                                 <div class="buttonStyle buttonAsset btn-large"><a href="/public/pages/asset/addAssetFormMouse.html"    class="waves-effect indigo-text text-darken-4">Mouse</a></div> -->
                             </div>
-                                <!-- <a href="/public/pages/asset/addAsset.html" class="waves-effect indigo-text text-darken-4">ADD ASSET</a> -->
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
 
