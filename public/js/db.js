@@ -36,19 +36,33 @@ const formTicket = document.querySelector('.add-ticket');
 if(formTicket){
     formTicket.addEventListener('submit', evt => {
         evt.preventDefault();
-    
+
+        var defaultStatus = "Pending";
         // construct object
         const ticket = {
             category: formTicket.category.value,
             description: formTicket.description.value, 
             location: formTicket.location.value, 
             type: formTicket.type.value, 
-            // timeStamp: timeStamp,
+            status: defaultStatus,
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp()
         };
 
-        db.collection('ticket').add(ticket)
-            .then(alert("Successfully add new ticket! Our technician will reach you out soon"))
-            .catch(err => console.log(err));
+        db.collection('ticket').add(ticket).catch(error => {
+            console.log(error.message);
+          }).then(res => {
+            const user = auth.currentUser;
+            store.ref('users/' + user.uid + '/ticket.jpg').put(file).then(function () {
+              console.log('successfully upload image');
+              // return user.updateProfile({
+              //   photoURL: 'users/' + user.uid + '/profile.jpg',
+              // })
+            }).catch(error => {
+              console.log(error.message);
+            })
+          })
+            .then(alert("Successfully add new ticket!"))
+            .catch(err => console.log(err.message));
         
             formTicket.category.value = '';
             formTicket.description.value = '';

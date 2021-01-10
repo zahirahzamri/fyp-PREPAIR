@@ -107,7 +107,7 @@ nav-wrapper ul .material-icons{
     border-radius: 4px; 
 }
 .radio-toolbar label:hover {background-color: #dfd;}
-#radio-toolbar input[type="radio"]:focus + label {border: 2px dashed #444;}
+#radio-toolbar input[type="radio"]:focus + label {border: 2px dashed red;}
 #radio-toolbar input[type="radio"]:checked + label {
     background-color:  #26a69a;
     color: white !important;

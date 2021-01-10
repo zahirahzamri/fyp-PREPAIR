@@ -530,21 +530,32 @@ const tickets = document.querySelector('.tickets');
     // render ticket data
     const renderTicket = (data, id) => {
         if (tickets){
+            // store.ref('users/' + id + '/ticket.jpg').getDownloadURL().then(imgUrl => {
+            //     img.src = imgUrl;
+            // })
             const htmlTicket = `
                 <div class="card-panel ticket white row" data-id="${id}">
-                    <img src="/public/img/broken-pc.png" alt="ticket thumb">
-                    <div class="ticket-details">
-                        <div class="ticket-title">${id}</div>
-                        <div class="ticket-title">${data.category}</div>
-                        <div class="ticket-desc">${data.description}</div>
-                        <div class="ticket-desc">${data.location}</div>
-                        <div class="ticket-desc">${data.type}</div>
+                    <div class="row">
+                       <div class="col">
+                        <img src="/public/img/broken-pc.png" class="ui image centered" id="img">
+                       </div>
+                        <div class="ticket-details col">
+                        <table>
+                            <tr> <td> Ticket id </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
+                            <tr> <td> Category </td> <td> : </td> <td><div class="ticket-title">${data.category}</div> </td>
+                            <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
+                            <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
+                            <tr> <td> Ticket Type </td> <td> : </td> <td><div class="ticket-desc">${data.type}</div> </td>
+                        </table>    
+                        </div>
                     </div>
-                    <div class="ticket-delete btn-floating red waves-effect right !important">
-                        <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
-                    </div>
-                    <div class="ticket-update btn-floating orange waves-effect right !important" >
-                        <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                    <div class="row">
+                        <div class="ticket-delete btn-floating red waves-effect right !important">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        </div>
+                        <div class="ticket-update btn-floating orange waves-effect right !important" >
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                        </div>
                     </div>
                 </div>
             `; 
@@ -586,7 +597,7 @@ const tickets = document.querySelector('.tickets');
         //     }
         // setTimeout("location.reload(true);", 100);
         //close modal
-        const modalTick = document.querySelector('#modal-editTicket');
-        M.Modal.getInstance(modalTick).close();
+        // const modalTick = document.querySelector('#modal-editTicket');
+        // M.Modal.getInstance(modalTick).close();
 
     }
