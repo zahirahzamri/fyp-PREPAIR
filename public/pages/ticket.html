@@ -105,22 +105,64 @@
         <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
         <button class="input-field btn right btnNavigation"><a href="/public/pages/addTicket.html" class="white-text sidenav-trigger"><i class="material-icons left">add</i>New Ticket</a></button>
       </div>
-    
-      <div class="row">
-        <p class="text-title container">Tickets</p>
-        <p class="text-desc container">List of tickets received</p>
-      </div>
+      <section  id="selectTicketType">
+        <div class="row">
+          <div class="col s12 l12">
+            <!-- tabs -->
+            <ul class="tabs flow-text">
+              <li class="tab col s3"><a href="#Pending"  class="active indigo-text text-darken-4">Pending</a></li>
+              <li class="tab col s3"><a href="#inProgress"  class="indigo-text text-darken-4">In progress</a></li>
+              <li class="tab col s3"><a href="#Closed"  class="indigo-text text-darken-4">Closed</a></li>
+              <li class="tab col s3"><a href="#Overdue" class="indigo-text text-darken-4">Overdue</a></li>
+            </ul>
 
-      <!-- Tak jadi lagi search function kat sini -->
-      <div class="row container">
-        <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.." style="width: 100%;"></i>
-      </div>
+            <div class="col s12 #B0C4DE" id="Pending">
+              <p class="textInTabTitle flow-text">TICKET TYPE: Pending</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that need to be assigned</p>
 
-      <div class="row">
-        <!-- display tickets -->
-        <div class="tickets container grey-text text-darken-1" style="margin-top: 40px;">
-          <!-- <ul class="collapsible z-depth-0 ticket" style="border: none;"></ul> -->
+              <!-- Tak jadi lagi search function kat sini -->
+              <div class="row container" style="margin-left: 3.5%;">
+                <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.."></i>
+              </div>
+
+              <!-- display tickets -->
+              <div class="tickets container grey-text text-darken-1" style="margin-top: 40px;">
+                
+              </div>
+            </div>
+
+            <div class="col s12 #B0C4DE" id="inProgress">
+              <p class="textInTabTitle flow-text">TICKET TYPE: In Progress</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that still in progress</p>
+
+              <!-- display tickets -->
+              LIST OF IN PROGRESS
+            </div>
+
+            <div class="col s12 #B0C4DE" id="Closed">
+              <p class="textInTabTitle flow-text">TICKET TYPE: Closed</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets is closed</p>
+
+              <!-- display tickets -->
+              LIST OF CLOSED TICKETS
+            </div>
+
+            <div class="col s12 #B0C4DE" id="Overdue">
+              <p class="textInTabTitle flow-text">TICKET TYPE: Overdue</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that is overdue</p>
+
+              <!-- display tickets -->
+              LIST OF OVERDUE TICKETS
+            </div>
+
+          </div>
         </div>
+      </section>
+    
 
         <!-- ADD TICKET BUTTON -->
         <div class="center" style="margin-top:3%; margin-bottom: 10%;">
@@ -139,29 +181,43 @@
         <div class="modal-content center-align">
           <div id="editTicket-form" class="ticket-form">
             <form class="edit-ticket container section">
-              <h6 >Update Ticket</h6>
+              <h6 >Assign Person-in-Charge</h6>
               <div class="divider"></div>
+
               <div class="input-field">
-                  <input placeholder="doc.data().category" id="category" type="text" class="validate">
+                <input disabled value="" placeholder="${data.date}" id="date" type="text" class="validate">
+                <label for="date">Date</label>
+              </div>
+              <div class="input-field">
+                <input disabled value="" placeholder="${data.type}" id="type" type="text" class="validate">
+                <label for="type">Type</label>
+              </div>
+              <div class="input-field">
+                  <input disabled value="" placeholder="${data.category}" id="category" type="text" class="validate">
                   <label for="category">Category</label>
               </div>
               <div class="input-field">
-                  <input placeholder="${data.description}" id="description" type="text" class="validate">
+                  <input disabled value="" placeholder="${data.description}" id="description" type="text" class="validate">
                   <label for="description">Description</label>
               </div>
               <div class="input-field">
-                  <input placeholder="${data.location}" id="location" type="text" class="validate">
-                  <label for="location">location</label>
+                  <input disabled value="" placeholder="${data.location}" id="location" type="text" class="validate">
+                  <label for="location">Location</label>
               </div>
               <div class="input-field">
-                  <input placeholder="${data.type}" id="type" type="text" class="validate">
-                  <label for="type">type</label>
+                <input placeholder="Assign technician" id="pic" type="text" class="validate">
+                <label for="pic">PIC</label>
               </div>
+              <div class="input-field">
+                <input placeholder="write here..." id="remarks" type="text" class="validate">
+                <label for="remarks">Remarks</label>
+              </div>
+              
       
               <!-- <div class="input-field center"><button class="btn-small">Add</button></div> -->
               <div class="input-field inline center">
                 <button class="btn-small updatebtn" type="submit" id="btnUpdateTicket">Update</button>
-                <button class="btn-small cancelbtn" id="btnCancelTicket">Cancel</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket" data-dismiss="modal">Cancel</button>
               </div>
             </form>
         </div>
@@ -263,6 +319,15 @@
 
     <script>
         $(document).ready(function(){
+
+            $('ul.tabs').tabs({
+              // swipeable : true,
+              // responsiveThreshold : Infinity
+            });
+
+            // $(".tabs-content.carousel .carousel-item").css('overflow-y','auto');
+            // $(".tabs-content.carousel .carousel-item").css('height','400px');
+
             $(".dropdown-trigger").dropdown();
             $(".dropdown-trigger1").dropdown({
                 coverTrigger: false,
@@ -287,18 +352,21 @@
               M.Modal.getInstance(closeModalTicket2).close();
             })
 
-        });
-
-        
-        $(document).ready(function(){
+            // search function
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
-                $(".tickets").filter(function() {
+                $(".ticket").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+
         });
+
+        
+        // $(document).ready(function(){
+            
+        // });
     </script>
     
 </body>

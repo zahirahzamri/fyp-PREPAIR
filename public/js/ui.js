@@ -535,17 +535,19 @@ const tickets = document.querySelector('.tickets');
             // })
             const htmlTicket = `
                 <div class="card-panel ticket white row" data-id="${id}">
-                    <div class="row">
-                       <div class="col">
-                        <img src="/public/img/broken-pc.png" class="ui image centered" id="img">
-                       </div>
-                        <div class="ticket-details col">
+                    <div class="row flow-text">
+                    <img src="https://alscofirstaid.com.au/wp-content/uploads/2014/01/placeholder-150x150.png" class="ui image centered" id="img">
+                        <div class="ticket-details flow-text col">
                         <table>
                             <tr> <td> Ticket id </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
+                            <tr> <td> Ticket created </td> <td> : </td> <td><div class="ticket-desc">${data.date}</div> </td>
                             <tr> <td> Category </td> <td> : </td> <td><div class="ticket-title">${data.category}</div> </td>
                             <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
                             <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
                             <tr> <td> Ticket Type </td> <td> : </td> <td><div class="ticket-desc">${data.type}</div> </td>
+                            <tr> <td> PIC </td> <td> : </td> <td><div class="ticket-desc">${data.PIC}</div> </td>
+                            <tr> <td> Remarks </td> <td> : </td> <td><div class="ticket-desc">${data.remarks}</div> </td>
+                            <tr style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
                         </table>    
                         </div>
                     </div>
@@ -554,7 +556,7 @@ const tickets = document.querySelector('.tickets');
                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
                         </div>
                         <div class="ticket-update btn-floating orange waves-effect right !important" >
-                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">assignment_ind</i>
                         </div>
                     </div>
                 </div>

@@ -38,6 +38,11 @@ if(formTicket){
         evt.preventDefault();
 
         var defaultStatus = "Pending";
+        var defaultTechnician = "Not Available";
+        var defaultRemark = "";
+         
+        // const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
+        const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
         // construct object
         const ticket = {
             category: formTicket.category.value,
@@ -45,7 +50,10 @@ if(formTicket){
             location: formTicket.location.value, 
             type: formTicket.type.value, 
             status: defaultStatus,
-            timeStamp: firebase.firestore.FieldValue.serverTimestamp()
+            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+            date: FormattedDate,
+            PIC: defaultTechnician,
+            remarks: defaultRemark, 
         };
 
         db.collection('ticket').add(ticket).catch(error => {
@@ -109,7 +117,7 @@ if(ticketContainer){
         }
 
         //UPDATE TICKET
-        if(evt.target.textContent === "edit"){
+        if(evt.target.textContent === "assignment_ind"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             const updateTicket = document.querySelector('.edit-ticket');
             
@@ -124,6 +132,9 @@ if(ticketContainer){
                         document.getElementById('description').value = doc.data().description;
                         document.getElementById('location').value = doc.data().location;
                         document.getElementById('type').value = doc.data().type;
+                        document.getElementById('date').value = doc.data().date;
+                        document.getElementById('pic').value = doc.data().PIC;
+                        document.getElementById('remarks').value = doc.data().remarks;
                     }
                     // return doc.data().category;
                 }
@@ -138,12 +149,22 @@ if(ticketContainer){
                 updateTicket.addEventListener('submit', evt => {
                     evt.preventDefault();
 
+
+                    var assignPic = "";
+                    if(updateTicket.pic.value !== "Not Available") {
+                        assignPic = "Assigned"
+                    }
+
                     // construct object
                     const newTicket = {
                         category: updateTicket.category.value,
                         description: updateTicket.description.value, 
                         location: updateTicket.location.value, 
-                        type: updateTicket.type.value, 
+                        type: updateTicket.type.value,
+                        date: updateTicket.date.value,
+                        PIC: updateTicket.pic.value,
+                        remarks: updateTicket.remarks.value,
+                        status: assignPic 
                     };
                     
                     db.collection('ticket').doc(id).update(newTicket)
@@ -154,6 +175,9 @@ if(ticketContainer){
                         updateTicket.description.value = '';
                         updateTicket.location.value = '';
                         updateTicket.type.value = '';
+                        updateTicket.date.value = '';
+                        updateTicket.pic.value = '';
+                        updateTicket.remarks.value = '';
                 });
             }
         }

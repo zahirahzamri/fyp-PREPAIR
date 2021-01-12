@@ -320,6 +320,11 @@ nav-wrapper ul .material-icons{
     margin-top: 3%;
 }
 
+/* addAsset.html */
+#selectTicketType .tabs{
+    margin-top: 3%;
+}
+
 /* tickets */
 .ticket-details{
     grid-area: details;
