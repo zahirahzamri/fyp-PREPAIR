@@ -277,7 +277,8 @@ if(form){                                               //use if statement becau
             RAM: form.RAM.value,
             Storage: form.Storage.value,
             Location: form.Location.value,
-            Status: form.Status.value 
+            Status: form.Status.value,
+            PCdashboard: 1
         };
     
         db.collection('asset').add(assetPC)
@@ -295,7 +296,7 @@ if(form){                                               //use if statement becau
         form.Processor.value    = '';
         form.RAM.value          = '';
         form.Storage.value      = '';
-        form.Location.value       = '';
+        form.Location.value     = '';
         form.Status.value       = '';
     });
 };
@@ -609,123 +610,165 @@ if(assetMScontainer){
 }
 
 
+// REPORT PART
 
 
 
 
-//DASHBOARD PART
-// update data: learning from udemy course
+//DASHBOARD PART: learning from udemy course
 
 // select the svg container first
-// const svg = d3.select('.canvas')
-//   .append('svg')
-//     .attr('width', 300)
-//     .attr('height', 300);
+const svg = d3.select('.canvas')
+  .append('svg')
+    .attr('width', 300)
+    .attr('height', 200);
 
-// // create margins & dimensions
-// const margin = {top: 20, right: 20, bottom: 100, left: 100};
-// const graphWidth = 600 - margin.left - margin.right;
-// const graphHeight = 600 - margin.top - margin.bottom;
+// create margins & dimensions
+const margin = {top: 5, right: 5, bottom: 20, left: 20};
+const graphWidth = 300 - margin.left - margin.right;
+const graphHeight = 200 - margin.top - margin.bottom;
 
-// const graph = svg.append('g')
-//   .attr('width', graphWidth)
-//   .attr('height', graphHeight)
-//   .attr('transform', `translate(${margin.left}, ${margin.top})`);
+const graph = svg.append('g')
+  .attr('width', graphWidth)
+  .attr('height', graphHeight)
+  .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-// // create axes groups
-// const xAxisGroup = graph.append('g')
-//   .attr('transform', `translate(0, ${graphHeight})`)
+// create axes groups
+const xAxisGroup = graph.append('g')
+  .attr('transform', `translate(0, ${graphHeight})`)
 
-// xAxisGroup.selectAll('text')
-//   .attr('fill', 'black')
-// //   .attr('transform', 'rotate(-40)')
-//   .attr('text-anchor', 'end');
+xAxisGroup.selectAll('text')
+  .attr('fill', 'black')
+//   .attr('transform', 'rotate(-40)')
+  .attr('text-anchor', 'end');
 
-// const yAxisGroup = graph.append('g');
+const yAxisGroup = graph.append('g');
 
-// const y = d3.scaleLinear()
-//     .range([graphHeight, 0]);
+const y = d3.scaleLinear()
+    .range([graphHeight, 0]);
 
-// const x = d3.scaleBand()
-//   .range([0, graphWidth])
-//   .paddingInner(0.2)
-//   .paddingOuter(0.2);
+const x = d3.scaleBand()
+  .range([0, graphWidth])
+  .paddingInner(0.2)
+  .paddingOuter(0.2);
 
-// // create & call the axes
-// const xAxis = d3.axisBottom(x);
-// const yAxis = d3.axisLeft(y)
-//   .ticks(3);
-// //   .tickFormat(d => d + ' orders');
+// create & call the axes
+const xAxis = d3.axisBottom(x);
+const yAxis = d3.axisLeft(y)
+  .ticks(3);
+//   .tickFormat(d => d + ' orders');
 
 
 
-// // the update function
-// const update = (dataDashboard, size) => {
+//the update function
+const update = (dataDashboard, dataPCGood) => {
 
-//   //1. Update the scales (domains) 
-//   y.domain([0, d3.max(dataDashboard, size)]);
-//   x.domain(dataDashboard.map(item => item.Status));
+    var count1 = 0;
+    var count2 = 0;
+    const array = dataDashboard.map(item => item.Status);  
+    for(var i=0; i < array.length; i++){  
+        var str = "Good";
+        var str2 = "Faulty";
 
-//   //2. Join the data to circs
-//   const rects = graph.selectAll('rect').data(dataDashboard);
+        if(str.localeCompare(array[i])){
+            count1++;
+        }
+        if(str2.localeCompare(array[i])){
+            count2++;
+        }
+    }
+    console.log(dataDashboard.map(item => item.Status));
+    console.log(dataDashboard.map(item => item.Status).length);
+    console.log(count1, count2);
+    console.log(dataPCGood);
 
-//   //3. remove unwanted (if any) shapes using the exit selection
-//   rects.exit().remove();
 
-//   //4. Update the current shapes in current DOM
-//   rects.attr('width', x.bandwidth)
-//     .attr("height", graphHeight - size)
-//     .attr('fill', 'orange')
-//     .attr('x', d => x(d.Status))
-//     .attr('y', size);
+  //1. Update the scales (domains) 
+  y.domain([0, d3.max(dataDashboard, d => d.PCdashboard)]);
+  x.domain(dataDashboard.map(item => item.Status));
 
-//   //5. Append the enter selection to the DOM
-//   rects.enter()
-//     .append('rect')
-//       .attr('width', x.bandwidth)
-//       .attr("height", 0)
-//       .attr('fill', 'orange')
-//       .attr('x', (d) => x(d.Status))
-//       .attr('y',graphHeight);
+  //2. Join the data to circs
+  const rects = graph.selectAll('rect').data(dataDashboard);
+
+  //3. remove unwanted (if any) shapes using the exit selection
+  rects.exit().remove();
+
+  //4. Update the current shapes in current DOM
+  rects.attr('width', x.bandwidth)
+    .attr("height", d => graphHeight - y(d.PCdashboard))
+    .attr('fill', 'orange')
+    .attr('x', d => x(d.Status))
+    .attr('y', d => y(d.PCdashboard));
+
+  //5. Append the enter selection to the DOM
+  rects.enter()
+    .append('rect')
+      .attr('width', x.bandwidth)
+      .attr("height", d => graphHeight - y(d.PCdashboard))
+      .attr('fill', 'orange')
+      .attr('x', (d) => x(d.Status))
+      .attr('y',(d) => y(d.PCdashboard));
  
-//     //call axes
-//   xAxisGroup.call(xAxis);
-//   yAxisGroup.call(yAxis);
+    //call axes
+  xAxisGroup.call(xAxis);
+  yAxisGroup.call(yAxis);
 
-// };
+};
 
 
-// const sizePC = db.collection('asset').onSnapshot((snapshot) => { 
-//     snapshot.size;
-// });
 
-// // var data = [];
-// var dataDashboard = [];
 
-// //get data from firestore
-// db.collection('asset').onSnapshot(res => {
-//     res.docChanges().forEach(change => {
 
-//         const doc = {...change.doc.data(), id: change.doc.id};
+// to push data inside the array
+var dataDashboard = [];
+
+//get data from firestore
+db.collection('asset').onSnapshot(res => {
+    res.docChanges().forEach(change => {
+
+        const doc = {...change.doc.data(), id: change.doc.id};
+        dataDashboard.push(doc);
         
-//         switch (change.type){
-//             case 'added':
-//                 dataDashboard.push(doc); 
-//                 break;
-//             case 'modified':
-//                 const index = dataDashboard.findIndex(item => item.id == doc.id);
-//                 dataDashboard[index] = doc;
-//                 break;
-//             case 'removed':
-//                 dataDashboard = dataDashboard.filter(item => item.id !== doc.id);
-//                 break;
-//             default: break;
+    });
 
-//         }
-//     });
+    update(dataDashboard, dataPCGood);
+});
 
 
+//to push only respective queries in respective array
+var dataPCGood = [];
+var dataPCFaulty = [];
 
-//     update(dataDashboard, sizePC);
+db.collection("asset").where("Status", "==", "Good")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            dataPCGood.push(doc);
+            // console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
 
-// })
+
+// pie chart
+// const dims = {height: 300, width: 300, radius: 150};
+// const cent = {x: (dims.width / 2 + 5), y: (dims.height /2 + 5)};
+
+// const svg2 = d3.select('.canvas2')
+//     .append('svg')
+//     .attr('width', dims.width + 150)
+//     .attr('height', dims.height + 150)
+
+// const graph2 = svg2.append('g')
+//     .attr('transform', `translate(${cent.x}, ${cent.y},)`);
+
+// const pie = d3.pie()
+//     .sort(null)
+//     .value(d => d.assetName);
+
+// const angles = pie([
+//     { assetName: 'PC02'}
+// ])
+

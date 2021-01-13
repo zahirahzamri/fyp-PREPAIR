@@ -512,3 +512,20 @@ nav-wrapper ul .material-icons{
         width: 100%;
     }
 }
+
+/* Report page */
+.sortbtn{
+    display: inline-block;
+    background-color: whitesmoke;
+    color:var(--title);
+    opacity:0.8;
+}
+.sortbtn:hover{
+    display: inline-block;
+    background-color:var(--title);
+    color:white;
+    opacity:1;
+}
+.dropdown-menu label {
+    display: block;
+  }

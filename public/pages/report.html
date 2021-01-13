@@ -57,6 +57,9 @@
             background-color: #666;
             color: white;
         }
+
+        /* dropdown checkboxes */
+
     </style>
 </head>
 <body>
@@ -143,48 +146,60 @@
     </header>
 
 
-    <div class="content container z-depth-1 grey lighten-5">
+    <div class="content container z-depth-1">
         <div class="row">
             <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
-        </div>
-    
-        <div class="row">
             <p class="text-title container">Report</p>
             <p class="text-desc container">List of all assets and tickets in database</p>
         </div>
 
-        <!-- function -->
-        <div class="row sort-filter container">
+        <div class="row">
             <div class="row">
-                <!-- Function: Search asset name -->
-                <div class="col s6 inline">
+                <!-- Function: Search asset -->
+                <div class="col s4 push left">
                     <i class="material-icons left">search<input id="myInput2" type="text" placeholder="  Search.."></i>
-                    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="e.g: PC01" title="Type in an asset name"> -->
+                </div>
+
+                <!-- Function: Sorting in ascending order -->
+                <div class="col s8 right">
+                    <p class="left"><i class="material-icons left">sort</i>Sorting in asc by:</p>
+                    <button class="btn-small sortbtn" id="btnSort"  onclick="sortTable()">status</button>
+                    <button class="btn-small sortbtn" id="btnSort2" onclick="sortTable2()">Brand</button>
+                    <button class="btn-small sortbtn" id="btnSort3" onclick="sortTable3()">Location</button>
                 </div>
             </div>
-            <div class="row">
-                <!-- Function: Sorting based on status -->
-                <div class="col s6">
-                    <p><i class="material-icons left">sort</i>Sorting in asc by:</p>
-                    <input type="button" value="Status" onclick="sortTable()">    
-                    <input type="button" value="Brand" onclick="sortTable2()">  
-                    <input type="button" value="Manufacturer" onclick="sortTable3()">
-                    <input type="button" value="Location" onclick="sortTable4()">
 
-                    <!-- <button onclick="sortTable()">Sort Status</button> -->
+            <!-- Function: Filter -->
+            <!-- nak buat checkbox dropdown -->
+            <!-- <div class="row">
+                <p class="left">Filter by:</p>
+
+                <div class="col s6 push left">
+                    <form name="FilterForm" class="FilterForm" action="" method="post" onsubmit="return validateForm()">
+                        <div class="row">
+                            <div class="col s9 push left">
+                                <select name="filterOption" id="filterOption" multiple>
+                                    <option value="Good">Status: Good</option>
+                                    <option value="Faulty">Status: Faulty</option>
+                                    <option value="PC">Asset Type: PC</option>
+                                    <option value="Keyboard">Asset Type: Keyboard</option>
+                                    <option value="Mouse">Asset Type: Mouse</option>
+                                </select>
+                            </div>
+                            <div class="col s3 right center">
+                                <input type="hidden" name="AnswerCondition" value="BrowserCheckAnswer"/>
+                                <button class="btn-small submitbtn" type="submit" id="btnFilter">Continue</button>
+                            </div>
+                        </div>  
+                    </form>
                 </div>
-
-                <!-- Function: Filter based on click -->
-                <div class="col s6">
-
-                </div>
-            </div>
+            </div> -->
 
             
         </div>
 
         <!-- Report section -->
-        <div class="row reportList">
+        <div class="row reportList" style="margin-left: 5%; margin-right: 5%; width: 90%;">
             <table class="allAsset highlight responsive-table" id="reportTable">  
               <thead>
                 <th>Asset Name</th>
@@ -240,7 +255,8 @@
 
     <script>
         $(document).ready(function(){
-            $(".dropdown-trigger1").dropdown();
+            $('select').formSelect();
+            $(".dropdown-trigger").dropdown();
             
             $(".dropdown-trigger1").dropdown({
                 coverTrigger: false,
@@ -254,7 +270,7 @@
             });
         });
 
-        //for sorting data: Status, Brand, Manufacturer, Location -->
+        //for sorting data: Status, Brand, Location -->
         function sortTable() {
             var table, rows, switching, i, x, y, shouldSwitch;
             table = document.getElementById("reportTable");
@@ -326,32 +342,6 @@
             while (switching) {
                 switching = false;
                 rows = table.rows;
-
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName("TD")[2];
-                    y = rows[i + 1].getElementsByTagName("TD")[2];
-
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                }
-            }
-        }
-
-        function sortTable4() {
-            var table, rows, switching, i, x, y, shouldSwitch;
-            table = document.getElementById("reportTable");
-            switching = true;
-
-            while (switching) {
-                switching = false;
-                rows = table.rows;
                 for (i = 1; i < (rows.length - 1); i++) {
                     shouldSwitch = false;
                     x = rows[i].getElementsByTagName("TD")[8];
@@ -372,7 +362,31 @@
 
 
         //for filter table
+        var validateForm = function() {
+            var checks = $('input[type="checkbox"]:checked').map(function() {
+                return $(this).val();
+            }).get()
+            console.log(checks);
+            return false;
+        }
+        
+        // const filterForm = document.querySelector('.FilterForm');
+        // if(filterForm){
+        //     filterForm.addEventListener('submit', evt =>{
+        //         evt.preventDefault();
 
+        //         db.collection('assetKB')
+        //             .get()
+        //             .then(alert("Filter Part"))
+        //             .then(function(){
+
+        //             })
+        //             .catch(err => console.log(err));
+        //     })
+        // }
+        
+
+        
 
         // for search in table
         $(document).ready(function(){
@@ -384,28 +398,6 @@
                 });
             });
         });
-
-        // function myFunction() {
-        //     var input, filter, table, tr, td, i, txtValue;
-
-        //     input   = document.getElementById("myInput");
-        //     filter  = input.value.toUpperCase();
-        //     table   = document.getElementById("reportTable");
-        //     tr      = table.getElementsByTagName("tr");
-
-        //     for (i = 0; i < tr.length; i++) {
-        //         td = tr[i].getElementsByTagName("td")[0];
-        //         if (td) {
-        //             txtValue = td.textContent || td.innerText;
-
-        //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        //                 tr[i].style.display = "";
-        //             } else {
-        //                 tr[i].style.display = "none";
-        //             }
-        //         }       
-        //     }
-        // }
 
     </script>
 </body>

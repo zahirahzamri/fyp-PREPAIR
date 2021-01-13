@@ -15,41 +15,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png">  
 
     <title>PREPAIR: Home</title>
-    <!-- <script>
-        function includeHTML() {
-            var z, i, elmnt, file, xhttp;
-
-            /*loop through a collection of all HTML elements:*/
-            z = document.getElementsByTagName("*");
-
-            for (i = 0; i < z.length; i++) {
-            elmnt = z[i];
-            
-            /*search for elements with a certain atrribute:*/
-            file = elmnt.getAttribute("include-html-navigation");
-            if (file) {
-                /*make an HTTP request using the attribute value as the file name:*/
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                if (this.readyState == 4) {
-                    if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-                    if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-                    /*remove the attribute, and call this function once more:*/
-                    elmnt.removeAttribute("include-html-navigation");
-                    includeHTML();
-                }
-                }      
-                xhttp.open("GET", file, true);
-                xhttp.send();
-                /*exit the function:*/
-                return;
-            }
-            }
-        };
-    </script> -->
 </head>
 <body>
-    <!-- <div include-html-navigation="/public/pages/navigation.html"></div>  -->
     <!-- top nav with dropdown -->
     <div class="navbar-fixed">
         <nav class="nav-wrapper z-depth-0">
@@ -134,7 +101,7 @@
         <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
     </header>
 
-    <div class="container z-depth-1 whole-box">
+    <!-- <div class="container z-depth-1 whole-box">
         <div class="container overview-box" style="padding: 5px;">
             <p class="text-title">Overview</p>
             <ul class="collapsible">
@@ -163,6 +130,73 @@
                 <li>Task 3</li>
             </ul>
         </div>
+    </div> -->
+
+    <div class="container z-depth-1 content">
+        <div class="row" style="margin-top: 5%;">
+            <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
+            <p class="text-title container">Overview</p>
+            <p class="text-desc container">Asset Management and Incident Report</p>
+        </div>
+
+        <div class="row container" style="margin-left: 20%; margin-top: 5%;">
+            <div class="row admin" style="display: none; margin-top: 2;">
+                <div class="col s12 m10">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <span class="card-title" style="margin-top: 5%; font-weight: bolder;">Add Asset</span>
+                            <div class="card-content">
+                                <ul>
+                                    <li>Where you can add the asset based on category (e.g. PC, Keyboard and Mouse)</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <a href="/public/pages/asset/addAsset.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row admin" style="display: none; margin-top: 2;">
+                <div class="col s12 m10">
+                    <div class="card horizontal">
+                        <div class="card-stacked">
+                            <span class="card-title" style="margin-top: 5%; font-weight: bolder;">View Asset</span>
+                            <div class="card-content">
+                                <ul>
+                                    <li>Display the details of assets added in the database</li>
+                                    <li>Modify the asset either update or delete</li>
+                                </ul>
+                            </div>
+                            <div class="card-action">
+                                <a href="/public/pages/asset/mainAsset.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row logged-in" style="display: none; margin-top: 2;">
+                <div class="col s12 m10">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                        <span class="card-title" style="margin-top: 5%; font-weight: bolder;">Incident Report</span>
+                        <div class="card-content">
+                            <ul>
+                                <li>Can add tickets either incident report or request</li>
+                            </ul>
+                        </div>
+                        <div class="card-action">
+                            <a href="/public/pages/ticket.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        
+        </div>
+            
     </div>
 
     

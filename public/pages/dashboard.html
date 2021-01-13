@@ -13,7 +13,7 @@
     <meta name="apple-mobile-web-app-status-bar" content="#00b4d8">
     <meta name="theme-color" content="#00b4d8">
     <link rel="icon" type="image/png" sizes="32x32" href="/public/img/icons/logo32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png">  
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png"> 
 </head>
 <body>
     <!-- top nav with dropdown -->
@@ -98,37 +98,58 @@
         <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
     </header>
 
-  <div class="container z-depth-1 whole-box">
-    <p class="text-title" style="text-align: center;">Dashboard</p>
-
-    <!-- Hardcode for display purpose -->
-    <div class="dashboards container grey-text text-darken-1">
-        <div class="card-panel dashboard white row">
-            <img src="/" alt="dashboard1">
-            <div class="dashboard-details">
-                <div class="dashboard-title">Dashboard 1</div>
-                <div class="dashboard-subtitle">PC Lab 1</div>
-            </div>
-            <div class="dashboard-delete">
-                <i class="material-icons">delete_outline</i>
-            </div>
+    <div class="container z-depth-1 content">
+        <div class="row" style="margin-top: 5%;">
+            <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
+            <p class="text-title container">Dashboard</p>
+            <p class="text-desc container">Overview of assets</p>
         </div>
-        <div class="card-panel dashboard white row">
-            <img src="/" alt="dashboard2">
-            <div class="dashboard-details">
-                <div class="dashboard-title">Dashboard 2</div>
-                <div class="dashboard-subtitle">PC Lab 2</div>
+
+        <!-- Hardcode for display purpose -->
+        <!-- <div class="row container">
+            <div class="dashboards grey-text text-darken-1">
+                <div class="card-panel dashboard white row">
+                    <img src="/" alt="dashboard1">
+                    <div class="dashboard-details">
+                        <div class="dashboard-title">Dashboard 1</div>
+                        <div class="dashboard-subtitle">PC Lab 1</div>
+                    </div>
+                    <div class="dashboard-delete">
+                        <i class="material-icons">delete_outline</i>
+                    </div>
+                </div>
+                <div class="card-panel dashboard white row">
+                    <img src="/" alt="dashboard2">
+                    <div class="dashboard-details">
+                        <div class="dashboard-title">Dashboard 2</div>
+                        <div class="dashboard-subtitle">PC Lab 2</div>
+                    </div>
+                    <div class="dashboard-delete">
+                        <i class="material-icons">delete_outline</i>
+                    </div>
+                </div>
             </div>
-            <div class="dashboard-delete">
-                <i class="material-icons">delete_outline</i>
+        </div> -->
+        
+        <div class="row container">
+            <div class="col card-panel dashboard white row">
+                <div class="canvas" style="margin-bottom: 10%;" alt="dashboard1"></div>
+                <div class="dashboard-details">
+                    <div class="dashboard-title">Dashboard 1</div>
+                    <div class="dashboard-subtitle">Total assets based on Status</div>
+                </div>
+                <!-- <div class="dashboard-delete"><i class="material-icons">delete_outline</i></div> -->
             </div>
+
+            <div class="col card-panel dashboard white row">
+                <div class="canvas2" style="margin-bottom: 10%;" alt="dashboard2"></div>
+                <div class="dashboard-details">
+                    <div class="dashboard-title">Dashboard 2</div>
+                    <div class="dashboard-subtitle">Total tickets received</div>
+                </div>
+            </div>
+
         </div>
-    </div>
-
-    <!-- Learn from udemy course -->
-    <div class="canvas">
-
-    </div>
 
   </div>
     
@@ -160,7 +181,6 @@
     <script src="/public/js/index.js"></script>    
     <script src="/public/js/app.js"></script>
     <script src="/public/js/ui.js"></script>
-    <script src="/public/js/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js"></script>
     <script src="/public/js/db.js"></script>
 
