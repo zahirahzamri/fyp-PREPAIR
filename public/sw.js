@@ -1,5 +1,5 @@
 const staticCacheName = 'site-static-v1';
-const dynamicCacheName = 'site-dynamic-v34';
+const dynamicCacheName = 'site-dynamic-v17';
 const assets = [
     '/',
     '/public/index.html',
@@ -15,7 +15,8 @@ const assets = [
     '/public/pages/fallback.html',
     '/public/js/auth.js',
     '/public/js/index.js',
-    '/public/js/db.js'
+    '/public/js/db.js',
+    '/public/js/fb.js'
 ];
 
 

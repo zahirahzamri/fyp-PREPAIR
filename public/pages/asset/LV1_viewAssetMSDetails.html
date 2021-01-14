@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PREPAIR</title>
+    <title>PREPAIR: Asset-Mouse</title>
     <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" href="/public/css/styles.css" rel="stylesheet">
@@ -118,7 +118,7 @@
   <!-- DATA DISPLAY -->
   <div class="content container z-depth-1 grey lighten-5">
     <div class="row">
-      <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button>
+      <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text"><i class="material-icons left">arrow_back</i>Back</a></button>
       <button class="input-field btn right btnNavigation"><a href="/public/pages/asset/addAsset.html" class="white-text"><i class="material-icons left">add</i>Add Asset</a></button>
       <p class="text-title container">Mouse</p>
       <p class="text-desc container">List and details of Mouse</p>

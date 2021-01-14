@@ -322,14 +322,15 @@ const setupViewAssetByTypePC = (data) => {
     if(assetPCList){
       if(data.length){
         let html11 = '';
-  
-        data.forEach(doc =>{
+
+        data.forEach((doc) =>{
           const assetPC = doc.data();
-  
+          const id11 = doc.id;
+          
           const liPC = `
-            <li>
+            <li data-id="${id11}">
               <div class="collapsible-header grey lighten-4">${assetPC.assetName} : ${assetPC.Status} (${assetPC.Location})</div>
-              <div class="collapsible-body white"> 
+              <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Asset Name  </td> <td>:</td>  <td>${assetPC.assetName}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Manufacturer</td> <td>:</td>  <td>${assetPC.manufacturer} </td> </tr>
@@ -340,8 +341,19 @@ const setupViewAssetByTypePC = (data) => {
                     <tr> <td style="font-weight: bold;">Storage     </td> <td>:</td>  <td>${assetPC.Storage}      </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${assetPC.Location}     </td> </tr>
                     <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${assetPC.Status}       </td> </tr>
-                    
-                </table>      
+                </table>
+                <div class="row">
+                    <div class="col" style="float:right">
+                        <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id11}" data-target="modal-deletePC">delete_outline</i>
+                        </div>
+                    </div>
+                    <div class="col" style="float:right">
+                        <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id11}" data-target="modal-editPC">edit</i>
+                        </div>
+                    </div>
+                </div>        
               </div>
             </li>
           `;
@@ -362,9 +374,10 @@ const setupViewAssetByTypeKB = (data) => {
   
         data.forEach(doc =>{
           const assetKB = doc.data();
+          const id12 = doc.id;
   
           const liKB = `
-            <li>
+            <li data-id="${id12}">
               <div class="collapsible-header grey lighten-4">${assetKB.KBassetName} : ${assetKB.KBStatus} (${assetKB.KBLocation})</div>
               <div class="collapsible-body white"> 
                 <table>
@@ -374,6 +387,18 @@ const setupViewAssetByTypeKB = (data) => {
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td> <td>${assetKB.KBLocation}     </td> </tr>
                     <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td> <td>${assetKB.KBStatus}       </td> </tr>
                 </table>
+                <div class="row">
+                    <div class="col" style="float:right">
+                        <div class="assetKB-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id12}" data-target="modal-deleteKB">delete_outline</i>
+                        </div>
+                    </div>
+                    <div class="col" style="float:right">
+                        <div class="assetKB-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id12}" data-target="modal-editKB">edit</i>
+                        </div>
+                    </div>
+                </div> 
               </div>
             </li>
           `;
@@ -394,9 +419,10 @@ const setupViewAssetByTypeMS = (data) => {
   
         data.forEach(doc =>{
           const assetMS = doc.data();
+          const id13 = doc.id;
   
           const liMS = `
-            <li>
+            <li  data-id="${id13}">
               <div class="collapsible-header grey lighten-4">${assetMS.MSassetName} : ${assetMS.MSStatus} (${assetMS.MSLocation})</div>
               <div class="collapsible-body white">
                 <table>
@@ -405,7 +431,19 @@ const setupViewAssetByTypeMS = (data) => {
                     <tr> <td style="font-weight: bold;">Brand Name  </td> <td>:</td> <td>${assetMS.MSbrandName}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td> <td>${assetMS.MSLocation}     </td> </tr>
                     <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td> <td>${assetMS.MSStatus}       </td> </tr>
-                </table>                 
+                </table> 
+                <div class="row">
+                    <div class="col" style="float:right">
+                        <div class="assetMS-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id13}" data-target="modal-deleteMS">delete_outline</i>
+                        </div>
+                    </div>
+                    <div class="col" style="float:right">
+                        <div class="assetMS-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id13}" data-target="modal-editMS">edit</i>
+                        </div>
+                    </div>
+                </div>                 
               </div>
             </li>
           `;

@@ -301,7 +301,7 @@ if(form){                                               //use if statement becau
     });
 };
 
-//Update and Delete an asset: PC
+//Update and Delete an asset: PC      --> for viewAssetPCDetails.html
 const assetPCcontainer = document.querySelector('.assetPC');
 if(assetPCcontainer){
     assetPCcontainer.addEventListener('click', evt => {
@@ -397,6 +397,104 @@ if(assetPCcontainer){
     });
 };
 
+//Update and Delete an asset: PC      --> for viewAssetByType.html
+const assetPCcontainer2 = document.querySelector('.displayPC');
+if(assetPCcontainer2){
+    assetPCcontainer2.addEventListener('click', evt => {
+        // console.log(evt);
+
+        //delete 
+        if(evt.target.textContent === "delete_outline"){
+            const idPC = evt.target.getAttribute('data-id');
+            const formDel = document.querySelector('.delete-PC');
+
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelPC');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('asset').doc(idPC).delete(); 
+                        window.location.reload();           
+                    }));
+                });
+            }
+        }
+
+        //update
+        if(evt.target.textContent === "edit"){
+            const idPC2 = evt.target.getAttribute('data-id');
+            // console.log('in db.js: Update has been declared!');
+            const formUpdate = document.querySelector('.edit-PC');
+
+            var docRef = db.collection("asset").doc(idPC2);
+            docRef.get().then(function(doc) {
+                if (doc.exists) {
+
+                    //for retrieve the existing data and display it in Update modal
+                    if(formUpdate){
+                        document.getElementById('assetName').value = doc.data().assetName;
+                        document.getElementById('manufacturer').value = doc.data().manufacturer;
+                        document.getElementById('brandName').value = doc.data().brandName;
+                        document.getElementById('Processor').value = doc.data().Processor;
+                        document.getElementById('OS').value = doc.data().OS;
+                        document.getElementById('RAM').value = doc.data().RAM;
+                        document.getElementById('Storage').value = doc.data().Storage;
+                        document.getElementById('Location').value = doc.data().Location;
+                        document.getElementById('Status').value = doc.data().Status;
+                    }
+                    
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+
+            //bila dah tekan button update kat modal update form
+            if(formUpdate){
+                formUpdate.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                
+                    const newAssetPC = {
+                        // assetName   : formUpdate.assetName.value,
+                        // manufacturer: formUpdate.manufacturer.value,
+                        // brandName   : formUpdate.brandName.value,
+                        OS          : formUpdate.OS.value,
+                        Processor   : formUpdate.Processor.value,
+                        RAM         : formUpdate.RAM.value,
+                        Storage     : formUpdate.Storage.value,
+                        Location    : formUpdate.Location.value,
+                        Status      : formUpdate.Status.value 
+                    };
+                
+                    db.collection('asset').doc(idPC2)
+                        .update(newAssetPC)
+                        .then(alert("Successfully update asset PC"))
+                        .catch(err => console.log(err));
+                    
+                    //to reset the form after submitting
+                    // formUpdate.assetName.value    = '';
+                    // formUpdate.manufacturer.value = '';
+                    // formUpdate.brandName.value    = '';
+                    formUpdate.OS.value           = '';
+                    formUpdate.Processor.value    = '';
+                    formUpdate.RAM.value          = '';
+                    formUpdate.Storage.value      = '';
+                    formUpdate.Location.value     = '';
+                    formUpdate.Status.value       = '';
+                });
+            }
+        }
+
+    });
+};
+
+
+
 
 
 //Add new asset: Keyboard
@@ -424,10 +522,90 @@ if(form2){                                              //use if statement becau
         form2.KBStatus.value        = '';
     });
 };
-//Update and Delete an asset: Keyboard
+//Update and Delete an asset: Keyboard      --> for viewAssetKBDetails.html
 const assetKBcontainer = document.querySelector('.assetKB');
 if(assetKBcontainer){
     assetKBcontainer.addEventListener('click', evt => {
+
+        //delete
+        if(evt.target.textContent === "delete_outline"){
+            const id2 = evt.target.getAttribute('data-id');
+            const formDel2 = document.querySelector('.delete-KB');
+
+            if(formDel2){
+                formDel2.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel2 = document.querySelector('#btnDelKB');
+
+                    if(btnDel2.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('assetKB').doc(id2).delete();            
+                        window.location.reload();
+                    }));
+                });
+            }
+        }
+
+
+        //update
+        if(evt.target.textContent === "edit"){
+            const idKB = evt.target.getAttribute('data-id');
+            const formUpdateKB = document.querySelector('.edit-KB');
+
+            var docRef2 = db.collection("assetKB").doc(idKB);
+            docRef2.get().then(function(doc) {
+                if (doc.exists) {
+
+                    //for retrieve the existing data and display it in Update modal
+                    if(formUpdateKB){
+                        document.getElementById('KBassetName').value = doc.data().KBassetName;
+                        document.getElementById('KBmanufacturer').value = doc.data().KBmanufacturer;
+                        document.getElementById('KBbrandName').value = doc.data().KBbrandName;
+                        document.getElementById('KBLocation').value = doc.data().KBLocation;
+                        document.getElementById('KBStatus').value = doc.data().KBStatus;
+                    }
+                    
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(formUpdateKB){
+                formUpdateKB.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                
+                    const newAssetKB = {
+                        KBassetName   : formUpdateKB.KBassetName.value,
+                        KBmanufacturer: formUpdateKB.KBmanufacturer.value,
+                        KBbrandName   : formUpdateKB.KBbrandName.value,
+                        KBLocation    : formUpdateKB.KBLocation.value,
+                        KBStatus      : formUpdateKB.KBStatus.value 
+                    };
+                
+                    db.collection('assetKB').doc(idKB)
+                        .update(newAssetKB)
+                        .then(alert("Successfully update asset Keyboard"))
+                        .catch(err => console.log(err));
+                    
+                    //to reset the form after submitting
+                    formUpdateKB.KBassetName.value    = '';
+                    formUpdateKB.KBmanufacturer.value = '';
+                    formUpdateKB.KBbrandName.value    = '';
+                    formUpdateKB.KBLocation.value     = '';
+                    formUpdateKB.KBStatus.value       = '';
+                });
+            }
+        }
+    });
+}
+
+//Update and Delete an asset: Keyboard      --> for viewAssetByType.html
+const assetKBcontainer2 = document.querySelector('.displayKB');
+if(assetKBcontainer2){
+    assetKBcontainer2.addEventListener('click', evt => {
 
         //delete
         if(evt.target.textContent === "delete_outline"){
@@ -531,7 +709,8 @@ if (form3){                                             //use if statement becau
         form3.MSStatus.value        = '';
     });
 };
-//Update and Delete an asset: Mouse
+
+//Update and Delete an asset: Mouse         --> for viewAssetKBDetails.html
 const assetMScontainer = document.querySelector('.assetMS');
 if(assetMScontainer){
     assetMScontainer.addEventListener('click', evt => {
@@ -609,8 +788,85 @@ if(assetMScontainer){
     });
 }
 
+//Update and Delete an asset: Mouse         --> for viewAssetByType.html
+const assetMScontainer2 = document.querySelector('.displayMS');
+if(assetMScontainer2){
+    assetMScontainer2.addEventListener('click', evt => {
+        //delete
+        if(evt.target.textContent === "delete_outline"){
+            const id3 = evt.target.getAttribute('data-id');
+            const formDel3 = document.querySelector('.delete-MS');
 
-// REPORT PART
+            if(formDel3){
+                formDel3.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel3 = document.querySelector('#btnDelMS');
+
+                    if(btnDel3.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('assetMS').doc(id3).delete();
+                        window.location.reload();
+                    }));
+                });
+            }
+        }
+
+        //update
+        if(evt.target.textContent === "edit"){
+            const idMS = evt.target.getAttribute('data-id');
+            const formUpdateMS = document.querySelector('.edit-MS');
+
+            var docRef3 = db.collection("assetMS").doc(idMS);
+            docRef3.get().then(function(doc) {
+                if (doc.exists) {
+
+                    //for retrieve the existing data and display it in Update modal
+                    if(formUpdateMS){
+                        document.getElementById('MSassetName').value = doc.data().MSassetName;
+                        document.getElementById('MSmanufacturer').value = doc.data().MSmanufacturer;
+                        document.getElementById('MSbrandName').value = doc.data().MSbrandName;
+                        document.getElementById('MSLocation').value = doc.data().MSLocation;
+                        document.getElementById('MSStatus').value = doc.data().MSStatus;
+                    }
+                    
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(formUpdateMS){
+                formUpdateMS.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                
+                    const newAssetMS = {
+                        MSassetName   : formUpdateMS.MSassetName.value,
+                        MSmanufacturer: formUpdateMS.MSmanufacturer.value,
+                        MSbrandName   : formUpdateMS.MSbrandName.value,
+                        MSLocation    : formUpdateMS.MSLocation.value,
+                        MSStatus      : formUpdateMS.MSStatus.value 
+                    };
+                
+                    db.collection('assetMS').doc(idMS)
+                        .update(newAssetMS)
+                        .then(alert("Successfully update asset Mouse"))
+                        .catch(err => console.log(err));
+                    
+                    //to reset the form after submitting
+                    formUpdateMS.MSassetName.value    = '';
+                    formUpdateMS.MSmanufacturer.value = '';
+                    formUpdateMS.MSbrandName.value    = '';
+                    formUpdateMS.MSLocation.value     = '';
+                    formUpdateMS.MSStatus.value       = '';
+                });
+            }
+        }
+    });
+}
+
+
 
 
 

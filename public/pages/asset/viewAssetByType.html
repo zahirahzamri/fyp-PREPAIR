@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>View Asset: By Type</title>
+    <title>PREPAIR: View Asset - By Category</title>
     <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" href="/public/css/styles.css" rel="stylesheet">
@@ -16,19 +16,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png">  
     
     <style>
-      .row > div{
-            padding: 10px;
-            background: #ddd;
-            border: 1px solid #fff;
-        }
-        .row{margin: 40px auto;}
-        .text{
-            font-family: Tahoma, Geneva, sans-serif;
-            font-size: 17px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .btn-large{margin: 15px;}
+      /* .row > div{
+        padding: 10px;
+        background: #ddd;
+        border: 1px solid #fff;
+      }
+      .row{margin: 40px auto;}
+      .text{
+          font-family: Tahoma, Geneva, sans-serif;
+          font-size: 17px;
+          font-weight: bold;
+          text-transform: uppercase;
+      }
+      .btn-large{margin: 15px;} */
     </style>
 </head>
 <body>
@@ -116,7 +116,7 @@
   </header>
 
   <div class="content container z-depth-1 grey lighten-5">
-    <button class="input-field btn left btnNavigation" onclick="history.back()"><a href="" class="white-text" onclick="return history.back()"><i class="material-icons left">arrow_back</i>Back</a></button>
+    <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text"><i class="material-icons left">arrow_back</i>Back</a></button>
     <button class="input-field btn right btnNavigation"><a href="/public/pages/asset/addAsset.html" class="white-text"><i class="material-icons left">add</i>Add Asset</a></button>
 
     <section  id="selectAssetType">
@@ -175,6 +175,326 @@
   </div>
 
 
+  <!-- EDIT PC MODAL -->
+  <div id="modal-editPC" class="modal">
+    <div class="modal-content center-align">
+    <div id="editPC-form" class="addFormPC">
+        <form class="edit-PC container section">
+            <h6>Update PC</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="" id="assetName" type="text" class="validate" style="color: grey">
+                <!-- <label for="assetName">Asset Name</label> -->
+              </div>
+            </div>
+            <div class="row">              
+              <div class="input-field col s6">
+                <input disabled value="" id="manufacturer" type="text" class="validate" style="color: grey">
+                <!-- <label for="manufacturer">Manufacturer</label> -->
+              </div>
+              <div class="input-field col s6">
+                <input disabled value="" id="brandName" type="text" class="validate" style="color: grey">
+                <!-- <label for="brandName">Brand Name</label> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="OS" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Windows 10">Windows 10</option>
+                  <option value="Windows 8">Windows 8</option>
+                  <option value="Windows 7">Windows 7</option>
+                  <option value="Windows XP">Windows XP</option>
+                  <option value="Linux/Ubuntu">Linux/Ubuntu</option>
+                </select>
+                <label for="category">Operating System</label>
+              </div>
+              <div class="input-field col s6">
+                <input placeholder="${data.Processor}" id="Processor" type="text" class="validate" value="">
+                <label for="Processor">Processor</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="RAM" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="4GB">4GB</option>
+                  <option value="8GB">8GB</option>
+                  <option value="16GB">16GB</option>
+                </select>
+                <label for="RAM">RAM</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="Storage" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="HDD">HDD</option>
+                  <option value="SSD">SSD</option>
+                </select>
+                <label for="Storage">Storage</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="Location" class="validate">
+                  <option value="" disabled selected>Choose the level:</option>
+                  <option value="Level 1">Level 1</option>
+                  <option value="Level 2">Level 2</option>
+                  <option value="Level 3">Level 3</option>
+                  <option value="Level 4">Level 4</option>
+                  <option value="Level 5">Level 5</option>
+                </select>
+                <label for="Location">Location</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="Status" class="validate">
+                  <option value="" disabled selected>Choose the status:</option>
+                  <option value="Good">Good</option>
+                  <option value="Faulty">Faulty</option>
+                </select>
+                <label for="Status">Status</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field inline center">
+                <button class="btn-small updatebtn" type="submit" id="btnUpdatePC">Update</button>
+                <button class="btn-small cancelbtn" id="btnCancelPC">Cancel</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+
+  <!-- DELETE PC MODAL -->
+  <div id="modal-deletePC" class="modal">
+    <div class="modal-content center-align">
+      <div id="deletePC-form" class="delFormPC">
+        <form class="delete-PC container section">
+          <h6>Delete Asset</h6>
+          <div class="divider"></div>
+
+          <div class="row">
+            <p>Are you sure you want to delete this asset?</p>
+          </div>
+          <div class="row">
+            <div class="clearfix inline center">
+              <button class="btn-small deletebtn" id="btnDelPC" type="submit">Delete</button>
+              <button class="btn-small cancelbtn" id="btnCancelPC2">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT KB MODAL -->
+  <div id="modal-editKB" class="modal">
+    <div class="modal-content center-align">
+    <div id="editKB-form" class="addFormKB">
+        <form class="edit-KB container section">
+            <h6>Update Keyboard</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="" id="KBassetName" type="text" class="validate">
+                <!-- <label for="KBassetName">Asset Name</label> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="KBmanufacturer" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="KBmanufacturer">Manufacturer Name</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="KBbrandName" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="KBbrandName">Brand Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="KBLocation" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Level 1">Level 1</option>
+                  <option value="Level 2">Level 2</option>
+                  <option value="Level 3">Level 3</option>
+                  <option value="Level 4">Level 4</option>
+                  <option value="Level 5">Level 5</option>
+                </select>
+                <label for="KBLocation">Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="KBStatus" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Good">Good</option>
+                  <option value="Faulty">Faulty</option>
+                </select>
+                <label for="KBStatus">Status</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field inline center">
+                <button class="btn-small updatebtn" type="submit" id="btnUpdateKB">Update</button>
+                <button class="btn-small cancelbtn" id="btnCancelKB">Cancel</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+
+  <!-- DELETE KB MODAL -->
+  <div id="modal-deleteKB" class="modal">
+    <div class="modal-content center-align">
+      <div id="deleteKB-form" class="delFormKB">
+        <form class="delete-KB container section">
+          <h6>Delete Asset</h6>
+          <div class="divider"></div>
+
+          <div class="row">
+            <p>Are you sure you want to delete this asset?</p>
+          </div>
+          <div class="row">
+            <div class="clearfix inline center">
+              <button class="btn-small deletebtn" id="btnDelKB" type="submit">Delete</button>
+              <button class="btn-small cancelbtn" id="btnCancelKB2">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT MS MODAL -->
+  <div id="modal-editMS" class="modal">
+    <div class="modal-content center-align">
+    <div id="editMS-form" class="addFormMS">
+        <form class="edit-MS container section">
+            <h6>Update Mouse</h6>
+            <div class="divider"></div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="" id="MSassetName" type="text" class="validate">
+                <!-- <label for="MSassetName">Asset Name</label> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <select id="MSmanufacturer" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="MSmanufacturer">Manufacturer Name</label>
+              </div>
+              <div class="input-field col s6">
+                <select id="MSbrandName" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Acer">Acer</option>
+                  <option value="Apple">Apple</option>
+                  <option value="Asus">Asus</option>
+                  <option value="Dell">Dell</option>
+                  <option value="HP">HP</option>
+                  <option value="Lenovo">Lenovo</option>
+                </select>
+                <label for="MSbrandName">Brand Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="MSLocation" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Level 1">Level 1</option>
+                  <option value="Level 2">Level 2</option>
+                  <option value="Level 3">Level 3</option>
+                  <option value="Level 4">Level 4</option>
+                  <option value="Level 5">Level 5</option>
+                </select>
+                <label for="MSLocation">Location</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <select id="MSStatus" class="validate">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="Good">Good</option>
+                  <option value="Faulty">Faulty</option>
+                </select>
+                <label for="MSStatus">Status</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field inline right">
+                <button class="btn-small updatebtn" type="submit" id="btnUpdateMS">Update</button>
+                <button class="btn-small cancelbtn" id="btnCancelMS">Cancel</button>
+              </div>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+
+  <!-- DELETE MS MODAL -->
+  <div id="modal-deleteMS" class="modal">
+    <div class="modal-content center-align">
+      <div id="deleteMS-form" class="delFormMS">
+        <form class="delete-MS container section">
+          <h6>Delete Asset</h6>
+          <div class="divider"></div>
+
+          <div class="row">
+            <p>Are you sure you want to delete this asset?</p>
+          </div>
+          <div class="row">
+            <div class="clearfix inline center">
+              <button class="btn-small deletebtn" id="btnDelMS" type="submit">Delete</button>
+              <button class="btn-small cancelbtn" id="btnCancelMS2">Cancel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- JAVASCRIPT PART -->
 
@@ -202,8 +522,9 @@
     <script>
         $(document).ready(function(){
             $('.tabs').tabs();
+            $('select').formSelect();
             $(".dropdown-trigger").dropdown();
-            
+          
             $(".dropdown-trigger1").dropdown({
                 coverTrigger: false,
                 inDuration: 300,
@@ -214,6 +535,20 @@
                 gutter: 0,  //spacing from edge
                 alignment: 'right'
             });
+
+            M.updateTextFields();
+
+            //close modal when click 'Cancel' button
+            const btn = document.getElementById("btnCancelPC");
+            const btn2 = document.getElementById("btnCancelPC2");
+            btn.addEventListener('click', evt => {
+              const closeModalPC = document.querySelector('#modal-editPC');
+              M.Modal.getInstance(closeModalPC).close();
+            })
+            btn2.addEventListener('click', evt => {
+              const closeModalPC2 = document.querySelector('#modal-deletePC');
+              M.Modal.getInstance(closeModalPC2).close();
+            })
         });
     </script>
 </body>
