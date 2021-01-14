@@ -113,17 +113,18 @@
             <!-- tabs -->
             <ul class="tabs flow-text">
               <li class="tab col s3"><a href="#Pending"  class="active indigo-text text-darken-4">Pending</a></li>
+              <li class="tab col s3"><a href="#Assigned"  class="indigo-text text-darken-4">Assigned</a></li>
               <li class="tab col s3"><a href="#inProgress"  class="indigo-text text-darken-4">In progress</a></li>
-              <li class="tab col s3"><a href="#Closed"  class="indigo-text text-darken-4">Closed</a></li>
-              <li class="tab col s3"><a href="#Overdue" class="indigo-text text-darken-4">Overdue</a></li>
+              <li class="tab col s3"><a href="#Closed" class="indigo-text text-darken-4">Closed</a></li>
             </ul>
 
+            <!-- ticket with status : PENDING -->
             <div class="col s12 #B0C4DE" id="Pending">
               <p class="textInTabTitle flow-text">TICKET TYPE: Pending</p>
               <hr style="width: 50%;">
               <p class="text2Tab">Display all tickets that need to be assigned</p>
 
-              <!-- Tak jadi lagi search function kat sini -->
+              <!-- search function -->
               <div class="row container" style="margin-left: 3.5%;">
                 <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.."></i>
               </div>
@@ -133,32 +134,55 @@
                 
               </div>
             </div>
+            <!-- ticket with status : ASSIGNED -->
+            <div class="col s12 #B0C4DE" id="Assigned">
+              <p class="textInTabTitle flow-text">TICKET TYPE: Assigned</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that already being assigned</p>
 
+              <!-- search function -->
+              <div class="row container" style="margin-left: 3.5%;">
+                <i class="material-icons left">search<input id="myInput2" type="text" placeholder="  Search.."></i>
+              </div>
+
+              <!-- display tickets -->
+              <div class="ticketAssigned container grey-text text-darken-1" style="margin-top: 40px;">
+                
+              </div>
+            </div>
+
+            <!-- ticket with status : IN PROGRESS -->
             <div class="col s12 #B0C4DE" id="inProgress">
               <p class="textInTabTitle flow-text">TICKET TYPE: In Progress</p>
               <hr style="width: 50%;">
               <p class="text2Tab">Display all tickets that still in progress</p>
 
+              <!-- search function -->
+              <div class="row container" style="margin-left: 3.5%;">
+                <i class="material-icons left">search<input id="myInput3" type="text" placeholder="  Search.."></i>
+              </div>
+
               <!-- display tickets -->
-              LIST OF IN PROGRESS
+              <div class="ticketInProgress container grey-text text-darken-1" style="margin-top: 40px;">
+                
+              </div>
             </div>
 
+            <!-- ticket with status : PENDING -->
             <div class="col s12 #B0C4DE" id="Closed">
               <p class="textInTabTitle flow-text">TICKET TYPE: Closed</p>
               <hr style="width: 50%;">
-              <p class="text2Tab">Display all tickets is closed</p>
+              <p class="text2Tab">Display all tickets that is closed</p>
+
+              <!-- search function -->
+              <div class="row container" style="margin-left: 3.5%;">
+                <i class="material-icons left">search<input id="myInput4" type="text" placeholder="  Search.."></i>
+              </div>
 
               <!-- display tickets -->
-              LIST OF CLOSED TICKETS
-            </div>
-
-            <div class="col s12 #B0C4DE" id="Overdue">
-              <p class="textInTabTitle flow-text">TICKET TYPE: Overdue</p>
-              <hr style="width: 50%;">
-              <p class="text2Tab">Display all tickets that is overdue</p>
-
-              <!-- display tickets -->
-              LIST OF OVERDUE TICKETS
+              <div class="ticketClosed container grey-text text-darken-1" style="margin-top: 40px;">
+                
+              </div>
             </div>
 
           </div>
@@ -177,53 +201,88 @@
 
     
 
-    <!-- EDIT TICKET MODAL -->
-    <div id="modal-editTicket" class="modal">
+    <!-- ASSIGN TECHNICIAN MODAL -->
+    <div id="modal-assignTech" class="modal">
         <div class="modal-content center-align">
-          <div id="editTicket-form" class="ticket-form">
-            <form class="edit-ticket container section">
+          <div id="assignTech-form" class="assign-form">
+            <form class="assign-tech container section">
               <h6 >Assign Person-in-Charge</h6>
               <div class="divider"></div>
 
-              <div class="input-field">
-                <input disabled value="" placeholder="${data.date}" id="date" type="text" class="validate">
-                <label for="date">Date</label>
+              <div class="row">
+                <div class="input-field col s12">
+                  <select id="status" class="validate">
+                    <option value="" selected>Choose status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Assigned">Assigned</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Closed">Close Ticket</option>
+                    <option value="Cancel">Cancel Ticket</option>
+                  </select>
+                  <label for="status">Status</label>
+                </div>
               </div>
-              <div class="input-field">
-                <input disabled value="" placeholder="${data.type}" id="type" type="text" class="validate">
-                <label for="type">Type</label>
+              <div class="row">
+                <div class="input-field">
+                  <input placeholder="Assign technician" id="pic" type="text" class="validate">
+                  <label for="pic">PIC</label>
+                </div>
               </div>
-              <div class="input-field">
-                  <input disabled value="" placeholder="${data.category}" id="category" type="text" class="validate">
-                  <label for="category">Category</label>
+              <div class="row">
+                <div class="input-field">
+                  <input placeholder="write here..." id="remarks" type="text" class="validate">
+                  <label for="remarks">Remarks</label>
+                </div>
               </div>
-              <div class="input-field">
-                  <input disabled value="" placeholder="${data.description}" id="description" type="text" class="validate">
-                  <label for="description">Description</label>
-              </div>
-              <div class="input-field">
-                  <input disabled value="" placeholder="${data.location}" id="location" type="text" class="validate">
-                  <label for="location">Location</label>
-              </div>
-              <div class="input-field">
-                <input placeholder="Assign technician" id="pic" type="text" class="validate">
-                <label for="pic">PIC</label>
-              </div>
-              <div class="input-field">
-                <input placeholder="write here..." id="remarks" type="text" class="validate">
-                <label for="remarks">Remarks</label>
-              </div>
-              
-      
               <!-- <div class="input-field center"><button class="btn-small">Add</button></div> -->
               <div class="input-field inline center">
-                <button class="btn-small updatebtn" type="submit" id="btnUpdateTicket">Update</button>
-                <button class="btn-small cancelbtn" id="btnCancelTicket" data-dismiss="modal">Cancel</button>
+                <button class="btn-small updatebtn" type="submit" id="btnAssign">Assign</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket3" data-dismiss="modal">Cancel</button>
               </div>
             </form>
         </div>
         </div>
     </div>
+
+    <!-- EDIT TICKET MODAL -->
+    <div id="modal-editTicket" class="modal">
+      <div class="modal-content center-align">
+        <div id="editTicket-form" class="ticket-form">
+          <form class="edit-ticket container section">
+          
+            <h6 >Update Ticket</h6>
+            <div class="divider"></div>
+
+            <div class="input-field">
+              <input disabled value="" placeholder="Date" id="date" type="text" class="validate">
+              <label for="date">Date</label>
+            </div>
+            <div class="input-field">
+              <input disabled value="" placeholder="Incident/Report" id="type" type="text" class="validate">
+              <label for="type">Type</label>
+            </div>
+            <div class="input-field">
+                  <input value="" placeholder="${data.category}" id="category" type="text" class="validate">
+                  <label for="category">Category</label>
+            </div>
+            <div class="input-field">
+              <input value="" placeholder="Write more details..." id="description" type="text" class="validate">
+              <label for="description">Description</label>
+          </div>
+            <div class="input-field">
+                <input placeholder="ie. CISCO Lab" id="location" type="text" class="validate">
+                <label for="location">location</label>
+            </div>
+          
+
+            <div class="input-field inline center">
+              <button class="btn-small updatebtn" type="submit" id="btnUpdateTicket">Update</button>
+              <button class="btn-small cancelbtn" id="btnCancelTicket">Cancel</button>
+            </div>
+          </form>
+      </div>
+      </div>
+  </div>
 
     <!-- DELETE TICKET MODAL -->
     <div id="modal-deleteTicket" class="modal">
@@ -330,6 +389,8 @@
             // $(".tabs-content.carousel .carousel-item").css('height','400px');
 
             $(".dropdown-trigger").dropdown();
+            
+            $('select').formSelect();
             $(".dropdown-trigger1").dropdown({
                 coverTrigger: false,
                 inDuration: 300,
@@ -344,6 +405,8 @@
             //close modal when click 'Cancel' button
             const btn = document.getElementById("btnCancelTicket");
             const btn2 = document.getElementById("btnCancelTicket2");
+            const btn3 = document.getElementById("btnCancelTicket3");
+            
             btn.addEventListener('click', evt => {
               const closeModalTicket = document.querySelector('#modal-editTicket');
               M.Modal.getInstance(closeModalTicket).close();
@@ -352,8 +415,12 @@
               const closeModalTicket2 = document.querySelector('#modal-deleteTicket');
               M.Modal.getInstance(closeModalTicket2).close();
             })
+            btn3.addEventListener('click', evt => {
+              const closeModalTicket3 = document.querySelector('#modal-assignTech');
+              M.Modal.getInstance(closeModalTicket3).close();
+            })
 
-            // search function
+            // search function - PENDING
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
@@ -361,6 +428,31 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+            // search function - ASSIGNED
+            $("#myInput2").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $(".ticket").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            // search function - IN PROGRESS
+            $("#myInput3").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $(".ticket").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            // search function - CLOSED
+            $("#myInput4").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+
+                $(".ticket").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
 
         });
 

@@ -562,10 +562,10 @@ const renderReportPageMS = (data) => {
 
 
 
-// INCIDENT REPORT PART - ticket
+// INCIDENT REPORT PART - ticket 
 const tickets = document.querySelector('.tickets');
 
-    // render ticket data
+    // render ticket data - ticket PENDING
     const renderTicket = (data, id) => {
         if (tickets){
             // store.ref('users/' + id + '/ticket.jpg').getDownloadURL().then(imgUrl => {
@@ -574,7 +574,7 @@ const tickets = document.querySelector('.tickets');
             const htmlTicket = `
                 <div class="card-panel ticket white row" data-id="${id}">
                     <div class="row flow-text">
-                    <img src="https://alscofirstaid.com.au/wp-content/uploads/2014/01/placeholder-150x150.png" class="ui image centered" id="img">
+                    
                         <div class="ticket-details flow-text col">
                         <table>
                             <tr> <td> Ticket id </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
@@ -583,9 +583,9 @@ const tickets = document.querySelector('.tickets');
                             <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
                             <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
                             <tr> <td> Ticket Type </td> <td> : </td> <td><div class="ticket-desc">${data.type}</div> </td>
+                            <tr id="statusTick" style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
                             <tr> <td> PIC </td> <td> : </td> <td><div class="ticket-desc">${data.PIC}</div> </td>
                             <tr> <td> Remarks </td> <td> : </td> <td><div class="ticket-desc">${data.remarks}</div> </td>
-                            <tr style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
                         </table>    
                         </div>
                     </div>
@@ -594,15 +594,136 @@ const tickets = document.querySelector('.tickets');
                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
                         </div>
                         <div class="ticket-update btn-floating orange waves-effect right !important" >
-                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">assignment_ind</i>
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-assignTech">assignment_ind</i>
                         </div>
                     </div>
                 </div>
             `; 
             tickets.innerHTML += htmlTicket;
         }
-
     };
+
+    const ticketAssigned = document.querySelector('.ticketAssigned');
+    // render ticket data - ticket ASSIGNED
+    const renderTicketAssigned = (data, id) => {
+        if (ticketAssigned){
+            // store.ref('users/' + id + '/ticket.jpg').getDownloadURL().then(imgUrl => {
+            //     img.src = imgUrl;
+            // })
+            
+            const htmlTicket = `
+                <div class="card-panel ticket white row" data-id="${id}">
+                    <div class="row flow-text">
+                    
+                        <div class="ticket-details flow-text col">
+                        <table>
+                            <tr> <td> Ticket id </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
+                            <tr> <td> Ticket created </td> <td> : </td> <td><div class="ticket-desc">${data.date}</div> </td>
+                            <tr> <td> Category </td> <td> : </td> <td><div class="ticket-title">${data.category}</div> </td>
+                            <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
+                            <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
+                            <tr> <td> Ticket Type </td> <td> : </td> <td><div class="ticket-desc">${data.type}</div> </td>
+                            <tr id="statusTick" style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
+                            <tr> <td> PIC </td> <td> : </td> <td><div class="ticket-desc">${data.PIC}</div> </td>
+                            <tr> <td> Remarks </td> <td> : </td> <td><div class="ticket-desc">${data.remarks}</div> </td>
+                        </table>    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="ticket-delete btn-floating red waves-effect right !important">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        </div>
+                        <div class="ticket-update btn-floating orange waves-effect right !important" >
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                        </div>
+                    </div>
+                </div>
+            `; 
+            ticketAssigned.innerHTML += htmlTicket;
+        }
+    };
+
+    
+    // render ticket data - ticket IN PROGRESS
+    const ticketInProgress = document.querySelector('.ticketInProgress');
+    const renderTicketProgressing = (data, id) => {
+        if (ticketInProgress){
+            // store.ref('users/' + id + '/ticket.jpg').getDownloadURL().then(imgUrl => {
+            //     img.src = imgUrl;
+            // })
+            const htmlTicket = `
+                <div class="card-panel ticket white row" data-id="${id}">
+                    <div class="row flow-text">
+                    
+                        <div class="ticket-details flow-text col">
+                        <table>
+                            <tr> <td> <mark> ${data.type} </mark> </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
+                           
+                            <tr> <td> Ticket created </td> <td> : </td> <td><div class="ticket-desc">${data.date}</div> </td>
+                            <tr> <td> Category </td> <td> : </td> <td><div class="ticket-desc">${data.category}</div> </td>
+                            <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
+                            <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
+                            <tr id="statusTick" style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
+                            <tr> <td> PIC </td> <td> : </td> <td><div class="ticket-desc">${data.PIC}</div> </td>
+                            <tr> <td> Remarks </td> <td> : </td> <td><div class="ticket-desc">${data.remarks}</div> </td>
+                        </table>    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="ticket-delete btn-floating red waves-effect right !important">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        </div>
+                        <div class="ticket-update btn-floating orange waves-effect right !important" >
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                        </div>
+                    </div>
+                </div>
+            `; 
+            ticketInProgress.innerHTML += htmlTicket;
+        }
+    };
+
+    
+    // render ticket data - ticket CLOSED
+    const ticketClosed = document.querySelector('.ticketClosed');
+    const renderTicketClosed = (data, id) => {
+        if (ticketClosed){
+            // store.ref('users/' + id + '/ticket.jpg').getDownloadURL().then(imgUrl => {
+            //     img.src = imgUrl;
+            // })
+            const htmlTicket = `
+                <div class="card-panel ticket white row" data-id="${id}">
+                    <div class="row flow-text">
+                    
+                        <div class="ticket-details flow-text col">
+                        <table>
+                            <tr> <td> Ticket id </td> <td> : </td> <td><div class="ticket-title">${id}</div> </td>
+                            <tr> <td> Ticket Type </td> <td> : </td> <td><div class="ticket-desc">${data.type}</div> </td>
+                            <tr> <td> Ticket created </td> <td> : </td> <td><div class="ticket-desc">${data.date}</div> </td>
+                            <tr> <td> Category </td> <td> : </td> <td><div class="ticket-title">${data.category}</div> </td>
+                            <tr> <td> Description </td> <td> : </td> <td><div class="ticket-desc">${data.description}</div> </td>
+                            <tr> <td> Location </td> <td> : </td> <td><div class="ticket-desc">${data.location}</div> </td>
+                            <tr id="statusTick" style="background-color: #B0C4DE" > <td> Status </td> <td> : </td> <td><div class="ticket-desc">${data.status}</div> </td>
+                            <tr> <td> PIC </td> <td> : </td> <td><div class="ticket-desc">${data.PIC}</div> </td>
+                            <tr> <td> Remarks </td> <td> : </td> <td><div class="ticket-desc">${data.remarks}</div> </td>
+                        </table>    
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="ticket-delete btn-floating red waves-effect right !important">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        </div>
+                        <div class="ticket-update btn-floating orange waves-effect right !important" >
+                            <i class="material-icons modal-trigger" id="editBtn" data-id="${id}" data-target="modal-editTicket">edit</i>
+                        </div>
+                    </div>
+                </div>
+            `; 
+            ticketClosed.innerHTML += htmlTicket;
+        }
+    };
+
+
 
     // remove ticket from DOM
     const removeTicket = (id) => {

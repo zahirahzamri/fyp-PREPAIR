@@ -68,6 +68,23 @@ auth.onAuthStateChanged(user => {
           console.log(err.message);
         });
 
+        // db.collection('ticket').onSnapshot(snapshot => {
+        //   renderTicketAssigned(snapshot.docs, snapshot.docs.id);
+        //   }, err => {
+        //   console.log(err.message);
+        // });
+        // db.collection('ticket').onSnapshot(snapshot => {
+        //   renderTicketProgressing(snapshot.docs, snapshot.docs.id);
+        //   }, err => {
+        //   console.log(err.message);
+        // });
+        // db.collection('ticket').onSnapshot(snapshot => {
+        //   renderTicketClosed(snapshot.docs, snapshot.docs.id);
+        //   }, err => {
+        //   console.log(err.message);
+        // });
+        
+
     } else {
         setupUI();
         setupTickets([]);

@@ -15,8 +15,10 @@ db.enablePersistence()
 // TICKET PART
 var dataTic = [];
 
-// real-time listener for ticket
-db.collection('ticket').onSnapshot({ includeMetadataChanges: true }, snapshot => {
+// .orderBy("date").where("status", "==", "Assigned")
+
+// real-time listener for ticket PENDING
+db.collection('ticket').orderBy("timeStamp").where("status", "==", "Pending").onSnapshot({ includeMetadataChanges: true }, snapshot => {
     snapshot.docChanges().forEach(change => {
 
       if(change.type === 'added'){          // add the document data to the web page
@@ -27,6 +29,57 @@ db.collection('ticket').onSnapshot({ includeMetadataChanges: true }, snapshot =>
       }
       if(change.type === 'modified'){      //update the ticket
         updateTicket();
+      }
+    });
+});
+
+// real-time listener for ticket ASSIGNED
+db.collection('ticket').orderBy("date").where("status", "==", "Assigned").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    snapshot.docChanges().forEach(change => {
+
+      if(change.type === 'added'){          // add the document data to the web page
+        renderTicketAssigned(change.doc.data(), change.doc.id);
+      }
+      if(change.type === 'removed'){        // remove the document data from the web page
+        removeTicket(change.doc.id);
+      }
+      if(change.type === 'modified'){      //update the ticket
+        updateTicket();
+        // alert("Successfully update ticket");
+      }
+    });
+}).catch;
+
+// real-time listener for ticket IN PROGRESS
+db.collection('ticket').orderBy("date").where("status", "==", "In Progress").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    snapshot.docChanges().forEach(change => {
+
+      if(change.type === 'added'){          // add the document data to the web page
+        renderTicketProgressing(change.doc.data(), change.doc.id);
+      }
+      if(change.type === 'removed'){        // remove the document data from the web page
+        removeTicket(change.doc.id);
+      }
+      if(change.type === 'modified'){      //update the ticket
+        updateTicket();
+        
+      }
+    });
+});
+
+// real-time listener for ticket CLOSED
+db.collection('ticket').orderBy("date").where("status", "==", "Closed").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    snapshot.docChanges().forEach(change => {
+
+      if(change.type === 'added'){          // add the document data to the web page
+        renderTicketClosed(change.doc.data(), change.doc.id);
+      }
+      if(change.type === 'removed'){        // remove the document data from the web page
+        removeTicket(change.doc.id);
+      }
+      if(change.type === 'modified'){      //update the ticket
+        updateTicket();
+        
       }
     });
 });
@@ -54,23 +107,39 @@ if(formTicket){
             date: FormattedDate,
             PIC: defaultTechnician,
             remarks: defaultRemark, 
+            progress: {
+                updateDesc: defaultRemark,
+                deadline: defaultTechnician
+            }
         };
 
-        db.collection('ticket').add(ticket).catch(error => {
+        db.collection('ticket').add(ticket)
+        .then(docRef => {
+            console.log('Document written with ID: ', docRef.id);
+            db.collection('ticket').doc(docRef.id).collection('progress').doc().set({
+                deadline: FormattedDate,
+                updateInfo: defaultRemark
+            })
+        })
+        .catch(error => {
             console.log(error.message);
-          }).then(res => {
+        })
+            .then(res => {
             const user = auth.currentUser;
             store.ref('users/' + user.uid + '/ticket.jpg').put(file).then(function () {
               console.log('successfully upload image');
               // return user.updateProfile({
               //   photoURL: 'users/' + user.uid + '/profile.jpg',
               // })
-            }).catch(error => {
+            })
+            .catch(error => {
               console.log(error.message);
             })
           })
             .then(alert("Successfully add new ticket!"))
             .catch(err => console.log(err.message));
+
+        
         
             formTicket.category.value = '';
             formTicket.description.value = '';
@@ -90,7 +159,7 @@ if(formTicket){
     // });
 }
 
-// update and delete a ticket
+// update and delete a ticket PENDING
 const ticketContainer = document.querySelector('.tickets');
 if(ticketContainer){
     ticketContainer.addEventListener('click', evt => {
@@ -118,6 +187,104 @@ if(ticketContainer){
 
         //UPDATE TICKET
         if(evt.target.textContent === "assignment_ind"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const updateTicket = document.querySelector('.assign-tech');
+            
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().category);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        // document.getElementById('category').value = doc.data().category;
+                        // document.getElementById('description').value = doc.data().description;
+                        // document.getElementById('location').value = doc.data().location;
+                        // document.getElementById('type').value = doc.data().type;
+                        // document.getElementById('date').value = doc.data().date;
+                        document.getElementById('status').value = doc.data().status;
+                        document.getElementById('pic').value = doc.data().PIC;
+                        document.getElementById('remarks').value = doc.data().remarks;
+                    }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(updateTicket) {
+                updateTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
+
+
+                    // var assignPic = "Pending";
+                    // if(updateTicket.pic.value !== "Not Available") {
+                    //     assignPic = "Assigned";
+                    //     document.getElementById("statusTick").style.backgroundColor = "#44e376 !important";
+                    //     console.log(document.getElementById("statusTick").style.backgroundColor);
+                    // } 
+
+                    // construct object
+                    const newTicket = {
+                        // category: updateTicket.category.value,
+                        // description: updateTicket.description.value, 
+                        // location: updateTicket.location.value, 
+                        // type: updateTicket.type.value,
+                        // date: updateTicket.date.value,
+                        PIC: updateTicket.pic.value,
+                        remarks: updateTicket.remarks.value,
+                        status: updateTicket.status.value 
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                        .then(alert("Successfully update ticket"))
+                        .catch(err => console.log(err));
+        
+                        updateTicket.category.value = '';
+                        updateTicket.description.value = '';
+                        updateTicket.location.value = '';
+                        updateTicket.type.value = '';
+                        updateTicket.date.value = '';
+                        updateTicket.pic.value = '';
+                        updateTicket.remarks.value = '';
+                });
+            }
+        }
+
+    });
+}
+
+// update and delete a ticket ASSIGNED
+const ticketAssignedContainer = document.querySelector('.ticketAssigned');
+if(ticketAssignedContainer){
+    ticketAssignedContainer.addEventListener('click', evt => {
+        
+        // DELETE TICKET
+        if(evt.target.textContent === "delete_outline"){
+            // onclick = "return confirm('Are you sure you want to delete this item?');"
+            const id = evt.target.getAttribute('data-id');
+            // db.collection('ticket').doc(id).delete();
+
+            const formDel = document.querySelector('.delete-Ticket');
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelTicket');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('ticket').doc(id).delete();
+                        window.location.reload();            
+                    }));
+                });
+            }
+        }
+
+        //UPDATE TICKET
+        if(evt.target.textContent === "edit"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             const updateTicket = document.querySelector('.edit-ticket');
             
@@ -149,11 +316,102 @@ if(ticketContainer){
                 updateTicket.addEventListener('submit', evt => {
                     evt.preventDefault();
 
+                    // construct object
+                    const newTicket = {
+                        category: updateTicket.category.value,
+                        description: updateTicket.description.value, 
+                        location: updateTicket.location.value, 
+                        type: updateTicket.type.value,
+                        date: updateTicket.date.value,
+                        // PIC: updateTicket.pic.value,
+                        // remarks: updateTicket.remarks.value,
+                        // status: assignPic 
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                        .then(() => {
+                            const btnUpdate = document.querySelector('#btnUpdateTicket');
 
-                    var assignPic = "";
-                    if(updateTicket.pic.value !== "Not Available") {
-                        assignPic = "Assigned"
+                            if(btnUpdate.addEventListener('click', evt => {
+                                alert("Successfully update ticket")
+                                // window.location.reload();            
+                            }));
+                        })
+                        .catch(err => console.log(err));
+        
+                        // updateTicket.category.value = '';
+                        // updateTicket.description.value = '';
+                        // updateTicket.location.value = '';
+                        // updateTicket.type.value = '';
+                        // updateTicket.date.value = '';
+                        // updateTicket.pic.value = '';
+                        // updateTicket.remarks.value = '';
+                        
+                });
+            }
+        }
+
+    });
+}
+
+// update and delete a ticket IN PROGRESS
+const ticketProgressingContainer = document.querySelector('.ticketInProgress');
+if(ticketAssignedContainer){
+    ticketAssignedContainer.addEventListener('click', evt => {
+        
+        // DELETE TICKET
+        if(evt.target.textContent === "delete_outline"){
+            // onclick = "return confirm('Are you sure you want to delete this item?');"
+            const id = evt.target.getAttribute('data-id');
+            // db.collection('ticket').doc(id).delete();
+
+            const formDel = document.querySelector('.delete-Ticket');
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelTicket');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('ticket').doc(id).delete();
+                        window.location.reload();            
+                    }));
+                });
+            }
+        }
+
+        //UPDATE TICKET
+        if(evt.target.textContent === "edit"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const updateTicket = document.querySelector('.edit-ticket');
+            
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().category);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        document.getElementById('category').value = doc.data().category;
+                        document.getElementById('description').value = doc.data().description;
+                        document.getElementById('location').value = doc.data().location;
+                        document.getElementById('type').value = doc.data().type;
+                        document.getElementById('date').value = doc.data().date;
+                        document.getElementById('pic').value = doc.data().PIC;
+                        document.getElementById('remarks').value = doc.data().remarks;
                     }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(updateTicket) {
+                updateTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
 
                     // construct object
                     const newTicket = {
@@ -162,28 +420,132 @@ if(ticketContainer){
                         location: updateTicket.location.value, 
                         type: updateTicket.type.value,
                         date: updateTicket.date.value,
-                        PIC: updateTicket.pic.value,
-                        remarks: updateTicket.remarks.value,
-                        status: assignPic 
+                        // PIC: updateTicket.pic.value,
+                        // remarks: updateTicket.remarks.value,
+                        // status: assignPic 
                     };
                     
                     db.collection('ticket').doc(id).update(newTicket)
-                        .then(alert("Successfully update ticket"))
+                        .then(() => {
+                            const btnUpdate = document.querySelector('#btnUpdateTicket');
+
+                            if(btnUpdate.addEventListener('click', evt => {
+                                alert("Successfully update ticket")
+                                // window.location.reload();            
+                            }));
+                        })
                         .catch(err => console.log(err));
         
-                        updateTicket.category.value = '';
-                        updateTicket.description.value = '';
-                        updateTicket.location.value = '';
-                        updateTicket.type.value = '';
-                        updateTicket.date.value = '';
-                        updateTicket.pic.value = '';
-                        updateTicket.remarks.value = '';
+                        // updateTicket.category.value = '';
+                        // updateTicket.description.value = '';
+                        // updateTicket.location.value = '';
+                        // updateTicket.type.value = '';
+                        // updateTicket.date.value = '';
+                        // updateTicket.pic.value = '';
+                        // updateTicket.remarks.value = '';
+                        
+                });
+            }
+        }
+    });
+}
+
+// update and delete a ticket CLOSED
+const ticketClosedContainer = document.querySelector('.ticketClosed');
+if(ticketClosedContainer){
+    ticketClosedContainer.addEventListener('click', evt => {
+        
+        // DELETE TICKET
+        if(evt.target.textContent === "delete_outline"){
+            // onclick = "return confirm('Are you sure you want to delete this item?');"
+            const id = evt.target.getAttribute('data-id');
+            // db.collection('ticket').doc(id).delete();
+
+            const formDel = document.querySelector('.delete-Ticket');
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelTicket');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('ticket').doc(id).delete();
+                        window.location.reload();            
+                    }));
                 });
             }
         }
 
+        //UPDATE TICKET
+        if(evt.target.textContent === "edit"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const updateTicket = document.querySelector('.edit-ticket');
+            
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().category);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        document.getElementById('category').value = doc.data().category;
+                        document.getElementById('description').value = doc.data().description;
+                        document.getElementById('location').value = doc.data().location;
+                        document.getElementById('type').value = doc.data().type;
+                        document.getElementById('date').value = doc.data().date;
+                        document.getElementById('pic').value = doc.data().PIC;
+                        document.getElementById('remarks').value = doc.data().remarks;
+                    }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(updateTicket) {
+                updateTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
+
+                    // construct object
+                    const newTicket = {
+                        category: updateTicket.category.value,
+                        description: updateTicket.description.value, 
+                        location: updateTicket.location.value, 
+                        type: updateTicket.type.value,
+                        date: updateTicket.date.value,
+                        // PIC: updateTicket.pic.value,
+                        // remarks: updateTicket.remarks.value,
+                        // status: assignPic 
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                        .then(() => {
+                            const btnUpdate = document.querySelector('#btnUpdateTicket');
+
+                            if(btnUpdate.addEventListener('click', evt => {
+                                alert("Successfully update ticket")
+                                // window.location.reload();            
+                            }));
+                        })
+                        .catch(err => console.log(err));
+        
+                        // updateTicket.category.value = '';
+                        // updateTicket.description.value = '';
+                        // updateTicket.location.value = '';
+                        // updateTicket.type.value = '';
+                        // updateTicket.date.value = '';
+                        // updateTicket.pic.value = '';
+                        // updateTicket.remarks.value = '';
+                        
+                });
+            }
+        }
     });
 }
+
 
 
 
