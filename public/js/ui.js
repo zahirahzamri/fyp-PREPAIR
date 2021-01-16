@@ -769,7 +769,7 @@ const setupTicketAssigned = (data) => {
     //setup view ticket collapsible : IN PROGRESS
 
 
-    const ticketProgressList = document.querySelector('.ticketInProgress'); // DOM elements
+const ticketProgressList = document.querySelector('.ticketInProgress'); // DOM elements
 const setupTicketProgressing = (data) => {
     if(ticketProgressList){
       if(data.length){
@@ -794,19 +794,12 @@ const setupTicketProgressing = (data) => {
                 </table>
                 <div class="row">
                     <div class="col" style="float:right">
-                        <div class="ticket-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        <div class="see-details buttonFloatStyle btn-floating blue waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-detailProgress">format_list_bulleted</i>
                         </div>
                     </div>
                     <div class="col" style="float:right">
-                        <div class="edit-ticket buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
-                        </div>
-                    </div>
-                    <div class="col" style="float:right">
-                        <div class="updateProgress buttonFloatStyle btn-floating blue waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-updateProgress">add_to_photos</i>
-                        </div>
+                        <div class="updateProgress btn modal-trigger orange waves-effect !important" data-id="${id}" data-target="modal-updateProgress">UPDATE PROGRESS</div>
                     </div>
                 </div>        
               </div>
@@ -888,16 +881,6 @@ const setupTicketClosed = (data) => {
                     <tr> <td style="font-weight: bold;">Remarks     </td> <td>:</td>  <td>${ticket.remarks}      </td> </tr>
                 </table>
                 <div class="row">
-                    <div class="col" style="float:right">
-                        <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
-                        </div>
-                    </div>
-                    <div class="col" style="float:right">
-                        <div class="progressing-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
-                        </div>
-                    </div>
                     <div class="col" style="float:right">
                         <div class="see-details buttonFloatStyle btn-floating blue waves-effect right !important" style="margin-left: 5%;">
                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-detailProgress">format_list_bulleted</i>
