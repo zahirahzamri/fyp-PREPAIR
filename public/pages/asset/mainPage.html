@@ -44,10 +44,11 @@
 
             <!-- navigation -->
             <ul class="right hide-on-med-and-down">
-                <li class="logged-in" style="display: none;"><a href="/public/pages/asset/mainPage.html"                    class="styleNav">Home</a></li>
-                <li class="admin"     style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown1"  class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="logged-in" style="display: none;"><a href="/public/pages/ticket.html"                            class="styleNav">Tickets</a></li>
-                <li class="logged-in" style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown2"  class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="logged-in" style="display: none;"><a href="/public/pages/asset/mainPage.html"                        class="styleNav">Home</a></li>
+                <li class="admin"     style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown1"     class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="admin" style="display: none;"><a href="/public/pages/ticket.html"                                class="styleNav">Tickets</a></li>
+                <li class="lecturer" style="display: block;"><a href="/public/pages/ticketLecturer.html"                        class="styleNav">My Tickets</a></li>
+                <li class="logged-in" style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown2"     class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
                 <!-- <li class="logged-in" style="display: none;"><a href="/public/index.html"                                   class="right styleNav" id="logout">Log out<i class="material-icons left">lock_open</i></a></li> -->
                 <li class="logged-in" style="display: none;"><a href="/public/index.html" class="right styleNav" id="logout">Log out</a></li>
             </ul>
@@ -61,7 +62,8 @@
         <li><div class="divider"></div></li>
         <li class="admin"       style="display: none;"><a href="/public/pages/dashboard.html"       class="styleNav waves-effect"><i class="material-icons left">dashboard</i>Dashboard</a></li>
         <li class="admin"       style="display: none;"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect"><i class="material-icons left">devices</i>Asset</a></li>
-        <li class="logged-in"   style="display: none;"><a href="/public/pages/ticket.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>Tickets</a></li>
+        <li class="admin"   style="display: none;"><a href="/public/pages/ticket.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>Tickets</a></li>
+        <li class="lecturer"   style="display: block;"><a href="/public/pages/ticketLecturer.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>My Tickets</a></li>
         <li class="admin"       style="display: none;"><a href="/public/pages/report.html"          class="styleNav waves-effect"><i class="material-icons left">table_chart</i>Report</a></li>
         <li><div class="divider"></div></li>
         <li class="logged-in"   style="display: none;"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
@@ -176,7 +178,7 @@
                 </div>
             </div>
 
-            <div class="row logged-in" style="display: none; margin-top: 2;">
+            <div class="row admin" style="display: none; margin-top: 2;">
                 <div class="col s12 m10">
                   <div class="card horizontal">
                     <div class="card-stacked">
@@ -188,6 +190,42 @@
                         </div>
                         <div class="card-action">
                             <a href="/public/pages/ticket.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row lecturer" style="display: block; margin-top: 2;">
+                <div class="col s12 m10">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                        <span class="card-title" style="margin-top: 5%; font-weight: bolder;">Incident Report / Request</span>
+                        <div class="card-content">
+                            <ul>
+                                <li>Create new ticket - incident report or request</li>
+                            </ul>
+                        </div>
+                        <div class="card-action">
+                            <a href="/public/pages/addTicket2.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="row lecturer" style="display: block; margin-top: 2;">
+                <div class="col s12 m10">
+                  <div class="card horizontal">
+                    <div class="card-stacked">
+                        <span class="card-title" style="margin-top: 5%; font-weight: bolder;">My Ticket</span>
+                        <div class="card-content">
+                            <ul>
+                                <li>View your tickets</li> 
+                            </ul>
+                        </div>
+                        <div class="card-action">
+                            <a href="/public/pages/ticketLecturer.html" class="btn-floating halfway-fab waves-effect waves-light"><i class="material-icons right">arrow_forward</i>Go</a>
                         </div>
                     </div>
                   </div>

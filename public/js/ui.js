@@ -816,6 +816,58 @@ const setupTicketProgressing = (data) => {
     }
 };
 
+// ticket lecturer
+const lecturerTickets = document.querySelector('.tickInProgress'); // DOM elements
+const setupTicketLecturer = (data) => {
+    if(lecturerTickets){
+      if(data.length){
+        let html = '';
+
+        data.forEach((doc) =>{
+          const ticket = doc.data();
+          const id = doc.id;
+          
+          const li = `
+            <li data-id="${id}">
+              <div class="collapsible-header grey lighten-4" style="font-weight: bold;">${ticket.date} : ${ticket.category} [${ticket.type}] - ${ticket.status} </div>
+              <div class="collapsible-body white">
+                <table>
+                    <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
+                    <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
+                    <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
+                    <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
+                    <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${ticket.status}       </td> </tr>
+                    <tr> <td style="font-weight: bold;">PIC         </td> <td>:</td>  <td>${ticket.PIC}          </td> </tr>
+                </table>
+                <div class="row" style="padding-top: 15px;">
+                    <div class="col" style="float:right">
+                        <div class="deleteLecturerTick buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+                        </div>
+                    </div>
+                    <div class="col" style="float:right">
+                        <div class="edit-tickets buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket" id="editBtn">edit</i>
+                        </div>
+                    </div>
+                    <div class="col" style="float:right">
+                        <div class="see-details buttonFloatStyle btn-floating blue waves-effect right !important" style="margin-left: 5%;">
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-detailProgress">format_list_bulleted</i>
+                        </div>
+                    </div>
+                </div>        
+              </div>
+            </li>
+          `;
+          html += li;
+        });
+        lecturerTickets.innerHTML = html;        
+      }else{
+        lecturerTickets.innerHTML = '<h5 class="center-align">Not available</h5>'
+      }
+    }
+};
+
     
     // render ticket data - ticket IN PROGRESS
     // const ticketInProgress = document.querySelector('.ticketInProgress');

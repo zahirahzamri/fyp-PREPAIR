@@ -34,6 +34,11 @@ auth.onAuthStateChanged(user => {
           user.admin = idTokenResult.claims.admin; //return true if admin
           setupUI(user);
         });
+
+        // real-time listener for ticket LECTURERS
+        db.collection('ticket').orderBy("timeStamp", "desc").where("author", "==", user.uid).onSnapshot({ includeMetadataChanges: true }, snapshot => {
+          setupTicketLecturer(snapshot.docs);
+        });
       
         // // get data of tickets, onSnapshot is to real time update the data 
         // db.collection('ticket').onSnapshot(snapshot => {

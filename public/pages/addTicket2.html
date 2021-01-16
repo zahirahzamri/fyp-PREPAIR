@@ -103,7 +103,7 @@
   <div class="content container z-depth-1 grey lighten-5">
       <div class="row">
         <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text" onclick="return history.back()"><i class="material-icons left">arrow_back</i>Back</a></button>
-        <button class="input-field btn right btnNavigation"><a href="/public/pages/ticket.html" class="white-text"><i class="material-icons left">content_paste</i>View Ticket</a></button>
+        <button class="input-field btn right btnNavigation"><a href="/public/pages/ticketLecturer.html" class="white-text"><i class="material-icons left">content_paste</i>View Ticket</a></button>
       </div>
 
       <div class="row">
@@ -126,13 +126,13 @@
                             <form class="add-ticket col s12" id="add-ticket" onsubmit="return false">
                                 <!-- <div class="row"> -->
                                     <div class="input-field">
-                                        <input disabled value="Ticket status: New" id="disabled">
+                                        <input disabled value="Ticket status: New" id="disabled" required>
                                         <label for="ticket"></label>
                                     </div>
                                 <!-- </div> -->
                                 <div class="row">
                                     <div id="radio-toolbar">
-                                        <input type="radio" id="radio-incident" name="type" value="Incident">
+                                        <input type="radio" id="radio-incident" name="type" value="Incident" required>
                                         <label for="radio-incident">Incident</label>
                                         <input type="radio" id="radio-request" name="type" value="Request">
                                         <label for="radio-request">Request</label>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="input-field">
-                                        <select id="category" class="validate">
+                                        <select id="category" class="validate" required>
                                             <option value="" disabled selected>Choose your option</option>
                                             <option value="Fax service">Fax service</option>
                                             <option value="Printer support">Printer support</option>

@@ -6,6 +6,7 @@ const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const adminItems = document.querySelectorAll('.admin');
+const lecturerItems = document.querySelectorAll('.lecturer');
 
 const setupUI = (user) => {
   if(accountDetails){
@@ -13,6 +14,7 @@ const setupUI = (user) => {
       if (user.admin) {
         // show if the user is the admin
         adminItems.forEach(item => item.style.display = 'block');
+        lecturerItems.forEach(item => item.style.display = 'none');
       }
       store.ref('users/' + user.uid + '/profile.jpg').getDownloadURL().then(imgUrl => {
         img.src = imgUrl;

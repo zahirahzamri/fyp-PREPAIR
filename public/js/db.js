@@ -92,12 +92,6 @@ db.collection('ticket').where('status', 'in', ['Closed', 'Cancel']).onSnapshot({
     });
 });
 
-// // real-time listener for ticket progress CLOSED
-// db.collection('ticket').doc(id).collection('progress').orderBy("date").where("status", "==", "Closed").onSnapshot({ includeMetadataChanges: true }, snapshot => {
-    
-//     setupProgressTicket(snapshot.docs);
-    
-// });
 
 
 // add new tickets
@@ -109,6 +103,7 @@ if(formTicket){
         var defaultStatus = "Pending";
         var defaultTechnician = "Not Available";
         var defaultRemark = "";
+        var user = firebase.auth().currentUser;
          
         // const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
         const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
@@ -123,8 +118,9 @@ if(formTicket){
             date: FormattedDate,
             PIC: defaultTechnician,
             remarks: defaultRemark, 
+            author: user.uid,
         };
-
+        console.log(user.uid);
         db.collection('ticket').add(ticket)
         .then(docRef => {
             console.log('Document written with ID: ', docRef.id);
@@ -596,17 +592,23 @@ if(ticketClosedContainer){
                         // remarks: updateTicket.remarks.value,
                         // status: assignPic 
                     };
-                    
-                    db.collection('ticket').doc(id).update(newTicket)
-                        .then(() => {
-                            const btnUpdate = document.querySelector('#btnUpdateTicket');
 
-                            if(btnUpdate.addEventListener('click', evt => {
-                                alert("Successfully update ticket")
-                                // window.location.reload();            
-                            }));
+                    const btnUpdate13 = document.querySelector('#btnUpdateTicket');
+
+                    if(btnUpdate13.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        
+                        console.log("update ticket")
+                        db.collection('ticket').doc(id).update(newTicket)
+                        
+                        .then(() => {
+                            alert("Successfully update ticket")
+                        // // window.location.reload();         
                         })
                         .catch(err => console.log(err));
+                    }));
+                    
+
         
                         // updateTicket.category.value = '';
                         // updateTicket.description.value = '';
@@ -626,29 +628,119 @@ if(ticketClosedContainer){
                     
                 // real-time listener for ticket progress CLOSED
                 db.collection('ticket').doc(id).collection('progress').orderBy("deadline", "desc").onSnapshot(snapshot => {
-                // console.log("masuk data ke tak : " + id);
-                // console.log("snapshot doc : " + snapshot.docs);
                 setupProgressTicket(snapshot.docs);
                     
                 });  
             }
 
-        // if(evt.target.textContent === "format_list_bulleted"){
-        //     const id = evt.target.getAttribute('data-id'); //get the id of the ticket
-            
-        //     // real-time listener for ticket progress CLOSED
-        // db.collection('ticket').doc(id).collection('progress').orderBy("deadline", "desc").onSnapshot(snapshot => {
-        //     // console.log("masuk data ke tak : " + id);
-        //     console.log("snapshot doc : " + snapshot.docs);
-        //     setupProgressTicket(snapshot.docs);
-            
-        // });  
-        // }
-
     });
 }
 
 
+
+// LECTURER : DELETE, UPDATE, VIEW PROGRESS
+const ticketLecturerContainer = document.querySelector('.tickInProgress');
+if(ticketLecturerContainer){
+    ticketLecturerContainer.addEventListener('click', evt => {
+        
+        // DELETE TICKET
+        if(evt.target.textContent === "delete_outline"){
+            // onclick = "return confirm('Are you sure you want to delete this item?');"
+            const id = evt.target.getAttribute('data-id');
+            // db.collection('ticket').doc(id).delete();
+
+            const formDel = document.querySelector('.delete-Ticket');
+            if(formDel){
+                formDel.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    const btnDel = document.querySelector('#btnDelTicket');
+
+                    if(btnDel.addEventListener('click', evt => {
+                        evt.preventDefault();
+                        db.collection('ticket').doc(id).delete();
+                        window.location.reload();            
+                    }));
+                });
+            }
+        }
+
+        //UPDATE TICKET
+        if(evt.target.textContent === "edit"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const updateTicket = document.querySelector('.edit-ticket');
+            
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().type);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        document.getElementById('category2').value = doc.data().category;
+                        document.getElementById('description2').value = doc.data().description;
+                        document.getElementById('location2').value = doc.data().location;
+                        document.getElementById('type2').value = doc.data().type;
+                        document.getElementById('date2').value = doc.data().date;
+                    }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(updateTicket) {
+                updateTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
+
+                    // construct object
+                    const newTicket = {
+                        category: updateTicket.category2.value,
+                        description: updateTicket.description2.value, 
+                        location: updateTicket.location2.value, 
+                        type: updateTicket.type2.value,
+                        date: updateTicket.date2.value,
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                        .then(() => {
+                            const btnUpdate = document.querySelector('#btnUpdateTick');
+
+                            if(btnUpdate.addEventListener('click', evt => {
+                                alert("Successfully update ticket")
+                                // window.location.reload();            
+                            }));
+                        })
+                        .catch(err => console.log(err));
+        
+                        // updateTicket.category2.value = '';
+                        // updateTicket.description2.value = '';
+                        // updateTicket.location2.value = '';
+                        // updateTicket.type2.value = '';
+                        // updateTicket.date2.value = '';
+                        // updateTicket.pic.value = '';
+                        // updateTicket.remarks.value = '';
+                        
+                });
+            }
+        }
+
+        //DISPLAY PROGRESS TICKET
+        if(evt.target.textContent === "format_list_bulleted"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            
+        // real-time listener for ticket progress CLOSED
+        db.collection('ticket').doc(id).collection('progress').orderBy("timeStamp", "desc").onSnapshot(snapshot => {Ah
+        setupProgressTicket(snapshot.docs);
+            
+        });  
+    }
+
+
+    });
+}
 
 
 

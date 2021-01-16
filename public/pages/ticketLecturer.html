@@ -1,0 +1,337 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PREPAIR: Ticket</title>
+    <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" href="/public/css/styles.css" rel="stylesheet">
+    <script type="text/javascript" src="/public/js/materialize.min.js"></script>    
+    <link rel="manifest" href="/public/manifest.json">
+    
+    <link rel="apple-touch-icon" href="/public/img/icons/logo96.png">  
+    <meta name="apple-mobile-web-app-status-bar" content="#00b4d8">
+    <meta name="theme-color" content="#00b4d8">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/img/icons/logo32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/img/icons/logo16.png">  
+</head>
+
+<body>
+
+  <!-- top nav with dropdown -->
+    <div class="navbar-fixed">
+        <nav class="nav-wrapper z-depth-0">
+          <div class="container">
+            <a class="logo" href="/public/pages/asset/mainPage.html">PRE<span>PAIR</span></a>
+            <a href="#" class="sidenav-trigger" data-target="mobile-links">
+              <i class="material-icons">menu</i>
+            </a>
+            <!-- Dropdown Structure -->
+            <div id="dropdown1" class="dropdown-content row">
+                <ul class="vertical-tabs col s8">
+                    <li><a href="/public/pages/dashboard.html"          class="styleNav-dropdown"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+                    <li><a href="/public/pages/asset/mainAsset.html"    class="styleNav-dropdown"><i class="material-icons left">devices</i>Assets</a></li>
+                    <li><a href="/public/pages/report.html"             class="styleNav-dropdown"><i class="material-icons left">table_chart</i>Report</a></li>
+                </ul>                
+            </div>
+            <div id="dropdown2" class="dropdown-content row">
+                <ul class="vertical-tabs col s8">
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown modal-trigger" data-target="modal-account"><i class="material-icons left">account_circle</i>Profile</a></li>
+                    <li class="admin"     style="display: none;"><a href="#" class="styleNav-dropdown modal-trigger" data-target="modal-addAdmin"><i class="material-icons left">group_add</i>Add Technician</a></li>
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown"><i class="material-icons left">chat</i>Chat</a></li>
+                    <li class="logged-in" style="display: none;"><a href="#" class="styleNav-dropdown"><i class="material-icons left">notifications</i>Notification</a></li>
+                </ul>
+            </div>
+
+            <!-- navigation -->
+            <ul class="right hide-on-med-and-down">
+                <li class="logged-in" style="display: none;"><a href="/public/pages/asset/mainPage.html"                    class="styleNav">Home</a></li>
+                <li class="admin"     style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown1"  class="styleNav">Assets<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="admin" style="display: none;"><a href="/public/pages/ticket.html"                            class="styleNav">Tickets</a></li>
+                <li class="lecturer" style="display: block;"><a href="/public/pages/ticketLecturer.html"                        class="styleNav">My Tickets</a></li>
+                <li class="logged-in" style="display: none;"><a class="dropdown-trigger1" href="#!" data-target="dropdown2"  class="styleNav">More<i class="material-icons right">arrow_drop_down</i></a></li>
+                <!-- <li class="logged-in" style="display: none;"><a href="/public/index.html"                                   class="right styleNav" id="logout">Log out<i class="material-icons left">lock_open</i></a></li> -->
+                <li class="logged-in" style="display: none;"><a href="/public/index.html" class="right styleNav" id="logout">Log out</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    <!-- side nav -->
+    <ul class="sidenav" id="mobile-links">
+        <li><a class="subheader">PRE<span>PAIR</span></a></li>
+        <li class="logged-in"   style="display: none;"><a href="/public/pages/asset/mainPage.html"  class="styleNav waves-effect"><i class="material-icons left">Home</i>Home</a></li>
+        <li><div class="divider"></div></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/dashboard.html"       class="styleNav waves-effect"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/asset/mainAsset.html" class="styleNav waves-effect"><i class="material-icons left">devices</i>Asset</a></li>
+        <li class="admin"   style="display: none;"><a href="/public/pages/ticket.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>Tickets</a></li>
+        <li class="lecturer"   style="display: block;"><a href="/public/pages/ticketLecturer.html"          class="styleNav waves-effect"><i class="material-icons left">confirmation_number</i>My Tickets</a></li>
+        <li class="admin"       style="display: none;"><a href="/public/pages/report.html"          class="styleNav waves-effect"><i class="material-icons left">table_chart</i>Report</a></li>
+        <li><div class="divider"></div></li>
+        <li class="logged-in"   style="display: none;"><a href="#" class="modal-trigger waves-effect" data-target="modal-account"><i class="material-icons">account_circle</i>Profile</a></li>
+        <li class="admin"       style="display: none;"><a href="#" class="modal-trigger" data-target="modal-addAdmin"><i class="material-icons">group_add</i>Add Technician</a></li>
+        <li class="logged-in"   style="display: none;"><a href=""><i class="material-icons">chat</i>Chat</a></li>
+        <li class="logged-in"   style="display: none;"><a href=""><i class="material-icons">notifications_active</i>Notification</a></li>
+        <li><div class="divider"></div></li>
+        <li class="logged-in"   style="display: none;"><a href="/public/index.html" class="buttonLogout waves-effect" id="logout"><i class="material-icons left">lock_open</i>Logout</a></li>
+    </ul>
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+      <div class="modal-content center-align">
+          <h4>User Profile</h4><br />
+          <img src="https://alscofirstaid.com.au/wp-content/uploads/2014/01/placeholder-150x150.png" class="ui image centered" id="img">
+          <div class="account-details"></div>
+      </div>
+  </div>
+
+    <!-- content -->
+    <header class="headerStyle darken-1 section container">
+        <h4 class="center">ASSET MANAGEMENT</h2>
+        <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
+    </header>
+
+    <div class="content container z-depth-1 grey lighten-5">
+      <div class="row">
+        <!-- <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text" onclick=" return history.back()"><i class="material-icons left" onclick="history.back()">arrow_back</i>Back</a></button> -->
+        <button class="input-field btn left btnNavigation" onclick="window.history.go(-1); return false;"><a href="" class="white-text"><i class="material-icons left">arrow_back</i>Back</a></button>
+        <button class="input-field btn right btnNavigation"><a href="/public/pages/addTicket2.html" class="white-text sidenav-trigger"><i class="material-icons left">add</i>New Ticket</a></button>
+      </div>
+
+      <section  id="selectTicketType">
+        <div class="row">
+          <div class="col s12 l12">
+            <!-- tabs -->
+            <ul class="tabs flow-text">
+              <li class="tab col s6"><a href="#inProgress"  class="indigo-text text-darken-4">In progress</a></li>
+              <li class="tab col s6"><a href="#Closed" class="indigo-text text-darken-4">Completed</a></li>
+            </ul>
+
+            <!-- ticket with status : IN PROGRESS -->
+            <div class="col s12 #B0C4DE" id="inProgress">
+              <p class="textInTabTitle flow-text">TICKET TYPE: In Progress</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that are still in progress</p>
+
+              <!-- display tickets -->
+                <div class="container" style="margin-top: 20px;">
+                  <ul class="tickInProgress collapsible z-depth-0" style="border: none;">
+  
+                  </ul>
+                </div>
+            </div>
+
+            <!-- ticket with status : CLOSED -->
+            <div class="col s12 #B0C4DE" id="Closed">
+              <p class="textInTabTitle flow-text">TICKET TYPE: Completed</p>
+              <hr style="width: 50%;">
+              <p class="text2Tab">Display all tickets that are closed</p>
+
+              <!-- display tickets -->
+              <div class="container" style="margin-top: 20px;">
+                <ul class="tickClosed collapsible z-depth-0" style="border: none;">
+
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- float add -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large blue red">
+        <i class="large material-icons">add</i>
+      </a>
+      <ul>
+        <!-- <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li> -->
+        <li class="admin" style="display: none;"><a href="/public/pages/asset/addAsset.html" class="btn-floating green"><i class="material-icons">devices</i></a></li>
+        <li class="admin" style="display: none;"><a href="/public/pages/addTicket.html" class="btn-floating red"><i class="material-icons">confirmation_number</i></a></li>
+        <li class="lecturer" style="display: block;"><a href="/public/pages/addTicket2.html" class="btn-floating yellow darken-1"><i class="material-icons">confirmation_number</i></a></li>
+    </ul>
+    </div>
+
+  <!-- TICKET PROGRESS MODAL -->
+  <div id="modal-detailProgress" class="modal">
+    <div class="modal-content center-align">
+      <div  class="progress-form">
+        <!-- <form class="progress-ticket container section"> -->
+                  
+          <h6 >Progress Ticket</h6>
+          <div class="divider"></div>
+          
+            <ul id="detailedProgress" class="progressTicket z-depth-0" style="border: none;">
+            </ul>
+         
+        
+          <div class="input-field inline center">
+            <a class="waves-effect waves-light btn grey" id="btnClose">Close</a>
+          </div>
+        <!-- </form> -->
+    </div>
+    </div>
+</div>
+
+    <!-- DELETE TICKET MODAL -->
+    <div id="modal-deleteTicket" class="modal">
+      <div class="modal-content center-align">
+        <div id="deleteTicket-form" class="delFormTicket">
+          <form class="delete-Ticket container section">
+            <h6>Delete Ticket</h6>
+            <div class="divider"></div>
+
+            <div class="row">
+              <p>Are you sure you want to delete this ticket?</p>
+            </div>
+            <div class="row">
+              <div class="clearfix inline center">
+                <button class="btn-small deletebtn" id="btnDelTicket" type="submit">Delete</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket2">Cancel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT TICKET MODAL -->
+    <div id="modal-editTicket" class="modal">
+        <div class="modal-content center-align">
+          <div id="editTicket-form" class="ticket-form">
+            <form class="edit-ticket container section">
+            
+              <h6 >Update Ticket</h6>
+              <div class="divider"></div>
+  
+              <div class="input-field">
+                <input disabled value="" placeholder="Date" id="date2" type="text" class="validate">
+                <label for="date2">Date</label>
+              </div>
+              <div class="input-field">
+                <select id="type2" class="validate" required>
+                    <option value="" disabled selected>Choose ticket type</option>
+                    <option value="Incident">Incident</option>
+                    <option value="In Progress">Request</option>
+                  </select>
+                <label for="type2">Type</label>
+              </div>
+              <div class="input-field">
+                <select id="category2" class="validate" required>
+                    <option value="" disabled selected>Choose service category</option>
+                    <option value="Fax service">Fax service</option>
+                    <option value="Printer support">Printer support</option>
+                    <option value="Provide software installation">Provide software installation</option>
+                    <option value="Request ICT equipment">Request ICT equipment</option>
+                    <option value="Wireless service">Wireless service</option>
+                    <option value="Troubleshot">Troubleshot</option>
+                    <option value="Others">Others</option>
+                </select>
+                    <label for="category2">Category</label>
+              </div>
+              <div class="input-field">
+                <input value="" placeholder="Write more details..." id="description2" type="text" class="validate">
+                <label for="description2">Description</label>
+            </div>
+              <div class="input-field">
+                  <input placeholder="ie. CISCO Lab" id="location2" type="text" class="validate">
+                  <label for="location2">location</label>
+              </div>
+            
+              <div class="input-field inline center">
+                <button class="btn-small updatebtn" type="submit" id="btnUpdateTick">Update</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket">Cancel</button>
+              </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT PART -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/public/js/materialize.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-functions.js"></script>
+
+    <script src="/public/js/fb.js"></script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="/public/js/auth.js"></script>
+    <script src="/public/js/index.js"></script>    
+
+    <script src="/public/js/app.js"></script>
+
+    <script src="/public/js/ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js"></script>
+    <script src="/public/js/db.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+          $('.fixed-action-btn').floatingActionButton({
+            hoverEnabled	:	true,
+
+          });
+            $('ul.tabs').tabs({
+              // swipeable : true,
+              // responsiveThreshold : Infinity
+            });
+
+            // $(".tabs-content.carousel .carousel-item").css('overflow-y','auto');
+            // $(".tabs-content.carousel .carousel-item").css('height','400px');
+
+            $(".dropdown-trigger").dropdown();
+            
+            $('select').formSelect();
+            $(".dropdown-trigger1").dropdown({
+                coverTrigger: false,
+                inDuration: 300,
+                outDuration: 225,
+                constraintWidth:false,
+                hover: true, // Activate on hover
+                belowOrigin: true, // Displays dropdown below the button
+                gutter: 0,  //spacing from edge
+                alignment: 'right'
+            });
+
+            //close modal when click 'Cancel' button
+            const btn = document.getElementById("btnCancelTicket");
+            const btn2 = document.getElementById("btnCancelTicket2");
+            const btn3 = document.getElementById("btnCancelTicket3");
+            const btn4 = document.getElementById("btnClose");
+            const btn5 = document.getElementById("btnCancelTicket5");
+            
+            btn.addEventListener('click', evt => {
+              const closeModalTicket = document.querySelector('#modal-editTicket');
+              M.Modal.getInstance(closeModalTicket).close();
+            })
+
+            btn2.addEventListener('click', evt => {
+              const closeModalTicket2 = document.querySelector('#modal-deleteTicket');
+              M.Modal.getInstance(closeModalTicket2).close();
+            })
+
+            btn4.addEventListener('click', evt => {
+              const closeModalTicket4 = document.querySelector('#modal-detailProgress');
+              M.Modal.getInstance(closeModalTicket4).close();
+            })
+
+        });
+
+        
+        // $(document).ready(function(){
+            
+        // });
+    </script>
+    
+</body>
+</html>
