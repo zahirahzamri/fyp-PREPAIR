@@ -112,10 +112,10 @@
           <div class="col s12 l12">
             <!-- tabs -->
             <ul class="tabs flow-text">
-              <li class="tab col s3"><a href="#Pending"  class="active indigo-text text-darken-4">Pending</a></li>
-              <li class="tab col s3"><a href="#Assigned"  class="indigo-text text-darken-4">Assigned</a></li>
-              <li class="tab col s3"><a href="#inProgress"  class="indigo-text text-darken-4">In progress</a></li>
-              <li class="tab col s3"><a href="#Closed" class="indigo-text text-darken-4">Closed</a></li>
+              <li class="tab col s4"><a href="#Pending"  class="active indigo-text text-darken-4">Pending</a></li>
+              <!-- <li class="tab col s3"><a href="#Assigned"  class="indigo-text text-darken-4">Assigned</a></li> -->
+              <li class="tab col s4"><a href="#inProgress"  class="indigo-text text-darken-4">In progress</a></li>
+              <li class="tab col s4"><a href="#Closed" class="indigo-text text-darken-4">Closed</a></li>
             </ul>
 
             <!-- ticket with status : PENDING -->
@@ -125,9 +125,9 @@
               <p class="text2Tab">Display all tickets that need to be assigned</p>
 
               <!-- search function -->
-              <div class="row container" style="margin-left: 3.5%;">
+              <!-- <div class="row container" style="margin-left: 3.5%;">
                 <i class="material-icons left">search<input id="myInput" type="text" placeholder="  Search.."></i>
-              </div>
+              </div> -->
 
               <!-- display tickets -->
               <div class="container" style="margin-top: 20px;">
@@ -137,23 +137,23 @@
               </div>
             </div>
             <!-- ticket with status : ASSIGNED -->
-            <div class="col s12 #B0C4DE" id="Assigned">
+            <!-- <div class="col s12 #B0C4DE" id="Assigned">
               <p class="textInTabTitle flow-text">TICKET TYPE: Assigned</p>
               <hr style="width: 50%;">
-              <p class="text2Tab">Display all tickets that already being assigned</p>
+              <p class="text2Tab">Display all tickets that already being assigned</p> -->
 
               <!-- search function -->
-              <div class="row container" style="margin-left: 3.5%;">
+              <!-- <div class="row container" style="margin-left: 3.5%;">
                 <i class="material-icons left">search<input id="myInput2" type="text" placeholder="  Search.."></i>
-              </div>
+              </div> -->
 
               <!-- display tickets -->
-              <div class="container" style="margin-top: 20px;">
+              <!-- <div class="container" style="margin-top: 20px;">
                 <ul class="ticketAssigned collapsible z-depth-0" style="border: none;">
 
                 </ul>
               </div>
-            </div>
+            </div> -->
 
             <!-- ticket with status : IN PROGRESS -->
             <div class="col s12 #B0C4DE" id="inProgress">
@@ -162,9 +162,9 @@
               <p class="text2Tab">Display all tickets that still in progress and already being assigned</p>
 
               <!-- search function -->
-              <div class="row container" style="margin-left: 3.5%;">
+              <!-- <div class="row container" style="margin-left: 3.5%;">
                 <i class="material-icons left">search<input id="myInput3" type="text" placeholder="  Search.."></i>
-              </div>
+              </div> -->
 
               <!-- display tickets -->
                 <div class="container" style="margin-top: 20px;">
@@ -181,9 +181,9 @@
               <p class="text2Tab">Display all tickets that is closed</p>
 
               <!-- search function -->
-              <div class="row container" style="margin-left: 3.5%;">
+              <!-- <div class="row container" style="margin-left: 3.5%;">
                 <i class="material-icons left">search<input id="myInput4" type="text" placeholder="  Search.."></i>
-              </div>
+              </div> -->
 
               <!-- display tickets -->
               <div class="container" style="margin-top: 20px;">
@@ -199,10 +199,10 @@
     
 
         <!-- ADD TICKET BUTTON -->
-        <div class="center" style="margin-top:3%; margin-bottom: 10%;">
+        <!-- <div class="center" style="margin-top:3%; margin-bottom: 10%;">
           <a class="btn-floating btn-large sidenav-trigger" href="/public/pages/addTicket.html">
             <i class="material-icons">add</i></a>
-        </div>
+        </div> -->
 
     </div>
 
@@ -214,7 +214,7 @@
       <ul>
         <!-- <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
         <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li> -->
-        <li><a class="btn-floating green"><i class="material-icons">devices</i></a></li>
+        <li><a href="/public/pages/asset/addAsset.html" class="btn-floating green"><i class="material-icons">devices</i></a></li>
         <li><a href="/public/pages/addTicket.html" class="btn-floating red"><i class="material-icons">confirmation_number</i></a></li>
       </ul>
     </div>
@@ -234,10 +234,8 @@
                 <div class="input-field col s12">
                   <select id="status" class="validate">
                     <option value="" selected>Choose status</option>
-                    <option value="Pending">Pending</option>
                     <option value="Assigned">Assigned</option>
                     <option value="In Progress">In Progress</option>
-                    <option value="Closed">Close Ticket</option>
                     <option value="Cancel">Cancel Ticket</option>
                   </select>
                   <label for="status">Status</label>
@@ -321,6 +319,7 @@
                 <option value="Assigned">Assigned</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Job Done">Job done</option>
+                <option value="Closed">Close Ticket</option>
                 <option value="Cancel">Cancel Ticket</option>
               </select>
               <label for="statusProgress">Status</label>

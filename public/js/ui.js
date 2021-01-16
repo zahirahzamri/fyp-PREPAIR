@@ -585,7 +585,7 @@ const renderReportPageMS = (data) => {
 //   };
 
 
-//setup view ticket collapsible
+//setup view ticket collapsible - PENDING
 const ticketList = document.querySelector('.tickets'); // DOM elements
 const setupTicketPending = (data) => {
     if(ticketList){
@@ -598,20 +598,20 @@ const setupTicketPending = (data) => {
           
           const li = `
             <li data-id="${id}">
-              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.status})</div>
+              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.category})</div>
               <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
                     <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
+                    <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${ticket.status}       </td> </tr>
                     <tr> <td style="font-weight: bold;">PIC         </td> <td>:</td>  <td>${ticket.PIC}          </td> </tr>
                     <tr> <td style="font-weight: bold;">Remarks     </td> <td>:</td>  <td>${ticket.remarks}      </td> </tr>
-                    <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${ticket.status}       </td> </tr>
                 </table>
                 <div class="row">
                     <div class="col" style="float:right">
-                        <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+                        <div class="ticket-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
                         </div>
                     </div>
@@ -679,52 +679,52 @@ const setupTicketPending = (data) => {
 // ticket ASSIGNED
 
 
-const ticketAssignedList = document.querySelector('.ticketAssigned'); // DOM elements
-const setupTicketAssigned = (data) => {
-    if(ticketAssignedList){
-      if(data.length){
-        let html = '';
+// const ticketAssignedList = document.querySelector('.ticketAssigned'); // DOM elements
+// const setupTicketAssigned = (data) => {
+//     if(ticketAssignedList){
+//       if(data.length){
+//         let html = '';
 
-        data.forEach((doc) =>{
-          const ticket = doc.data();
-          const id = doc.id;
+//         data.forEach((doc) =>{
+//           const ticket = doc.data();
+//           const id = doc.id;
           
-          const li = `
-            <li data-id="${id}">
-              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.PIC})</div>
-              <div class="collapsible-body white">
-                <table>
-                    <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
-                    <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
-                    <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
-                    <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
-                    <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${ticket.status}       </td> </tr>
-                    <tr> <td style="font-weight: bold;">PIC         </td> <td>:</td>  <td>${ticket.PIC}          </td> </tr>
-                    <tr> <td style="font-weight: bold;">Remarks     </td> <td>:</td>  <td>${ticket.remarks}      </td> </tr>
-                </table>
-                <div class="row">
-                    <div class="col" style="float:right">
-                        <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
-                        </div>
-                    </div>
-                    <div class="col" style="float:right">
-                        <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
-                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
-                        </div>
-                    </div>
-                </div>        
-              </div>
-            </li>
-          `;
-          html += li;
-        });
-        ticketAssignedList.innerHTML = html;        
-      }else{
-        ticketAssignedList.innerHTML = '<h5 class="center-align">Not available</h5>'
-      }
-    }
-};
+//           const li = `
+//             <li data-id="${id}">
+//               <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.PIC})</div>
+//               <div class="collapsible-body white">
+//                 <table>
+//                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
+//                     <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
+//                     <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
+//                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
+//                     <tr style="background-color: #B0C4DE"> <td style="font-weight: bold;">Status      </td> <td>:</td>  <td>${ticket.status}       </td> </tr>
+//                     <tr> <td style="font-weight: bold;">PIC         </td> <td>:</td>  <td>${ticket.PIC}          </td> </tr>
+//                     <tr> <td style="font-weight: bold;">Remarks     </td> <td>:</td>  <td>${ticket.remarks}      </td> </tr>
+//                 </table>
+//                 <div class="row">
+//                     <div class="col" style="float:right">
+//                         <div class="assetPC-delete buttonFloatStyle btn-floating red waves-effect right !important" style="margin-left: 5%;">
+//                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-deleteTicket">delete_outline</i>
+//                         </div>
+//                     </div>
+//                     <div class="col" style="float:right">
+//                         <div class="assetPC-update buttonFloatStyle btn-floating orange waves-effect right !important" style="margin-left: 5%;">
+//                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-editTicket">edit</i>
+//                         </div>
+//                     </div>
+//                 </div>        
+//               </div>
+//             </li>
+//           `;
+//           html += li;
+//         });
+//         ticketAssignedList.innerHTML = html;        
+//       }else{
+//         ticketAssignedList.innerHTML = '<h5 class="center-align">Not available</h5>'
+//       }
+//     }
+// };
 
     // render ticket data - ticket ASSIGNED
     // const ticketAssigned = document.querySelector('.ticketAssigned');
@@ -781,7 +781,7 @@ const setupTicketProgressing = (data) => {
           
           const li = `
             <li data-id="${id}">
-              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.PIC})</div>
+              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.status}) - ${ticket.PIC} </div>
               <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
@@ -792,14 +792,16 @@ const setupTicketProgressing = (data) => {
                     <tr> <td style="font-weight: bold;">PIC         </td> <td>:</td>  <td>${ticket.PIC}          </td> </tr>
                     <tr> <td style="font-weight: bold;">Remarks     </td> <td>:</td>  <td>${ticket.remarks}      </td> </tr>
                 </table>
-                <div class="row">
+                <div class="row" style="padding-top: 15px;">
                     <div class="col" style="float:right">
                         <div class="see-details buttonFloatStyle btn-floating blue waves-effect right !important" style="margin-left: 5%;">
                             <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-detailProgress">format_list_bulleted</i>
                         </div>
                     </div>
                     <div class="col" style="float:right">
-                        <div class="updateProgress btn modal-trigger orange waves-effect !important" data-id="${id}" data-target="modal-updateProgress">UPDATE PROGRESS</div>
+                        <div class="updateProgress btn modal-trigger orange waves-effect !important" data-id="${id}" data-target="modal-updateProgress">UPDATE PROGRESS
+                            <i class="material-icons modal-trigger" data-id="${id}" data-target="modal-updateProgress">add_to_photos</i>
+                        </div>
                     </div>
                 </div>        
               </div>
@@ -954,7 +956,7 @@ const setupProgressTicket = (data) => {
         let html = '';
 
         data.forEach((doc) =>{
-            console.log("ada data ke tidak")
+            console.log("rendering the list progress of the ticket")
           const progress = doc.data();
           const id = doc.id;
           
