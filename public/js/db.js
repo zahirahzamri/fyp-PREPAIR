@@ -18,11 +18,13 @@ var dataTic = [];
 // .orderBy("date").where("status", "==", "Assigned")
 
 // real-time listener for ticket PENDING
-db.collection('ticket').orderBy("timeStamp").where("status", "==", "Pending").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+db.collection('ticket').orderBy("timeStamp", "desc").where("status", "==", "Pending").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    setupTicketPending(snapshot.docs);
+    
     snapshot.docChanges().forEach(change => {
 
       if(change.type === 'added'){          // add the document data to the web page
-        renderTicket(change.doc.data(), change.doc.id);
+        // renderTicket(change.doc.data(), change.doc.id);
       }
       if(change.type === 'removed'){        // remove the document data from the web page
         removeTicket(change.doc.id);
@@ -34,11 +36,13 @@ db.collection('ticket').orderBy("timeStamp").where("status", "==", "Pending").on
 });
 
 // real-time listener for ticket ASSIGNED
-db.collection('ticket').orderBy("date").where("status", "==", "Assigned").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+db.collection('ticket').orderBy("timeStamp", "desc").where("status", "==", "Assigned").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    setupTicketAssigned(snapshot.docs);
+    
     snapshot.docChanges().forEach(change => {
 
       if(change.type === 'added'){          // add the document data to the web page
-        renderTicketAssigned(change.doc.data(), change.doc.id);
+        // renderTicketAssigned(change.doc.data(), change.doc.id);
       }
       if(change.type === 'removed'){        // remove the document data from the web page
         removeTicket(change.doc.id);
@@ -52,10 +56,12 @@ db.collection('ticket').orderBy("date").where("status", "==", "Assigned").onSnap
 
 // real-time listener for ticket IN PROGRESS
 db.collection('ticket').orderBy("date").where("status", "==", "In Progress").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    setupTicketProgressing(snapshot.docs);
+
     snapshot.docChanges().forEach(change => {
 
       if(change.type === 'added'){          // add the document data to the web page
-        renderTicketProgressing(change.doc.data(), change.doc.id);
+        // renderTicketProgressing(change.doc.data(), change.doc.id);
       }
       if(change.type === 'removed'){        // remove the document data from the web page
         removeTicket(change.doc.id);
@@ -69,10 +75,12 @@ db.collection('ticket').orderBy("date").where("status", "==", "In Progress").onS
 
 // real-time listener for ticket CLOSED
 db.collection('ticket').orderBy("date").where("status", "==", "Closed").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    setupTicketClosed(snapshot.docs);
+    // console.log(snapshot.docs)
     snapshot.docChanges().forEach(change => {
 
       if(change.type === 'added'){          // add the document data to the web page
-        renderTicketClosed(change.doc.data(), change.doc.id);
+        // renderTicketClosed(change.doc.data(), change.doc.id);
       }
       if(change.type === 'removed'){        // remove the document data from the web page
         removeTicket(change.doc.id);
@@ -83,6 +91,14 @@ db.collection('ticket').orderBy("date").where("status", "==", "Closed").onSnapsh
       }
     });
 });
+
+// // real-time listener for ticket progress CLOSED
+// db.collection('ticket').doc(id).collection('progress').orderBy("date").where("status", "==", "Closed").onSnapshot({ includeMetadataChanges: true }, snapshot => {
+    
+//     setupProgressTicket(snapshot.docs);
+    
+// });
+
 
 // add new tickets
 const formTicket = document.querySelector('.add-ticket');
@@ -107,10 +123,6 @@ if(formTicket){
             date: FormattedDate,
             PIC: defaultTechnician,
             remarks: defaultRemark, 
-            progress: {
-                updateDesc: defaultRemark,
-                deadline: defaultTechnician
-            }
         };
 
         db.collection('ticket').add(ticket)
@@ -139,14 +151,11 @@ if(formTicket){
             .then(alert("Successfully add new ticket!"))
             .catch(err => console.log(err.message));
 
-        
-        
             formTicket.category.value = '';
             formTicket.description.value = '';
             formTicket.location.value = '';
             formTicket.type.value = '';
 
-        
     })
     // .then(() => {
     //     // close the signup modal & reset form
@@ -243,10 +252,10 @@ if(ticketContainer){
                         .then(alert("Successfully update ticket"))
                         .catch(err => console.log(err));
         
-                        updateTicket.category.value = '';
-                        updateTicket.description.value = '';
-                        updateTicket.location.value = '';
-                        updateTicket.type.value = '';
+                        // updateTicket.category.value = '';
+                        // updateTicket.description.value = '';
+                        // updateTicket.location.value = '';
+                        // updateTicket.type.value = '';
                         updateTicket.date.value = '';
                         updateTicket.pic.value = '';
                         updateTicket.remarks.value = '';
@@ -356,8 +365,8 @@ if(ticketAssignedContainer){
 
 // update and delete a ticket IN PROGRESS
 const ticketProgressingContainer = document.querySelector('.ticketInProgress');
-if(ticketAssignedContainer){
-    ticketAssignedContainer.addEventListener('click', evt => {
+if(ticketProgressingContainer){
+    ticketProgressingContainer.addEventListener('click', evt => {
         
         // DELETE TICKET
         if(evt.target.textContent === "delete_outline"){
@@ -447,6 +456,57 @@ if(ticketAssignedContainer){
                 });
             }
         }
+        //ADD TICKET PROGRESS
+        if(evt.target.textContent === "add_to_photos"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const formProgress = document.querySelector('.updateProgress-ticket');
+
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", doc.data().status);
+                }
+                else {
+                    console.log("No such document!")
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+            
+            formProgress.addEventListener('submit', evt => {
+                evt.preventDefault();
+                 
+                const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
+                // construct object
+                const progress = {    
+                    status: formProgress.statusProgress.value,
+                };
+        
+                db.collection('ticket').doc(id).update(progress)
+                .then(docRef => {
+                    console.log('Document written with ID: ', docRef.id);
+                    db.collection('ticket').doc(id).collection('progress').add({
+                        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        deadline: FormattedDate,
+                        priority: formProgress.priority.value,
+                        updateInfo: formProgress.updateInfo.value,
+                    })
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+
+                    .then(alert("Successfully update progress!"))
+                    .catch(err => console.log(err.message));
+        
+                    formProgress.priority.value = '';
+                    formProgress.status.value = '';
+                    formProgress.updateInfo.value = '';
+            })
+        }
+
+
+
     });
 }
 
@@ -543,6 +603,32 @@ if(ticketClosedContainer){
                 });
             }
         }
+
+                //DISPLAY PROGRESS TICKET
+                if(evt.target.textContent === "format_list_bulleted"){
+                    const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+                    
+                // real-time listener for ticket progress CLOSED
+                db.collection('ticket').doc(id).collection('progress').orderBy("deadline", "desc").onSnapshot(snapshot => {
+                // console.log("masuk data ke tak : " + id);
+                // console.log("snapshot doc : " + snapshot.docs);
+                setupProgressTicket(snapshot.docs);
+                    
+                });  
+            }
+
+        // if(evt.target.textContent === "format_list_bulleted"){
+        //     const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            
+        //     // real-time listener for ticket progress CLOSED
+        // db.collection('ticket').doc(id).collection('progress').orderBy("deadline", "desc").onSnapshot(snapshot => {
+        //     // console.log("masuk data ke tak : " + id);
+        //     console.log("snapshot doc : " + snapshot.docs);
+        //     setupProgressTicket(snapshot.docs);
+            
+        // });  
+        // }
+
     });
 }
 

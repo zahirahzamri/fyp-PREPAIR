@@ -130,8 +130,10 @@
               </div>
 
               <!-- display tickets -->
-              <div class="tickets container grey-text text-darken-1" style="margin-top: 40px;">
-                
+              <div class="container" style="margin-top: 20px;">
+                <ul class="tickets collapsible z-depth-0" style="border: none;">
+
+                </ul>
               </div>
             </div>
             <!-- ticket with status : ASSIGNED -->
@@ -146,8 +148,10 @@
               </div>
 
               <!-- display tickets -->
-              <div class="ticketAssigned container grey-text text-darken-1" style="margin-top: 40px;">
-                
+              <div class="container" style="margin-top: 20px;">
+                <ul class="ticketAssigned collapsible z-depth-0" style="border: none;">
+
+                </ul>
               </div>
             </div>
 
@@ -163,9 +167,11 @@
               </div>
 
               <!-- display tickets -->
-              <div class="ticketInProgress container grey-text text-darken-1" style="margin-top: 40px;">
-                
-              </div>
+                <div class="container" style="margin-top: 20px;">
+                  <ul class="ticketInProgress collapsible z-depth-0" style="border: none;">
+  
+                  </ul>
+                </div>
             </div>
 
             <!-- ticket with status : PENDING -->
@@ -180,8 +186,10 @@
               </div>
 
               <!-- display tickets -->
-              <div class="ticketClosed container grey-text text-darken-1" style="margin-top: 40px;">
-                
+              <div class="container" style="margin-top: 20px;">
+                <ul class="ticketClosed collapsible z-depth-0" style="border: none;">
+
+                </ul>
               </div>
             </div>
 
@@ -196,6 +204,19 @@
             <i class="material-icons">add</i></a>
         </div>
 
+    </div>
+
+    <!-- float add -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large blue red">
+        <i class="large material-icons">add</i>
+      </a>
+      <ul>
+        <!-- <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li> -->
+        <li><a class="btn-floating green"><i class="material-icons">devices</i></a></li>
+        <li><a href="/public/pages/addTicket.html" class="btn-floating red"><i class="material-icons">confirmation_number</i></a></li>
+      </ul>
     </div>
 
 
@@ -283,6 +304,76 @@
       </div>
       </div>
   </div>
+
+  <!-- UPDATE PROGRESS MODAL -->
+  <div id="modal-updateProgress" class="modal">
+    <div class="modal-content center-align">
+      <div id="updateProgress-form" class="progress-form">
+        <form class="updateProgress-ticket container section">
+          <h6 >Update Progress</h6>
+          <div class="divider"></div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="statusProgress" class="validate">
+                <option value="" selected>Choose status</option>
+                <option value="Pending">Pending</option>
+                <option value="Assigned">Assigned</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Job Done">Job done</option>
+                <option value="Cancel">Cancel Ticket</option>
+              </select>
+              <label for="statusProgress">Status</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <select id="priority" class="validate">
+                <option value="" selected>Choose priority</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+              <label for="priority">Priority</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <input placeholder="Write progress..." id="updateInfo" type="text" class="validate">
+              <label for="updateInfo">Details</label>
+            </div>
+          </div>
+          
+          <!-- <div class="input-field center"><button class="btn-small">Add</button></div> -->
+          <div class="input-field inline center">
+            <button class="btn-small updatebtn" type="submit" id="btnProgress">Submit</button>
+            <button class="btn-small cancelbtn" id="btnCancelTicket5" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+    </div>
+    </div>
+  </div>
+
+  <!-- TICKET PROGRESS MODAL -->
+  <div id="modal-detailProgress" class="modal">
+    <div class="modal-content center-align">
+      <div  class="progress-form">
+        <!-- <form class="progress-ticket container section"> -->
+                  
+          <h6 >Progress Ticket</h6>
+          <div class="divider"></div>
+          
+            <ul id="detailedProgress" class="progressTicket z-depth-0" style="border: none;">
+            </ul>
+         
+        
+          <div class="input-field inline center">
+            <a class="waves-effect waves-light btn grey" id="btnClose">Close</a>
+          </div>
+        <!-- </form> -->
+    </div>
+    </div>
+</div>
 
     <!-- DELETE TICKET MODAL -->
     <div id="modal-deleteTicket" class="modal">
@@ -380,6 +471,10 @@
     <script>
         $(document).ready(function(){
 
+          $('.fixed-action-btn').floatingActionButton({
+            hoverEnabled	:	true,
+
+          });
             $('ul.tabs').tabs({
               // swipeable : true,
               // responsiveThreshold : Infinity
@@ -406,6 +501,8 @@
             const btn = document.getElementById("btnCancelTicket");
             const btn2 = document.getElementById("btnCancelTicket2");
             const btn3 = document.getElementById("btnCancelTicket3");
+            const btn4 = document.getElementById("btnClose");
+            const btn5 = document.getElementById("btnCancelTicket5");
             
             btn.addEventListener('click', evt => {
               const closeModalTicket = document.querySelector('#modal-editTicket');
@@ -419,12 +516,20 @@
               const closeModalTicket3 = document.querySelector('#modal-assignTech');
               M.Modal.getInstance(closeModalTicket3).close();
             })
+            btn4.addEventListener('click', evt => {
+              const closeModalTicket4 = document.querySelector('#modal-detailProgress');
+              M.Modal.getInstance(closeModalTicket4).close();
+            })
+            btn5.addEventListener('click', evt => {
+              const closeModalTicket5 = document.querySelector('#modal-updateProgress');
+              M.Modal.getInstance(closeModalTicket5).close();
+            })
 
             // search function - PENDING
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
-                $(".ticket").filter(function() {
+                $(".tickets").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
@@ -432,7 +537,7 @@
             $("#myInput2").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
-                $(".ticket").filter(function() {
+                $(".ticketAssigned").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
@@ -440,7 +545,7 @@
             $("#myInput3").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
-                $(".ticket").filter(function() {
+                $(".ticketInProgress").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
@@ -448,7 +553,7 @@
             $("#myInput4").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
 
-                $(".ticket").filter(function() {
+                $(".ticketClosed").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
