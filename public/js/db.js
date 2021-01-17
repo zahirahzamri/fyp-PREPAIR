@@ -103,6 +103,7 @@ if(formTicket){
         var defaultStatus = "Pending";
         var defaultTechnician = "Not Available";
         var defaultRemark = "";
+        var defaultInfo = "Ticket created";
         var user = firebase.auth().currentUser;
          
         // const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
@@ -126,7 +127,9 @@ if(formTicket){
             console.log('Document written with ID: ', docRef.id);
             db.collection('ticket').doc(docRef.id).collection('progress').doc().set({
                 deadline: FormattedDate,
-                updateInfo: defaultRemark
+                updateInfo: defaultInfo,
+                status: defaultStatus,
+                timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
             })
         })
         .catch(error => {
@@ -194,11 +197,12 @@ if(ticketContainer){
         if(evt.target.textContent === "assignment_ind"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             const updateTicket = document.querySelector('.assign-tech');
-            
+            const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
             var ref = db.collection("ticket").doc(id);
+            
             ref.get().then(function(doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data().category);
+                    console.log("Document data:", id);
 
                     // retrieve existing data and display
                     if(updateTicket){
@@ -207,8 +211,8 @@ if(ticketContainer){
                         // document.getElementById('location').value = doc.data().location;
                         // document.getElementById('type').value = doc.data().type;
                         // document.getElementById('date').value = doc.data().date;
-                        document.getElementById('status').value = doc.data().status;
-                        document.getElementById('pic').value = doc.data().PIC;
+                        document.getElementById('priority').value = doc.data().priority;
+                        document.getElementById('pic').placeholder = doc.data().PIC;
                         document.getElementById('remarks').value = doc.data().remarks;
                     }
                     // return doc.data().category;
@@ -231,19 +235,38 @@ if(ticketContainer){
                         // location: updateTicket.location.value, 
                         // type: updateTicket.type.value,
                         // date: updateTicket.date.value,
+                        status: "Assigned",
                         PIC: updateTicket.pic.value,
                         remarks: updateTicket.remarks.value,
-                        status: updateTicket.status.value 
+                        priority: updateTicket.priority.value 
                     };
 
-                    const btnAssign = document.querySelector('#btnAssign');
-                    if(btnAssign.addEventListener('click', evt => {
-                        db.collection('ticket').doc(id).update(newTicket)
-                        .then(() => {
-                            alert("Successfully update ticket")
+                    const PICinfo = "Assigned " + updateTicket.pic.value + " to assist";
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                    .then(() => {
+                        console.log('Document written with ID: ', id);
+                        db.collection('ticket').doc(id).collection('progress').doc().set({
+                            deadline: FormattedDate,
+                            updateInfo: PICinfo,
+                            status: "Assigned",
+                            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
                         })
-                        .catch(err => console.log(err));       
-                    }));
+                    }).catch(error => {
+                        console.log(error.message);
+                    }).then(() => {
+                        const btnAssign = document.querySelector('#btnAssign');
+
+                        if(btnAssign.addEventListener('click', evt => {
+                            alert("Successfully update ticket");
+                        }));
+                    }).catch(err => console.log(err));       
+                    
+
+                    
+                        
+                        
+                        
                     
                     
                         
@@ -463,6 +486,10 @@ if(ticketProgressingContainer){
             ref.get().then(function(doc) {
                 if (doc.exists) {
                     console.log("Document data:", doc.data().status);
+                    // retrieve existing data and display
+                    // if(updateTicket){
+                    //     document.getElementById('priority').value = doc.data().priority;
+                    // }
                 }
                 else {
                     console.log("No such document!")
@@ -486,7 +513,7 @@ if(ticketProgressingContainer){
                     db.collection('ticket').doc(id).collection('progress').add({
                         timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
                         deadline: FormattedDate,
-                        priority: formProgress.priority.value,
+                        status: formProgress.statusProgress.value,
                         updateInfo: formProgress.updateInfo.value,
                     }).then(() => {
                         alert("Successfully update progress!")})
@@ -637,7 +664,6 @@ if(ticketClosedContainer){
 }
 
 
-
 // LECTURER : DELETE, UPDATE, VIEW PROGRESS
 const ticketLecturerContainer = document.querySelector('.tickInProgress');
 if(ticketLecturerContainer){
@@ -731,8 +757,8 @@ if(ticketLecturerContainer){
         if(evt.target.textContent === "format_list_bulleted"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             
-        // real-time listener for ticket progress CLOSED
-        db.collection('ticket').doc(id).collection('progress').orderBy("timeStamp", "desc").onSnapshot(snapshot => {Ah
+        // real-time listener for ticket progress
+        db.collection('ticket').doc(id).collection('progress').orderBy("timeStamp", "desc").onSnapshot(snapshot => {
         setupProgressTicket(snapshot.docs);
             
         });  
@@ -742,6 +768,94 @@ if(ticketLecturerContainer){
     });
 }
 
+
+// LECTURER : CLOSE TICKET AND GIVE RATING
+const LecturerClosedContainer = document.querySelector('.tickClosed');
+if(LecturerClosedContainer){
+    LecturerClosedContainer.addEventListener('click', evt => {
+        
+        //UPDATE TICKET
+        if(evt.target.textContent === "check"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            const closeTicket = document.querySelector('.evaluation-form');
+            const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
+
+            var ref = db.collection("ticket").doc(id);
+            ref.get().then(function(doc) {
+                if (doc.exists) {
+                    console.log("Document data:", id);
+
+                    // retrieve existing data and display
+                    if(updateTicket){
+                        document.getElementById('Tickid').value = id;
+                    }
+                    // return doc.data().category;
+                }
+                else { // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function(error) {
+                console.log("Error getting document:", error);
+            });
+
+            if(closeTicket) {
+                closeTicket.addEventListener('submit', evt => {
+                    evt.preventDefault();
+
+                    // construct object
+                    const newTicket = {
+                        rating: closeTicket.rating.value,
+                        feedback: closeTicket.feedback.value, 
+                        status: "Closed" 
+                    };
+                    
+                    db.collection('ticket').doc(id).update(newTicket)
+                    .then(() => {
+                        console.log('Document written with ID: ', id);
+                        db.collection('ticket').doc(id).collection('progress').doc().set({
+                            deadline: FormattedDate,
+                            updateInfo: "Ticket is closed",
+                            status: "Closed",
+                            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        })
+                    }).catch(error => {
+                        console.log(error.message);
+                    }).then(() => {
+                            const btnUpdate = document.querySelector('#btnCloseTick');
+
+                            if(btnUpdate.addEventListener('click', evt => {
+                                alert("Successfully close the ticket!")
+                                // window.location.reload();            
+                            }));
+                        })
+                        .catch(err => console.log(err));
+        
+                        // updateTicket.category2.value = '';
+                        // updateTicket.description2.value = '';
+                        // updateTicket.location2.value = '';
+                        // updateTicket.type2.value = '';
+                        // updateTicket.date2.value = '';
+                        // updateTicket.pic.value = '';
+                        // updateTicket.remarks.value = '';
+                        
+                });
+            }
+        }
+
+        //DISPLAY PROGRESS TICKET
+        if(evt.target.textContent === "format_list_bulleted"){
+            const id = evt.target.getAttribute('data-id'); //get the id of the ticket
+            
+        // real-time listener for ticket progress CLOSED
+        db.collection('ticket').doc(id).collection('progress').orderBy("timeStamp", "desc").onSnapshot(snapshot => {
+        setupProgressTicket(snapshot.docs);
+            
+        });  
+    }
+
+
+    });
+}
 
 
 

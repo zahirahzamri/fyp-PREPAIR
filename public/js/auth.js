@@ -36,8 +36,13 @@ auth.onAuthStateChanged(user => {
         });
 
         // real-time listener for ticket LECTURERS
-        db.collection('ticket').orderBy("timeStamp", "desc").where("author", "==", user.uid).onSnapshot({ includeMetadataChanges: true }, snapshot => {
+        db.collection('ticket').orderBy("timeStamp", "desc").where("author", "==", user.uid).where('status', 'in', ['Pending', 'Assigned', 'In Progress']).onSnapshot({ includeMetadataChanges: true }, snapshot => {
           setupTicketLecturer(snapshot.docs);
+        });
+
+        // real-time listener for ticket LECTURERS -- closed
+        db.collection('ticket').orderBy("timeStamp", "desc").where("author", "==", user.uid).where('status', 'in', ['Closed', 'Job Done', 'Cancel']).onSnapshot({ includeMetadataChanges: true }, snapshot => {
+          setupTicketLecturerClosed(snapshot.docs);
         });
       
         // // get data of tickets, onSnapshot is to real time update the data 

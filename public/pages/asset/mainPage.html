@@ -94,6 +94,19 @@
         </div>
     </div>
 
+    <!-- float add -->
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue red">
+          <i class="large material-icons">add</i>
+        </a>
+        <ul>
+          <!-- <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li> -->
+          <li class="admin" style="display: none;"><a href="/public/pages/asset/addAsset.html" class="btn-floating green"><i class="material-icons">devices</i></a></li>
+          <li class="admin" style="display: none;"><a href="/public/pages/addTicket.html" class="btn-floating red"><i class="material-icons">confirmation_number</i></a></li>
+          <li class="lecturer" style="display: block;"><a href="/public/pages/addTicket2.html" class="btn-floating yellow darken-1"><i class="material-icons">confirmation_number</i></a></li>
+      </ul>
+    </div>
+
     
 
 
@@ -267,6 +280,11 @@
 
     <script>
         $(document).ready(function(){
+
+            $('.fixed-action-btn').floatingActionButton({
+            hoverEnabled	:	true,
+          });
+
             $(".dropdown-trigger").dropdown();
             
             $(".dropdown-trigger1").dropdown({

@@ -232,19 +232,19 @@
 
               <div class="row">
                 <div class="input-field col s12">
-                  <select id="status" class="validate">
-                    <option value="" selected>Choose status</option>
-                    <option value="Assigned">Assigned</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Cancel">Cancel Ticket</option>
+                  <select id="priority" class="validate">
+                    <option value="" selected>Choose priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
                   </select>
-                  <label for="status">Status</label>
+                  <label for="priority">Priority</label>
                 </div>
               </div>
               <div class="row">
                 <div class="input-field">
                   <input placeholder="Assign technician" id="pic" type="text" class="validate">
-                  <label for="pic">PIC</label>
+                  <label for="pic">Person-in-Charge</label>
                 </div>
               </div>
               <div class="row">
@@ -313,27 +313,13 @@
 
           <div class="row">
             <div class="input-field col s12">
-              <select id="statusProgress" class="validate">
+              <select id="statusProgress" class="validate" required>
                 <option value="" selected>Choose status</option>
-                <option value="Pending">Pending</option>
-                <option value="Assigned">Assigned</option>
                 <option value="In Progress">In Progress</option>
                 <option value="Job Done">Job done</option>
-                <option value="Closed">Close Ticket</option>
                 <option value="Cancel">Cancel Ticket</option>
               </select>
               <label for="statusProgress">Status</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <select id="priority" class="validate">
-                <option value="" selected>Choose priority</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-              <label for="priority">Priority</label>
             </div>
           </div>
           <div class="row">
@@ -470,9 +456,9 @@
     <script>
         $(document).ready(function(){
 
+          $("select[required]").css({display: "block",left: '50%', height: 0, padding: 0, width: 0, position: 'absolute'});
           $('.fixed-action-btn').floatingActionButton({
             hoverEnabled	:	true,
-
           });
             $('ul.tabs').tabs({
               // swipeable : true,
