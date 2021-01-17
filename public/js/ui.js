@@ -602,6 +602,7 @@ const setupTicketPending = (data) => {
               <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
+                    <tr> <td style="font-weight: bold;">Requester    </td> <td>:</td>  <td>${ticket.name} (${ticket.phone}) </td> </tr>
                     <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
                     <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
@@ -785,6 +786,7 @@ const setupTicketProgressing = (data) => {
               <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
+                    <tr> <td style="font-weight: bold;">Requester    </td> <td>:</td>  <td>${ticket.name} (${ticket.phone}) </td> </tr>
                     <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
                     <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>
@@ -871,10 +873,11 @@ const setupTicketClosed = (data) => {
           
           const li = `
             <li data-id="${id}">
-              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} (${ticket.PIC})</div>
+              <div class="collapsible-header grey lighten-4">${ticket.date} : ${ticket.type} </div>
               <div class="collapsible-body white">
                 <table>
                     <tr> <td style="font-weight: bold;">Ticket ID   </td> <td>:</td>  <td>${id}    </td> </tr>
+                    <tr> <td style="font-weight: bold;">Requester    </td> <td>:</td>  <td>${ticket.name} (${ticket.phone}) </td> </tr>
                     <tr> <td style="font-weight: bold;">Category    </td> <td>:</td>  <td>${ticket.category} </td> </tr>
                     <tr> <td style="font-weight: bold;">Description </td> <td>:</td>  <td>${ticket.description}    </td> </tr>
                     <tr> <td style="font-weight: bold;">Location    </td> <td>:</td>  <td>${ticket.location}           </td> </tr>

@@ -105,8 +105,11 @@ if(formTicket){
         var defaultRemark = "";
         var defaultInfo = "Ticket created";
         var user = firebase.auth().currentUser;
-         
-        // const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
+        var defaultPhone = db.collection("user").doc(user.id).phone;
+        
+        db.collection('users').doc(user.uid).get()
+        .then(doc => {
+                    // const timeStamp = firebase.firestore.Timestamp.fromDate(new Date());
         const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
         // construct object
         const ticket = {
@@ -120,6 +123,8 @@ if(formTicket){
             PIC: defaultTechnician,
             remarks: defaultRemark, 
             author: user.uid,
+            name: user.displayName,
+            phone: doc.data().phone
         };
         console.log(user.uid);
         db.collection('ticket').add(ticket)
@@ -135,18 +140,6 @@ if(formTicket){
         .catch(error => {
             console.log(error.message);
         })
-            .then(res => {
-            const user = auth.currentUser;
-            store.ref('users/' + user.uid + '/ticket.jpg').put(file).then(function () {
-              console.log('successfully upload image');
-              // return user.updateProfile({
-              //   photoURL: 'users/' + user.uid + '/profile.jpg',
-              // })
-            })
-            .catch(error => {
-              console.log(error.message);
-            })
-          })
             .then(alert("Successfully add new ticket!"))
             .catch(err => console.log(err.message));
 
@@ -154,6 +147,13 @@ if(formTicket){
             formTicket.description.value = '';
             formTicket.location.value = '';
             formTicket.type.value = '';
+               
+                
+        }).catch(function(error) {
+            console.log("Error getting document from user db:", error);
+        });
+         
+
 
     })
     // .then(() => {
@@ -242,7 +242,7 @@ if(ticketContainer){
                     };
 
                     const PICinfo = "Assigned " + updateTicket.pic.value + " to assist";
-                    
+                    console.log(updateTicket.pic.value);
                     db.collection('ticket').doc(id).update(newTicket)
                     .then(() => {
                         console.log('Document written with ID: ', id);
@@ -481,56 +481,42 @@ if(ticketProgressingContainer){
         if(evt.target.textContent === "add_to_photos"){
             const id = evt.target.getAttribute('data-id'); //get the id of the ticket
             const formProgress = document.querySelector('.updateProgress-ticket');
-
-            var ref = db.collection("ticket").doc(id);
-            ref.get().then(function(doc) {
-                if (doc.exists) {
-                    console.log("Document data:", doc.data().status);
-                    // retrieve existing data and display
-                    // if(updateTicket){
-                    //     document.getElementById('priority').value = doc.data().priority;
-                    // }
-                }
-                else {
-                    console.log("No such document!")
-                }
-            }).catch(function(error) {
-                console.log("Error getting document:", error);
-            });
             
-            formProgress.addEventListener('submit', evt => {
-                evt.preventDefault();
-                //  alert("trying to update progress")
-                const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
-                // construct object
-                const progress = {    
-                    status: formProgress.statusProgress.value,
-                };
-        
-                db.collection('ticket').doc(id).update(progress)
-                .then(() => {
-                    console.log('Document written with ID: ', id);
-                    db.collection('ticket').doc(id).collection('progress').add({
-                        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        deadline: FormattedDate,
+            if(formProgress){
+                formProgress.addEventListener('submit', evt => {
+                    evt.preventDefault();
+                    //  alert("trying to update progress")
+                    const FormattedDate = new Date(firebase.firestore.Timestamp.now().seconds*1000).toLocaleDateString("pt-PT");
+                    // construct object
+                    const progress = {    
                         status: formProgress.statusProgress.value,
-                        updateInfo: formProgress.updateInfo.value,
-                    }).then(() => {
-                        alert("Successfully update progress!")})
-                    .catch(err => console.log(err));
-                })
-                .catch(error => {
-                    console.log('Error uit: ', ref.id);
-                    console.log(error.message);
-                })
+                    };
+            
+                    db.collection('ticket').doc(id).update(progress)
+                    .then(() => {
+                        console.log('Document written with ID: ', id);
+                        db.collection('ticket').doc(id).collection('progress').add({
+                            timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            deadline: FormattedDate,
+                            status: formProgress.statusProgress.value,
+                            updateInfo: formProgress.updateInfo.value,
+                        }).then(() => {
+                            alert("Successfully update progress!")})
+                        .catch(err => console.log(err));
+                    })
+                    .catch(error => {
+                        console.log('Error uit: ', ref.id);
+                        console.log(error.message);
+                    })
 
-                    // .then(alert("Successfully update progress!"))
-                    // .catch(err => console.log(err.message));
-        
-                    // formProgress.priority.value = '';
-                    // formProgress.status.value = '';
-                    // formProgress.updateInfo.value = '';
-            })
+                        // .then(alert("Successfully update progress!"))
+                        // .catch(err => console.log(err.message));
+            
+                        // formProgress.priority.value = '';
+                        // formProgress.status.value = '';
+                        // formProgress.updateInfo.value = '';
+                })
+            }
         }
         //DISPLAY PROGRESS TICKET
         if(evt.target.textContent === "format_list_bulleted"){
