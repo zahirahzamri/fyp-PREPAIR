@@ -110,7 +110,7 @@
             <div class="col s12 #B0C4DE" id="inProgress">
               <p class="textInTabTitle flow-text">TICKET TYPE: In Progress</p>
               <hr style="width: 50%;">
-              <p class="text2Tab">Display all tickets that are still in progress</p>
+              <p class="text2Tab">Display all tickets that are in progress</p>
 
               <!-- display tickets -->
                 <div class="container" style="margin-top: 20px;">
@@ -248,6 +248,51 @@
         </div>
     </div>
 
+    <!--    CLOSE TICKET MODAL -->
+    <div id="modal-closeTicket" class="modal">
+        <div class="modal-content center-align">
+          <div id="closeTicket-form" class="ticket-close">
+            <form class="evaluation-form container section">
+            
+              <h6 >Close Ticket</h6>
+              <div class="divider"></div>
+  
+              <div class="input-field">
+                <input disabled value="" placeholder="" id="Tickid" type="text" class="validate">
+                <label for="Tickid">Ticket ID</label>
+              </div>
+              <div class="input-field">
+                <select id="clarify" class="validate" required>
+                    <option value="" disabled selected>Close ticket?</option>
+                    <option value="Closed">Yes</option>
+                  </select>
+                <label for="clarify">This ticket will now be closed</label>
+              </div>
+              <div class="input-field">
+                <select id="rating" class="validate" required>
+                    <option value="" disabled selected>Give rating</option>
+                    <option value="5">5 - Extremely satisfied!</option>
+                    <option value="4">4 - Satisfied</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Not satisfied</option>
+                    <option value="1">1 - Very bad </option>
+                </select>
+                    <label for="rating">How will you rate the service</label>
+              </div>
+              <div class="input-field">
+                <input value="" placeholder="Give feedback..." id="feedback" type="text">
+                <label for="feedback">Feedback</label>
+            </div>
+
+              <div class="input-field inline center">
+                <button class="btn-small updatebtn" type="submit" id="btnCloseTick">Submit</button>
+                <button class="btn-small cancelbtn" id="btnCancelTicket3">Cancel</button>
+              </div>
+            </form>
+        </div>
+        </div>
+    </div>
+
 
     <!-- JAVASCRIPT PART -->
 
@@ -318,6 +363,11 @@
             btn2.addEventListener('click', evt => {
               const closeModalTicket2 = document.querySelector('#modal-deleteTicket');
               M.Modal.getInstance(closeModalTicket2).close();
+            })
+
+            btn3.addEventListener('click', evt => {
+              const closeModalTicket3 = document.querySelector('#modal-closeTicket');
+              M.Modal.getInstance(closeModalTicket3).close();
             })
 
             btn4.addEventListener('click', evt => {

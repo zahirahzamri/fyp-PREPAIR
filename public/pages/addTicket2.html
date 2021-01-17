@@ -131,7 +131,7 @@
                                     </div>
                                 <!-- </div> -->
                                 <div class="row">
-                                    <div id="radio-toolbar">
+                                    <div class="validate" id="radio-toolbar">
                                         <input type="radio" id="radio-incident" name="type" value="Incident" required>
                                         <label for="radio-incident">Incident</label>
                                         <input type="radio" id="radio-request" name="type" value="Request">
@@ -233,6 +233,7 @@
 
     <script>
         $(document).ready(function(){
+            $("select[required]").css({display: "block",left: '50%', height: 0, padding: 0, width: 0, position: 'absolute'});
             $('.tabs').tabs();
             $('select').formSelect();
             $('.dropdown-trigger').dropdown();  //for add asset form
