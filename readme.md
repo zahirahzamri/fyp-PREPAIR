@@ -13,8 +13,8 @@ Supervisor: Dr. Hazwani Mohadis
 
 ### 2. Title of the project: PREPAIR: Asset Management & Incident Report
 ### 3. Development tools
-  *Firebase - Cloud Firestore, Firebase authentications
-  *Progressive Web Apps (PWA)
-  *d3.js
-  *Materialize.css
-  *VS Code
+  * Firebase - Cloud Firestore, Firebase authentications
+  * Progressive Web Apps (PWA)
+  * d3.js
+  * Materialize.css
+  * VS Code
