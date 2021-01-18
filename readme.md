@@ -9,7 +9,7 @@ Name         | Matric number
 Nur Zahirah binti Zamri | 1718036
 Amira Suifya binti Muhammad Radzi | 1712890
 
-SUpervisor: Dr. Hazwani Mohadis
+Supervisor: Dr. Hazwani Mohadis
 
 ### 2. Title of the project: PREPAIR: Asset Management & Incident Report
 ### 3. Development tools
