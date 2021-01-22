@@ -112,46 +112,27 @@
 
     <!-- content -->
     <header class="headerStyle darken-1 section container">
-        <h4 class="center">ASSET MANAGEMENT</h2>
+        <h4 class="center admin" style="display: none;">ASSET MANAGEMENT &</h4><h4 class="center logged-in" style="display: none;">INCIDENT REPORT</h4>
         <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
     </header>
 
-    <!-- <div class="container z-depth-1 whole-box">
-        <div class="container overview-box" style="padding: 5px;">
-            <p class="text-title">Overview</p>
-            <ul class="collapsible">
-                <li>
-                  <div class="collapsible-header">
-                    <i class="material-icons">web_asset</i>
-                    Asset Management
-                    <span class="new badge">4</span></div>
-                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-                <li>
-                  <div class="collapsible-header">
-                    <i class="material-icons">confirmation_number</i>
-                    Incident Report 
-                    <span class="badge">1</span></div>
-                  <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                </li>
-              </ul>
-        </div>
-    
-        <div class="container pending-task-box" style="padding: 5px;">
-            <p class="text-title">Pending Task</p>
-            <ul style="list-style-type: square;">
-                <li>Task 1</li>
-                <li>Task 2</li>
-                <li>Task 3</li>
-            </ul>
-        </div>
-    </div> -->
+    <!-- <header class="headerStyle darken-1 section container logged-in" style="display: none;">
+        <h4 class="center">INCIDENT REPORT</h2>
+        <p class="flow-text center text-lighten-2">TEACHING & LEARNING SERVICES</p>
+    </header> -->
 
     <div class="container z-depth-1 content">
         <div class="row" style="margin-top: 5%;">
             <p class="text-title container">Overview</p>
-            <p class="text-desc container">Asset Management and Incident Report</p>
+            <p style="display: inline;">
+                <p class="text-desc container admin" style="display: none;">Asset Management and</p><p class="logged-in" style="display: none;">Incident Report</p>
+            </p>
+
         </div>
+        <!-- <div class="row logged-in" style="margin-top: 5%; display: none;">
+            <p class="text-title container">Overview</p>
+            <p class="text-desc container">Incident Report</p>
+        </div> -->
 
         <div class="row container" style="margin-left: 20%; margin-top: 5%;">
             <div class="row admin" style="display: none; margin-top: 2;">
